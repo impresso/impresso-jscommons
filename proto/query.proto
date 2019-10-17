@@ -61,7 +61,7 @@ message Filter {
   FilterOperator op = 2;
   FilterType type = 3;
   FilterPrecision precision = 4;
-  repeated string query = 5;
+  repeated string q = 5;
   DateRange daterange = 6;
   repeated string uids = 7;
 }

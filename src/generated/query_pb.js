@@ -246,7 +246,7 @@ proto.impresso.query.Filter.toObject = function(includeInstance, msg) {
     op: jspb.Message.getFieldWithDefault(msg, 2, 0),
     type: jspb.Message.getFieldWithDefault(msg, 3, 0),
     precision: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    queryList: jspb.Message.getRepeatedField(msg, 5),
+    qList: jspb.Message.getRepeatedField(msg, 5),
     daterange: (f = msg.getDaterange()) && proto.impresso.query.DateRange.toObject(includeInstance, f),
     uidsList: jspb.Message.getRepeatedField(msg, 7)
   };
@@ -303,7 +303,7 @@ proto.impresso.query.Filter.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.addQuery(value);
+      msg.addQ(value);
       break;
     case 6:
       var value = new proto.impresso.query.DateRange;
@@ -371,7 +371,7 @@ proto.impresso.query.Filter.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getQueryList();
+  f = message.getQList();
   if (f.length > 0) {
     writer.writeRepeatedString(
       5,
@@ -457,16 +457,16 @@ proto.impresso.query.Filter.prototype.setPrecision = function(value) {
 
 
 /**
- * repeated string query = 5;
+ * repeated string q = 5;
  * @return {!Array<string>}
  */
-proto.impresso.query.Filter.prototype.getQueryList = function() {
+proto.impresso.query.Filter.prototype.getQList = function() {
   return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 5));
 };
 
 
 /** @param {!Array<string>} value */
-proto.impresso.query.Filter.prototype.setQueryList = function(value) {
+proto.impresso.query.Filter.prototype.setQList = function(value) {
   jspb.Message.setField(this, 5, value || []);
 };
 
@@ -475,13 +475,13 @@ proto.impresso.query.Filter.prototype.setQueryList = function(value) {
  * @param {!string} value
  * @param {number=} opt_index
  */
-proto.impresso.query.Filter.prototype.addQuery = function(value, opt_index) {
+proto.impresso.query.Filter.prototype.addQ = function(value, opt_index) {
   jspb.Message.addToRepeatedField(this, 5, value, opt_index);
 };
 
 
-proto.impresso.query.Filter.prototype.clearQueryList = function() {
-  this.setQueryList([]);
+proto.impresso.query.Filter.prototype.clearQList = function() {
+  this.setQList([]);
 };
 
 

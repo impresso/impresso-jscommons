@@ -9,7 +9,7 @@ describe('Filter <-> protobuf', () => {
       context: 'include',
       op: 'AND',
       type: 'collection',
-      query: ['abc123'],
+      q: ['abc123'],
     };
     const expectedBase64String = 'CAEQARgTKgZhYmMxMjM=';
 
@@ -73,7 +73,7 @@ describe('SearchQuery <-> protobuf', () => {
           context: 'include',
           op: 'AND',
           type: 'collection',
-          query: ['abc123'],
+          q: ['abc123'],
         },
         {
           type: 'daterange',
@@ -108,11 +108,30 @@ describe('SearchQuery <-> protobuf', () => {
           context: 'include',
           op: 'AND',
           type: 'collection',
-          query: ['abc123'],
+          q: ['abc123'],
         },
       ],
       groupBy: 'asdf',
     };
     assert.throws(() => protobuf.searchQuery.serialize(testSearchQuery), /Unknown enum value: asdf/);
+  });
+
+  it('real query 1', () => {
+    const testSearchQuery = {
+      filters: [
+        { context: 'include', op: 'OR', type: 'hasTextContents' },
+        {
+          context: 'include',
+          op: 'AND',
+          type: 'person',
+          q: ['aida-0001-50-Albert_Einstein', 'aida-0001-50-Max_Planck'] 
+        },
+      ],
+    };
+
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
+    assert.equal(base64String, 'CgYIARACGAIKPQgBEAEYECocYWlkYS0wMDAxLTUwLUFsYmVydF9FaW5zdGVpbioXYWlkYS0wMDAxLTUwLU1heF9QbGFuY2s=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, testSearchQuery);
   });
 });

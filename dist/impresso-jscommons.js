@@ -406,7 +406,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
         op: googleProtobuf.Message.getFieldWithDefault(msg, 2, 0),
         type: googleProtobuf.Message.getFieldWithDefault(msg, 3, 0),
         precision: googleProtobuf.Message.getFieldWithDefault(msg, 4, 0),
-        queryList: googleProtobuf.Message.getRepeatedField(msg, 5),
+        qList: googleProtobuf.Message.getRepeatedField(msg, 5),
         daterange: (f = msg.getDaterange()) && proto.impresso.query.DateRange.toObject(includeInstance, f),
         uidsList: googleProtobuf.Message.getRepeatedField(msg, 7)
       };
@@ -480,7 +480,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
           var value =
           /** @type {string} */
           reader.readString();
-          msg.addQuery(value);
+          msg.addQ(value);
           break;
 
         case 6:
@@ -550,7 +550,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
       writer.writeEnum(4, f);
     }
 
-    f = message.getQueryList();
+    f = message.getQList();
 
     if (f.length > 0) {
       writer.writeRepeatedString(5, f);
@@ -641,12 +641,12 @@ var query_pb = createCommonjsModule(function (module, exports) {
     googleProtobuf.Message.setProto3EnumField(this, 4, value);
   };
   /**
-   * repeated string query = 5;
+   * repeated string q = 5;
    * @return {!Array<string>}
    */
 
 
-  proto.impresso.query.Filter.prototype.getQueryList = function () {
+  proto.impresso.query.Filter.prototype.getQList = function () {
     return (
       /** @type {!Array<string>} */
       googleProtobuf.Message.getRepeatedField(this, 5)
@@ -655,7 +655,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
   /** @param {!Array<string>} value */
 
 
-  proto.impresso.query.Filter.prototype.setQueryList = function (value) {
+  proto.impresso.query.Filter.prototype.setQList = function (value) {
     googleProtobuf.Message.setField(this, 5, value || []);
   };
   /**
@@ -664,12 +664,12 @@ var query_pb = createCommonjsModule(function (module, exports) {
    */
 
 
-  proto.impresso.query.Filter.prototype.addQuery = function (value, opt_index) {
+  proto.impresso.query.Filter.prototype.addQ = function (value, opt_index) {
     googleProtobuf.Message.addToRepeatedField(this, 5, value, opt_index);
   };
 
-  proto.impresso.query.Filter.prototype.clearQueryList = function () {
-    this.setQueryList([]);
+  proto.impresso.query.Filter.prototype.clearQList = function () {
+    this.setQList([]);
   };
   /**
    * optional DateRange daterange = 6;

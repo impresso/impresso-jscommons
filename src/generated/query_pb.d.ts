@@ -40,10 +40,10 @@ export class Filter extends jspb.Message {
   getPrecision(): FilterPrecisionMap[keyof FilterPrecisionMap];
   setPrecision(value: FilterPrecisionMap[keyof FilterPrecisionMap]): void;
 
-  clearQueryList(): void;
-  getQueryList(): Array<string>;
-  setQueryList(value: Array<string>): void;
-  addQuery(value: string, index?: number): string;
+  clearQList(): void;
+  getQList(): Array<string>;
+  setQList(value: Array<string>): void;
+  addQ(value: string, index?: number): string;
 
   hasDaterange(): boolean;
   clearDaterange(): void;
@@ -71,7 +71,7 @@ export namespace Filter {
     op: FilterOperatorMap[keyof FilterOperatorMap],
     type: FilterTypeMap[keyof FilterTypeMap],
     precision: FilterPrecisionMap[keyof FilterPrecisionMap],
-    queryList: Array<string>,
+    qList: Array<string>,
     daterange?: DateRange.AsObject,
     uidsList: Array<string>,
   }
