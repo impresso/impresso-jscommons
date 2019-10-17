@@ -68,7 +68,7 @@ function deserialize(ProtoClass, base64String, converter) {
   return converter ? converter(obj) : obj;
 }
 
-module.exports = {
+Object.assign(exports, {
   fromObject,
   omitUndefinedAndEmptyLists,
   fixRepeatedFields,
@@ -76,4 +76,4 @@ module.exports = {
   getEnumNumber,
   serialize,
   deserialize,
-};
+});
