@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+// https://developers.google.com/protocol-buffers/docs/style
+
+package impresso.query;
+
+enum FilterContext {
+  CONTEXT_UNSPECIFIED = 0;
+  CONTEXT_INCLUDE = 1;
+  CONTEXT_EXCLUDE = 2;
+}
+
+enum FilterOperator {
+  OPERATOR_UNSPECIFIED = 0;
+  OPERATOR_AND = 1;
+  OPERATOR_OR = 2;
+}
+
+enum FilterType {
+  TYPE_UNSPECIFIED = 0;
+  TYPE_UID = 1;
+  TYPE_HAS_TEXT_CONTENTS = 2;
+  TYPE_TITLE = 3;
+  TYPE_IS_FRONT = 4;
+  TYPE_PAGE = 5;
+  TYPE_ISSUE = 6;
+  TYPE_STRING = 7;
+  TYPE_ENTITY = 8;
+  TYPE_NEWSPAPER = 9;
+  TYPE_DATERANGE = 10;
+  TYPE_YEAR = 11;
+  TYPE_LANGUAGE = 12;
+  TYPE_TYPE = 13;
+  TYPE_REGEX = 14;
+  TYPE_MENTION = 15;
+  TYPE_PERSON = 16;
+  TYPE_LOCATION = 17;
+  TYPE_TOPIC = 18;
+  TYPE_COLLECTION = 19;
+  TYPE_OCR_QUALITY = 20;
+  TYPE_CONTENT_LENGTH = 21;
+  TYPE_COUNTRY = 22;
+}
+
+enum FilterPrecision {
+  PRECISION_UNSPECIFIED = 0;
+  PRECISION_EXACT = 1;
+  PRECISION_PARTIAL = 2;
+  PRECISION_FUZZY = 3;
+  PRECISION_SOFT = 4;
+}
+
+message DateRange {
+  int64 from = 1; // UNIX timestamp
+  int64 to = 2; // UNIX timestamp
+}
+
+message Filter {
+  FilterContext context = 1;
+  FilterOperator operator = 2;
+  FilterType type = 3;
+  FilterPrecision precision = 4;
+  repeated string query = 5;
+  DateRange daterange = 6;
+  repeated string uids = 7;
+}
+
+enum GroupValue {
+  GROUPVALUE_UNSPECIFIED = 0;
+  GROUPVALUE_ARTICLES = 1;
+}
+
+message SearchQuery {
+  repeated Filter filters = 1;
+  GroupValue group_by = 2;
+}
