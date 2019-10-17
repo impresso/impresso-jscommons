@@ -51,8 +51,9 @@ enum FilterPrecision {
 }
 
 message DateRange {
-  int64 from = 1; // UNIX timestamp
-  int64 to = 2; // UNIX timestamp
+  // https://developers.google.com/protocol-buffers/docs/encoding#signed-integers
+  sint64 from = 1; // UNIX timestamp
+  sint64 to = 2; // UNIX timestamp
 }
 
 message Filter {

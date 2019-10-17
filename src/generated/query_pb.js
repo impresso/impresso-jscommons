@@ -105,11 +105,11 @@ proto.impresso.query.DateRange.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readSint64());
       msg.setFrom(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readSint64());
       msg.setTo(value);
       break;
     default:
@@ -143,14 +143,14 @@ proto.impresso.query.DateRange.serializeBinaryToWriter = function(message, write
   var f = undefined;
   f = message.getFrom();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeSint64(
       1,
       f
     );
   }
   f = message.getTo();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeSint64(
       2,
       f
     );
@@ -159,7 +159,7 @@ proto.impresso.query.DateRange.serializeBinaryToWriter = function(message, write
 
 
 /**
- * optional int64 from = 1;
+ * optional sint64 from = 1;
  * @return {number}
  */
 proto.impresso.query.DateRange.prototype.getFrom = function() {
@@ -174,7 +174,7 @@ proto.impresso.query.DateRange.prototype.setFrom = function(value) {
 
 
 /**
- * optional int64 to = 2;
+ * optional sint64 to = 2;
  * @return {number}
  */
 proto.impresso.query.DateRange.prototype.getTo = function() {

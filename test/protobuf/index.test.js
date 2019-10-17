@@ -27,7 +27,7 @@ describe('Filter <-> protobuf', () => {
         to: normalizeDateString('2019-02-05T12:35:17Z'),
       },
     };
-    const expectedBase64String = 'GAoyEgiAwMurqaP///8BEIiXn+2LLQ==';
+    const expectedBase64String = 'GAoyDwj//+iorbkBEJCuvtqXWg==';
 
     const base64String = filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
@@ -43,7 +43,7 @@ describe('Filter <-> protobuf', () => {
         to: normalizeDateString('2019-02-05T12:35:17Z'),
       },
     };
-    const expectedBase64String = 'GAoyDgiA2N+uxBEQiJef7Yst';
+    const expectedBase64String = 'GAoyDgiAsL/diCMQkK6+2pda';
 
     const base64String = filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
@@ -89,7 +89,7 @@ describe('SearchQuery <-> protobuf', () => {
       ],
       groupBy: 'articles',
     };
-    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiA2N+uxBEQiJef7YstCgcYAToDMTIzEAE=';
+    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzEAE=';
 
     const base64String = searchQuery.serialize(testSearchQuery);
     assert.equal(base64String, expectedBase64String);
