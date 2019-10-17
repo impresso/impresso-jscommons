@@ -68,12 +68,10 @@ function deserialize(ProtoClass, base64String, converter) {
   return converter ? converter(obj) : obj;
 }
 
-Object.assign(exports, {
-  fromObject,
-  omitUndefinedAndEmptyLists,
-  fixRepeatedFields,
-  getEnumString,
-  getEnumNumber,
-  serialize,
-  deserialize,
-});
+exports.fromObject = fromObject;
+exports.omitUndefinedAndEmptyLists = omitUndefinedAndEmptyLists;
+exports.fixRepeatedFields = fixRepeatedFields;
+exports.getEnumString = getEnumString;
+exports.getEnumNumber = getEnumNumber;
+exports.serialize = serialize;
+exports.deserialize = deserialize;
