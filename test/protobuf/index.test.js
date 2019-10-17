@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { protobuf } = require('../..');
+const { protobuf } = require('../../src');
 
 const normalizeDateString = (s) => new Date(Date.parse(s)).toISOString();
 

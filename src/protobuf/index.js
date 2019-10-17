@@ -83,14 +83,15 @@ function searchQueryDeserializerConverter(searchQuery) {
   });
 }
 
-exports.filter = {
-  serialize: (obj) => serialize(Filter, obj, filterSerializerConverter),
-  deserialize: (base64String) => deserialize(Filter, base64String, filterDeserializerConverter),
-};
-
-exports.searchQuery = {
-  serialize: (obj) => serialize(SearchQuery, obj, searchQuerySerializerConverter),
-  deserialize: (base64String) => deserialize(
-    SearchQuery, base64String, searchQueryDeserializerConverter,
-  ),
+module.exports = {
+  filter: {
+    serialize: (obj) => serialize(Filter, obj, filterSerializerConverter),
+    deserialize: (base64String) => deserialize(Filter, base64String, filterDeserializerConverter),
+  },
+  searchQuery: {
+    serialize: (obj) => serialize(SearchQuery, obj, searchQuerySerializerConverter),
+    deserialize: (base64String) => deserialize(
+      SearchQuery, base64String, searchQueryDeserializerConverter,
+    ),
+  },
 };
