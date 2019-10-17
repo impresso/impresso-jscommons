@@ -58,7 +58,7 @@ message DateRange {
 
 message Filter {
   FilterContext context = 1;
-  FilterOperator operator = 2;
+  FilterOperator op = 2;
   FilterType type = 3;
   FilterPrecision precision = 4;
   repeated string query = 5;

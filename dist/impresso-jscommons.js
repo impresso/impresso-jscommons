@@ -113,9 +113,9 @@ function getEnumString(Enum, enumNumber) {
 function getEnumNumber(Enum, enumString) {
   if (enumString === undefined) return undefined;
   var prefix = Object.keys(Enum)[0].split('_')[0];
-  var field = [prefix, upper(snake(enumString))].join('_');
+  var field = [prefix, upper(snake(enumString), '_')].join('_');
   var val = Enum[field];
-  if (val === undefined) throw new Error("Unknown enum value: ".concat(enumString));
+  if (val === undefined) throw new Error("Unknown enum value: ".concat(enumString, " (").concat(field, ")"));
   return val;
 }
 
@@ -403,7 +403,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
       var f,
           obj = {
         context: googleProtobuf.Message.getFieldWithDefault(msg, 1, 0),
-        operator: googleProtobuf.Message.getFieldWithDefault(msg, 2, 0),
+        op: googleProtobuf.Message.getFieldWithDefault(msg, 2, 0),
         type: googleProtobuf.Message.getFieldWithDefault(msg, 3, 0),
         precision: googleProtobuf.Message.getFieldWithDefault(msg, 4, 0),
         queryList: googleProtobuf.Message.getRepeatedField(msg, 5),
@@ -459,7 +459,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
           var value =
           /** @type {!proto.impresso.query.FilterOperator} */
           reader.readEnum();
-          msg.setOperator(value);
+          msg.setOp(value);
           break;
 
         case 3:
@@ -532,7 +532,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
       writer.writeEnum(1, f);
     }
 
-    f = message.getOperator();
+    f = message.getOp();
 
     if (f !== 0.0) {
       writer.writeEnum(2, f);
@@ -587,12 +587,12 @@ var query_pb = createCommonjsModule(function (module, exports) {
     googleProtobuf.Message.setProto3EnumField(this, 1, value);
   };
   /**
-   * optional FilterOperator operator = 2;
+   * optional FilterOperator op = 2;
    * @return {!proto.impresso.query.FilterOperator}
    */
 
 
-  proto.impresso.query.Filter.prototype.getOperator = function () {
+  proto.impresso.query.Filter.prototype.getOp = function () {
     return (
       /** @type {!proto.impresso.query.FilterOperator} */
       googleProtobuf.Message.getFieldWithDefault(this, 2, 0)
@@ -601,7 +601,7 @@ var query_pb = createCommonjsModule(function (module, exports) {
   /** @param {!proto.impresso.query.FilterOperator} value */
 
 
-  proto.impresso.query.Filter.prototype.setOperator = function (value) {
+  proto.impresso.query.Filter.prototype.setOp = function (value) {
     googleProtobuf.Message.setProto3EnumField(this, 2, value);
   };
   /**
@@ -1046,7 +1046,7 @@ function daterangeDeserializeConverter(daterange) {
 function filterSerializerConverter(filter) {
   return _objectSpread2({}, filter, {
     context: getEnumNumber$1(FilterContext, filter.context),
-    operator: getEnumNumber$1(FilterOperator, filter.operator),
+    op: getEnumNumber$1(FilterOperator, filter.op),
     type: getEnumNumber$1(FilterType, filter.type),
     precision: getEnumNumber$1(FilterPrecision, filter.precision),
     daterange: fromObject$1(DateRange, daterangeSerializeConverter(filter.daterange))
@@ -1062,7 +1062,7 @@ function filterSerializerConverter(filter) {
 function filterDeserializerConverter(filter) {
   return omitUndefinedAndEmptyLists$1(_objectSpread2({}, filter, {
     context: getEnumString$1(FilterContext, filter.context),
-    operator: getEnumString$1(FilterOperator, filter.operator, true),
+    op: getEnumString$1(FilterOperator, filter.op, true),
     type: getEnumString$1(FilterType, filter.type),
     precision: getEnumString$1(FilterPrecision, filter.precision),
     daterange: daterangeDeserializeConverter(filter.daterange)

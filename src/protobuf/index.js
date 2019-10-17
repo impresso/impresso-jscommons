@@ -43,7 +43,7 @@ function filterSerializerConverter(filter) {
   return {
     ...filter,
     context: getEnumNumber(FilterContext, filter.context),
-    operator: getEnumNumber(FilterOperator, filter.operator),
+    op: getEnumNumber(FilterOperator, filter.op),
     type: getEnumNumber(FilterType, filter.type),
     precision: getEnumNumber(FilterPrecision, filter.precision),
     daterange: fromObject(DateRange, daterangeSerializeConverter(filter.daterange)),
@@ -59,7 +59,7 @@ function filterDeserializerConverter(filter) {
   return omitUndefinedAndEmptyLists({
     ...filter,
     context: getEnumString(FilterContext, filter.context),
-    operator: getEnumString(FilterOperator, filter.operator, true),
+    op: getEnumString(FilterOperator, filter.op, true),
     type: getEnumString(FilterType, filter.type),
     precision: getEnumString(FilterPrecision, filter.precision),
     daterange: daterangeDeserializeConverter(filter.daterange),

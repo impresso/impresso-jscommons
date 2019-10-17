@@ -50,9 +50,9 @@ function getEnumString(Enum, enumNumber, upperCase = false) {
 function getEnumNumber(Enum, enumString) {
   if (enumString === undefined) return undefined;
   const prefix = Object.keys(Enum)[0].split('_')[0];
-  const field = [prefix, upper(snake(enumString))].join('_');
+  const field = [prefix, upper(snake(enumString), '_')].join('_');
   const val = Enum[field];
-  if (val === undefined) throw new Error(`Unknown enum value: ${enumString}`);
+  if (val === undefined) throw new Error(`Unknown enum value: ${enumString} (${field})`);
   return val;
 }
 

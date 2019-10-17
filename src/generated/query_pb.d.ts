@@ -31,8 +31,8 @@ export class Filter extends jspb.Message {
   getContext(): FilterContextMap[keyof FilterContextMap];
   setContext(value: FilterContextMap[keyof FilterContextMap]): void;
 
-  getOperator(): FilterOperatorMap[keyof FilterOperatorMap];
-  setOperator(value: FilterOperatorMap[keyof FilterOperatorMap]): void;
+  getOp(): FilterOperatorMap[keyof FilterOperatorMap];
+  setOp(value: FilterOperatorMap[keyof FilterOperatorMap]): void;
 
   getType(): FilterTypeMap[keyof FilterTypeMap];
   setType(value: FilterTypeMap[keyof FilterTypeMap]): void;
@@ -68,7 +68,7 @@ export class Filter extends jspb.Message {
 export namespace Filter {
   export type AsObject = {
     context: FilterContextMap[keyof FilterContextMap],
-    operator: FilterOperatorMap[keyof FilterOperatorMap],
+    op: FilterOperatorMap[keyof FilterOperatorMap],
     type: FilterTypeMap[keyof FilterTypeMap],
     precision: FilterPrecisionMap[keyof FilterPrecisionMap],
     queryList: Array<string>,

@@ -243,7 +243,7 @@ proto.impresso.query.Filter.prototype.toObject = function(opt_includeInstance) {
 proto.impresso.query.Filter.toObject = function(includeInstance, msg) {
   var f, obj = {
     context: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    operator: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    op: jspb.Message.getFieldWithDefault(msg, 2, 0),
     type: jspb.Message.getFieldWithDefault(msg, 3, 0),
     precision: jspb.Message.getFieldWithDefault(msg, 4, 0),
     queryList: jspb.Message.getRepeatedField(msg, 5),
@@ -291,7 +291,7 @@ proto.impresso.query.Filter.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 2:
       var value = /** @type {!proto.impresso.query.FilterOperator} */ (reader.readEnum());
-      msg.setOperator(value);
+      msg.setOp(value);
       break;
     case 3:
       var value = /** @type {!proto.impresso.query.FilterType} */ (reader.readEnum());
@@ -350,7 +350,7 @@ proto.impresso.query.Filter.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getOperator();
+  f = message.getOp();
   if (f !== 0.0) {
     writer.writeEnum(
       2,
@@ -412,16 +412,16 @@ proto.impresso.query.Filter.prototype.setContext = function(value) {
 
 
 /**
- * optional FilterOperator operator = 2;
+ * optional FilterOperator op = 2;
  * @return {!proto.impresso.query.FilterOperator}
  */
-proto.impresso.query.Filter.prototype.getOperator = function() {
+proto.impresso.query.Filter.prototype.getOp = function() {
   return /** @type {!proto.impresso.query.FilterOperator} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {!proto.impresso.query.FilterOperator} value */
-proto.impresso.query.Filter.prototype.setOperator = function(value) {
+proto.impresso.query.Filter.prototype.setOp = function(value) {
   jspb.Message.setProto3EnumField(this, 2, value);
 };
 

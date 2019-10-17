@@ -7,7 +7,7 @@ describe('Filter <-> protobuf', () => {
   it('collection query', () => {
     const testFilter = {
       context: 'include',
-      operator: 'AND',
+      op: 'AND',
       type: 'collection',
       query: ['abc123'],
     };
@@ -71,7 +71,7 @@ describe('SearchQuery <-> protobuf', () => {
       filters: [
         {
           context: 'include',
-          operator: 'AND',
+          op: 'AND',
           type: 'collection',
           query: ['abc123'],
         },
@@ -86,10 +86,14 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'uid',
           uids: ['123'],
         },
+        {
+          type: 'hasTextContents',
+          uids: ['foo'],
+        },
       ],
       groupBy: 'articles',
     };
-    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzEAE=';
+    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzCgcYAjoDZm9vEAE=';
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
     assert.equal(base64String, expectedBase64String);
@@ -102,7 +106,7 @@ describe('SearchQuery <-> protobuf', () => {
       filters: [
         {
           context: 'include',
-          operator: 'AND',
+          op: 'AND',
           type: 'collection',
           query: ['abc123'],
         },
