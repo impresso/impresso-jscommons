@@ -6,7 +6,7 @@
 
 ## Protocol Buffers
 
-When a Procol Buffer schema is changed, corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.
+When a Protocol Buffer schema is changed, corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.
 
 Regenerating `js` files from `proto` schemas:
 
