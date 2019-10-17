@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { filter, searchQuery } = require('../../src/protobuf');
+const { protobuf } = require('../..');
 
 const normalizeDateString = (s) => new Date(Date.parse(s)).toISOString();
 
@@ -13,9 +13,9 @@ describe('Filter <-> protobuf', () => {
     };
     const expectedBase64String = 'CAEQARgTKgZhYmMxMjM=';
 
-    const base64String = filter.serialize(testFilter);
+    const base64String = protobuf.filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = filter.deserialize(base64String);
+    const deserializedFilter = protobuf.filter.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testFilter);
   });
 
@@ -29,9 +29,9 @@ describe('Filter <-> protobuf', () => {
     };
     const expectedBase64String = 'GAoyDwj//+iorbkBEJCuvtqXWg==';
 
-    const base64String = filter.serialize(testFilter);
+    const base64String = protobuf.filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = filter.deserialize(base64String);
+    const deserializedFilter = protobuf.filter.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testFilter);
   });
 
@@ -45,9 +45,9 @@ describe('Filter <-> protobuf', () => {
     };
     const expectedBase64String = 'GAoyDgiAsL/diCMQkK6+2pda';
 
-    const base64String = filter.serialize(testFilter);
+    const base64String = protobuf.filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = filter.deserialize(base64String);
+    const deserializedFilter = protobuf.filter.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testFilter);
   });
 
@@ -58,9 +58,9 @@ describe('Filter <-> protobuf', () => {
     };
     const expectedBase64String = 'GAE6AzEyMw==';
 
-    const base64String = filter.serialize(testFilter);
+    const base64String = protobuf.filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = filter.deserialize(base64String);
+    const deserializedFilter = protobuf.filter.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testFilter);
   });
 });
@@ -91,9 +91,9 @@ describe('SearchQuery <-> protobuf', () => {
     };
     const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzEAE=';
 
-    const base64String = searchQuery.serialize(testSearchQuery);
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
     assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = searchQuery.deserialize(base64String);
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
   });
 
@@ -109,6 +109,6 @@ describe('SearchQuery <-> protobuf', () => {
       ],
       groupBy: 'asdf',
     };
-    assert.throws(() => searchQuery.serialize(testSearchQuery), /Unknown enum value: asdf/);
+    assert.throws(() => protobuf.searchQuery.serialize(testSearchQuery), /Unknown enum value: asdf/);
   });
 });
