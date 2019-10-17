@@ -124,7 +124,7 @@ describe('SearchQuery <-> protobuf', () => {
           context: 'include',
           op: 'AND',
           type: 'person',
-          q: ['aida-0001-50-Albert_Einstein', 'aida-0001-50-Max_Planck'] 
+          q: ['aida-0001-50-Albert_Einstein', 'aida-0001-50-Max_Planck'],
         },
       ],
     };
