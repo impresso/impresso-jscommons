@@ -18,7 +18,7 @@ const {
 } = require('../generated/query_pb');
 
 function stringAsArray(s) {
-  if (typeof s === 'string') return [s];
+  if (typeof s === 'string' || s instanceof String) return [s];
   return s;
 }
 
