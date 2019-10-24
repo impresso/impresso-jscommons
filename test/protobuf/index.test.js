@@ -134,4 +134,31 @@ describe('SearchQuery <-> protobuf', () => {
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
   });
+
+  it('string query single term', () => {
+    const testSearchQuery = {
+      filters: [
+        {
+          precision: 'exact',
+          type: 'string',
+          q: 'Foo',
+        },
+      ],
+    };
+
+    const expectedQuery = {
+      filters: [
+        {
+          precision: 'exact',
+          type: 'string',
+          q: ['Foo'],
+        },
+      ],
+    };
+
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
+    assert.equal(base64String, 'CgkYByABKgNGb28=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, expectedQuery);
+  });
 });

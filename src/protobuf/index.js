@@ -17,6 +17,11 @@ const {
   GroupValue,
 } = require('../generated/query_pb');
 
+function stringAsArray(s) {
+  if (typeof s === 'string') return [s];
+  return s;
+}
+
 function daterangeSerializeConverter(daterange) {
   if (daterange === undefined) return undefined;
   return {
@@ -42,6 +47,7 @@ function daterangeDeserializeConverter(daterange) {
 function filterSerializerConverter(filter) {
   return {
     ...filter,
+    q: stringAsArray(filter.q),
     context: getEnumNumber(FilterContext, filter.context),
     op: getEnumNumber(FilterOperator, filter.op),
     type: getEnumNumber(FilterType, filter.type),
