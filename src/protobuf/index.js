@@ -22,6 +22,11 @@ function stringAsArray(s) {
   return s;
 }
 
+function maybeArrayAsString(a) {
+  if (a !== undefined && a.length === 1) return a[0];
+  return a;
+}
+
 function daterangeSerializeConverter(daterange) {
   if (daterange === undefined) return undefined;
   return {
@@ -64,6 +69,7 @@ function filterSerializerConverter(filter) {
 function filterDeserializerConverter(filter) {
   return omitUndefinedAndEmptyLists({
     ...filter,
+    q: maybeArrayAsString(filter.q),
     context: getEnumString(FilterContext, filter.context),
     op: getEnumString(FilterOperator, filter.op, true),
     type: getEnumString(FilterType, filter.type),

@@ -9,9 +9,9 @@ describe('Filter <-> protobuf', () => {
       context: 'include',
       op: 'AND',
       type: 'collection',
-      q: ['abc123'],
+      q: ['abc123', 'def'],
     };
-    const expectedBase64String = 'CAEQARgTKgZhYmMxMjM=';
+    const expectedBase64String = 'CAEQARgTKgZhYmMxMjMqA2RlZg==';
 
     const base64String = protobuf.filter.serialize(testFilter);
     assert.equal(base64String, expectedBase64String);
@@ -73,7 +73,7 @@ describe('SearchQuery <-> protobuf', () => {
           context: 'include',
           op: 'AND',
           type: 'collection',
-          q: ['abc123'],
+          q: 'abc123',
         },
         {
           type: 'daterange',
@@ -88,12 +88,12 @@ describe('SearchQuery <-> protobuf', () => {
         },
         {
           type: 'hasTextContents',
-          uids: ['foo'],
+          uids: ['foo', 'bar'],
         },
       ],
       groupBy: 'articles',
     };
-    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzCgcYAjoDZm9vEAE=';
+    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzCgwYAjoDZm9vOgNiYXIQAQ==';
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
     assert.equal(base64String, expectedBase64String);
@@ -108,7 +108,7 @@ describe('SearchQuery <-> protobuf', () => {
           context: 'include',
           op: 'AND',
           type: 'collection',
-          q: ['abc123'],
+          q: 'abc123',
         },
       ],
       groupBy: 'asdf',
@@ -148,23 +148,9 @@ describe('SearchQuery <-> protobuf', () => {
         },
       ],
     };
-
-    const expectedQuery = {
-      filters: [
-        {
-          type: 'hasTextContents',
-        },
-        {
-          type: 'string',
-          q: ['Albert'],
-          precision: 'exact',
-        },
-      ],
-    };
-
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
     assert.equal(base64String, 'CgIYAgoMGAcgASoGQWxiZXJ0');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, expectedQuery);
+    assert.deepEqual(deserializedFilter, testSearchQuery);
   });
 });
