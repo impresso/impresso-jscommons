@@ -139,9 +139,12 @@ describe('SearchQuery <-> protobuf', () => {
     const testSearchQuery = {
       filters: [
         {
-          precision: 'exact',
+          type: 'hasTextContents',
+        },
+        {
           type: 'string',
-          q: 'Foo',
+          q: 'Albert',
+          precision: 'exact',
         },
       ],
     };
@@ -149,15 +152,18 @@ describe('SearchQuery <-> protobuf', () => {
     const expectedQuery = {
       filters: [
         {
-          precision: 'exact',
+          type: 'hasTextContents',
+        },
+        {
           type: 'string',
-          q: ['Foo'],
+          q: ['Albert'],
+          precision: 'exact',
         },
       ],
     };
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'CgkYByABKgNGb28=');
+    assert.equal(base64String, 'CgIYAgoMGAcgASoGQWxiZXJ0');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, expectedQuery);
   });
