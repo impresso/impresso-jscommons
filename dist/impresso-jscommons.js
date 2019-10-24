@@ -1021,6 +1021,11 @@ var Filter = query_pb.Filter,
     SearchQuery = query_pb.SearchQuery,
     GroupValue = query_pb.GroupValue;
 
+function stringAsArray(s) {
+  if (typeof s === 'string' || s instanceof String) return [s];
+  return s;
+}
+
 function daterangeSerializeConverter(daterange) {
   if (daterange === undefined) return undefined;
   return {
@@ -1045,6 +1050,7 @@ function daterangeDeserializeConverter(daterange) {
 
 function filterSerializerConverter(filter) {
   return _objectSpread2({}, filter, {
+    q: stringAsArray(filter.q),
     context: getEnumNumber$1(FilterContext, filter.context),
     op: getEnumNumber$1(FilterOperator, filter.op),
     type: getEnumNumber$1(FilterType, filter.type),
