@@ -143,6 +143,8 @@ export interface FilterTypeMap {
   TYPE_OCR_QUALITY: 20;
   TYPE_CONTENT_LENGTH: 21;
   TYPE_COUNTRY: 22;
+  TYPE_ACCESS_RIGHT: 23;
+  TYPE_PARTNER: 24;
 }
 
 export const FilterType: FilterTypeMap;
