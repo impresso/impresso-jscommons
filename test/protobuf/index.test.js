@@ -153,4 +153,25 @@ describe('SearchQuery <-> protobuf', () => {
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
   });
+
+  it('test new filters', () => {
+    const testSearchQuery = {
+      filters: [
+        {
+          type: 'accessRight',
+          q: ['OpenPublic'],
+          op: 'OR',
+        },
+        {
+          type: 'partner',
+          q: ['SNL'],
+          op: 'OR',
+        },
+      ],
+    };
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
+    assert.equal(base64String, 'ChAQAhgXKgpPcGVuUHVibGljCgkQAhgYKgNTTkw=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, testSearchQuery);
+  });
 });
