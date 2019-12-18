@@ -4,9 +4,9 @@
 
 # Building
 
-## Protocol Buffers
+## Requirements: Protocol Buffers
 
-When a Protocol Buffer schema is changed, corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.
+When a Protocol Buffer schema is changed - e.g. you change the file [query.proto](https://github.com/impresso/impresso-jscommons/blob/master/proto/query.proto), corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.  If you have brew, do `brew install protobuf` to install `protoc`.
 
 Regenerating `js` files from `proto` schemas:
 
