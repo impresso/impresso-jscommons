@@ -159,12 +159,12 @@ describe('SearchQuery <-> protobuf', () => {
       filters: [
         {
           type: 'accessRight',
-          q: ['OpenPublic'],
+          q: 'OpenPublic',
           op: 'OR',
         },
         {
           type: 'partner',
-          q: ['SNL'],
+          q: 'SNL',
           op: 'OR',
         },
       ],
