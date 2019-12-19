@@ -16,7 +16,7 @@ npm run compile
 
 ## Cross platform compilation
 
-Since the library is used by both `Middle Layer` (node.js) and `Front End` (browser) the library needs to be compiled to be used in browser. We use [rollup](https://rollupjs.org/) for this.
+Since the library is used by both `Middle Layer` (node.js) and `Front End` (browser) the library needs to be compiled to be used in both browser and Node.js environment. We use [rollup](https://rollupjs.org/) for this.
 
 Compile the library:
 
