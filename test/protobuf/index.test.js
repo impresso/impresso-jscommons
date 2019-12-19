@@ -174,4 +174,31 @@ describe('SearchQuery <-> protobuf', () => {
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
   });
+
+  it('test complex filters', () => {
+    const testSearchQuery = {
+      filters: [
+        { context: 'include', op: 'OR', type: 'hasTextContents' },
+        {
+          context: 'include',
+          op: 'OR',
+          type: 'string',
+          precision: 'exact',
+          q: 'einstein',
+        },
+        { context: 'include', op: 'OR', type: 'isFront' },
+        {
+          context: 'include',
+          op: 'OR',
+          type: 'accessRight',
+          q: 'OpenPublic',
+        },
+      ],
+    };
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
+    console.log('base64String', base64String);
+    assert.equal(base64String, 'CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, testSearchQuery);
+  });
 });
