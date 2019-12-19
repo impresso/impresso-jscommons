@@ -24,7 +24,7 @@ Compile the library:
 npm run build
 ```
 
-The library should be compiled before every commit because it is used as a direct GitHub dependency in other projects.
+The library **must be built** before **every commit** because it is used as a direct GitHub dependency in other projects.
 
 # Testing
 
