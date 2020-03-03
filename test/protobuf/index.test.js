@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { protobuf } = require('../../src');
+const { protobuf, constants } = require('../../src');
 
 const normalizeDateString = (s) => new Date(Date.parse(s)).toISOString();
 
@@ -199,5 +199,29 @@ describe('SearchQuery <-> protobuf', () => {
     assert.equal(base64String, 'CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM=');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
+  });
+});
+
+describe('constants', () => {
+  it('represents multiword filter types right', () => {
+    const { filter: { Types } } = constants;
+    assert.ok(Types.includes('person'));
+    assert.ok(Types.includes('accessRight'));
+    assert.ok(Types.includes('textReuseClusterSize'));
+  });
+
+  it('represents operators', () => {
+    const { filter: { Operators } } = constants;
+    assert.equal(JSON.stringify(Operators), JSON.stringify(['AND', 'OR']));
+  });
+
+  it('represents contexts', () => {
+    const { filter: { Contexts } } = constants;
+    assert.equal(JSON.stringify(Contexts), JSON.stringify(['include', 'exclude']));
+  });
+
+  it('represents precision', () => {
+    const { filter: { Precision } } = constants;
+    assert.ok(Precision.includes('fuzzy'));
   });
 });

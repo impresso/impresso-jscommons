@@ -1,6 +1,6 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.js",
@@ -19,16 +19,17 @@
     "google-protobuf": "3.10.0"
   },
   "devDependencies": {
+    "@babel/core": "7",
+    "@babel/preset-env": "7",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "ts-protoc-gen": "^0.11.0",
-    "@babel/core": "7",
-    "@babel/preset-env": "7",
+    "mocha": "7",
     "rollup": "1",
     "rollup-plugin-babel": "4",
-    "rollup-plugin-node-resolve": "5",
     "rollup-plugin-commonjs": "10",
-    "rollup-plugin-terser": "5"
+    "rollup-plugin-node-resolve": "5",
+    "rollup-plugin-terser": "5",
+    "ts-protoc-gen": "^0.11.0"
   }
 }
