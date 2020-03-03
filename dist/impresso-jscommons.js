@@ -42,13 +42,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -1059,7 +1059,11 @@ var query_pb = createCommonjsModule(function (module, exports) {
     TYPE_CONTENT_LENGTH: 21,
     TYPE_COUNTRY: 22,
     TYPE_ACCESS_RIGHT: 23,
-    TYPE_PARTNER: 24
+    TYPE_PARTNER: 24,
+    TYPE_MONTH: 25,
+    TYPE_TEXT_REUSE_CLUSTER_SIZE: 26,
+    TYPE_TEXT_REUSE_CLUSTER_LEXICAL_OVERLAP: 27,
+    TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA: 28
   };
   /**
    * @enum {number}
@@ -1193,11 +1197,48 @@ var protobuf$1 = {
   }
 };
 
+var camel$1 = _case.camel;
+var FilterType$1 = query_pb.FilterType,
+    FilterOperator$1 = query_pb.FilterOperator,
+    FilterContext$1 = query_pb.FilterContext,
+    FilterPrecision$1 = query_pb.FilterPrecision;
+var Types = Object.freeze(Object.keys(FilterType$1).filter(function (filterType) {
+  return FilterType$1[filterType] !== FilterType$1.TYPE_UNSPECIFIED;
+}).map(function (filterType) {
+  return camel$1(filterType.split('_').slice(1).join('_'));
+}));
+var Operators = Object.freeze(Object.keys(FilterOperator$1).filter(function (operator) {
+  return FilterOperator$1[operator] !== FilterOperator$1.OPERATOR_UNSPECIFIED;
+}).map(function (operator) {
+  return camel$1(operator.split('_').slice(1).join('_')).toUpperCase();
+}));
+var Contexts = Object.freeze(Object.keys(FilterContext$1).filter(function (context) {
+  return FilterContext$1[context] !== FilterContext$1.CONTEXT_UNSPECIFIED;
+}).map(function (context) {
+  return camel$1(context.split('_').slice(1).join('_')).toLowerCase();
+}));
+var Precision = Object.freeze(Object.keys(FilterPrecision$1).filter(function (precision) {
+  return FilterPrecision$1[precision] !== FilterPrecision$1.PRECISION_UNSPECIFIED;
+}).map(function (precision) {
+  return camel$1(precision.split('_').slice(1).join('_')).toLowerCase();
+}));
+var constants = {
+  filter: {
+    Types: Types,
+    Operators: Operators,
+    Contexts: Contexts,
+    Precision: Precision
+  }
+};
+
 var src = {
-  protobuf: protobuf$1
+  protobuf: protobuf$1,
+  constants: constants
 };
 var src_1 = src.protobuf;
+var src_2 = src.constants;
 
+exports.constants = src_2;
 exports.default = src;
 exports.protobuf = src_1;
 
