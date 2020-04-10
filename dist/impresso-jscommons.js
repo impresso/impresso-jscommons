@@ -57,6 +57,68 @@ function _objectSpread2(target) {
   return target;
 }
 
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
 var snake = _case.snake,
     camel = _case.camel,
     upper = _case.upper,
@@ -1231,15 +1293,119 @@ var constants = {
   }
 };
 
+// @ts-check
+
+/**
+ * @typedef {import('..').Filter} Filter
+ */
+
+/**
+ * @param {Filter} p
+ * @returns {string}
+ */
+var getFilterMergeKey = function getFilterMergeKey(_ref) {
+  var type = _ref.type,
+      _ref$op = _ref.op,
+      op = _ref$op === void 0 ? 'OR' : _ref$op,
+      _ref$context = _ref.context,
+      context = _ref$context === void 0 ? 'inclusive' : _ref$context,
+      _ref$precision = _ref.precision,
+      precision = _ref$precision === void 0 ? 'exact' : _ref$precision;
+  return "t:".concat(type, "-o:").concat(op, "-c:").concat(context, "-p:").concat(precision);
+};
+/**
+ * @param {object} object
+ * @param {function} fn
+ * @returns {object}
+ */
+
+
+var omitBy = function omitBy(object, fn) {
+  return Object.keys(object).reduce(function (acc, key) {
+    var value = object[key];
+    if (!fn(value)) acc[key] = value;
+    return acc;
+  }, {});
+};
+/**
+ * Optimize filters by merging filters of the same type with the same
+ * context/precision where possible.
+ * @param {Filter[]} filters
+ * @returns {Filter[]}
+ */
+
+
+function optimizeFilters(filters) {
+  var groupingMap = filters.reduce(function (map, filter) {
+    var key = getFilterMergeKey(filter);
+    var items = map.get(key) || [];
+    map.set(key, items.concat([filter]));
+    return map;
+  }, new Map());
+  return _toConsumableArray(groupingMap.entries()).map(function (_ref2) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        groupedFilters = _ref3[1];
+
+    var _groupedFilters$ = groupedFilters[0],
+        type = _groupedFilters$.type,
+        context = _groupedFilters$.context,
+        precision = _groupedFilters$.precision,
+        op = _groupedFilters$.op;
+    var query = groupedFilters.flatMap(function (_ref4) {
+      var q = _ref4.q;
+      return Array.isArray(q) ? q : [q];
+    }).filter(function (value) {
+      return value != null;
+    });
+    return omitBy({
+      type: type,
+      context: context,
+      precision: precision,
+      op: op,
+      q: query.length > 1 ? query : query[0]
+    }, function (value) {
+      return value == null;
+    });
+  });
+}
+/**
+ * Merge filters with a rule that all single item (`q`) filters operator
+ * is set to `AND`. Then the standard merge is applied.
+ * @param {Filter[][]} filtersSets
+ * @returns {Filter[]}
+ */
+
+
+function mergeFilters(filtersSets) {
+  return optimizeFilters(filtersSets.flat().map(function (filter) {
+    var op = Array.isArray(filter.q) && filter.q.length === 1 || !Array.isArray(filter.q) ? 'AND' : filter.op;
+    return _objectSpread2({}, filter, {
+      op: op
+    });
+  }));
+}
+
+var filter = {
+  optimizeFilters: optimizeFilters,
+  mergeFilters: mergeFilters
+};
+
+var logic = {
+  filter: filter
+};
+
 var src = {
   protobuf: protobuf$1,
-  constants: constants
+  constants: constants,
+  logic: logic
 };
 var src_1 = src.protobuf;
 var src_2 = src.constants;
+var src_3 = src.logic;
 
 exports.constants = src_2;
 exports.default = src;
+exports.logic = src_3;
 exports.protobuf = src_1;
 
 Object.defineProperty(exports, '__esModule', { value: true });
