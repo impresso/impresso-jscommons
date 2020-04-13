@@ -1,6 +1,6 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.js",
@@ -13,6 +13,7 @@
     "watch": "npm run watch:js",
     "watch:js": "rollup --config rollup.config.js --watch"
   },
+  "types": "./src/index.d.ts",
   "dependencies": {
     "base64-js": "1.3.1",
     "case": "1.6.2",
