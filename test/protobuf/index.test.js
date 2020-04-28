@@ -200,6 +200,23 @@ describe('SearchQuery <-> protobuf', () => {
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     assert.deepEqual(deserializedFilter, testSearchQuery);
   });
+
+  it('test text reuse cluster filters', () => {
+    const testSearchQuery = {
+      filters: [
+        {
+          context: 'include',
+          op: 'OR',
+          type: 'textReuseCluster',
+          q: ['a', 'b'],
+        },
+      ],
+    };
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery);
+    assert.equal(base64String, 'CgwIARACGB0qAWEqAWI=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, testSearchQuery);
+  });
 });
 
 describe('constants', () => {
