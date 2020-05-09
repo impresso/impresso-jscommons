@@ -15,6 +15,9 @@ const {
   DateRange,
   SearchQuery,
   GroupValue,
+  CollectionRecommendersSettings,
+  CollectionRecommender,
+  CollectionRecommenderParameter,
 } = require('../generated/query_pb');
 
 function stringAsArray(s) {
@@ -95,6 +98,85 @@ function searchQueryDeserializerConverter(searchQuery) {
   });
 }
 
+/**
+ * @param {number} number
+ * @param {digits} digits
+ * @returns {number|undefined}
+ */
+function toFixedPointNumber(number, digits = 2) {
+  if (number == null) return undefined;
+  return parseFloat(number.toFixed(digits)) * (10 ** digits);
+}
+
+function fromFixedPointNumber(number, digits = 2) {
+  if (number == null) return undefined;
+  return number / (10 ** digits);
+}
+
+function collectionRecommenderParameterSerializerConverter(obj) {
+  let stringValue;
+  let numberValue;
+  let boolValue;
+  if (typeof obj.value === 'string') stringValue = obj.value;
+  if (typeof obj.value === 'number') numberValue = toFixedPointNumber(obj.value);
+  if (typeof obj.value === 'boolean') boolValue = obj.value;
+
+  return {
+    key: getEnumNumber(CollectionRecommenderParameter.RecommenderParameterId, obj.key),
+    stringValue,
+    numberValue,
+    boolValue,
+  };
+}
+
+function collectionRecommenderSerializerConverter(obj) {
+  return omitUndefinedAndEmptyLists({
+    ...obj,
+    type: getEnumNumber(CollectionRecommender.RecommenderType, obj.type),
+    weight: toFixedPointNumber(obj.weight),
+    parameters: (obj.parameters || [])
+      .map((f) => fromObject(
+        CollectionRecommenderParameter,
+        collectionRecommenderParameterSerializerConverter(f),
+      )),
+  });
+}
+
+function collectionRecommendersSettingsSerializerConverter(obj) {
+  return omitUndefinedAndEmptyLists({
+    ...obj,
+    recommenders: (obj.recommenders || [])
+      .map((f) => fromObject(CollectionRecommender, collectionRecommenderSerializerConverter(f))),
+  });
+}
+
+function collectionRecommenderParameterDeserializerConverter(parameter) {
+  let value;
+  if (parameter.stringValue !== '') value = parameter.stringValue;
+  if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
+  if (parameter.boolValue) value = parameter.boolValue;
+  return omitUndefinedAndEmptyLists({
+    key: getEnumString(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
+    value,
+  });
+}
+
+function collectionRecommenderDeserializerConverter(recommender) {
+  return omitUndefinedAndEmptyLists({
+    ...recommender,
+    type: getEnumString(CollectionRecommender.RecommenderType, recommender.type, false),
+    weight: fromFixedPointNumber(recommender.weight) || 0,
+    parameters: (recommender.parameters || [])
+      .map(collectionRecommenderParameterDeserializerConverter),
+  });
+}
+
+function collectionRecommendersSettingsDeserializerConverter(settings) {
+  return omitUndefinedAndEmptyLists({
+    recommenders: (settings.recommenders || []).map(collectionRecommenderDeserializerConverter),
+  });
+}
+
 module.exports = {
   filter: {
     serialize: (obj) => serialize(Filter, obj, filterSerializerConverter),
@@ -104,6 +186,18 @@ module.exports = {
     serialize: (obj) => serialize(SearchQuery, obj, searchQuerySerializerConverter),
     deserialize: (base64String) => deserialize(
       SearchQuery, base64String, searchQueryDeserializerConverter,
+    ),
+  },
+  collectionRecommendersSettings: {
+    serialize: (obj) => serialize(
+      CollectionRecommendersSettings,
+      obj,
+      collectionRecommendersSettingsSerializerConverter,
+    ),
+    deserialize: (base64String) => deserialize(
+      CollectionRecommendersSettings,
+      base64String,
+      collectionRecommendersSettingsDeserializerConverter,
     ),
   },
 };
