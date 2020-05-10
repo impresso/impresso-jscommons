@@ -1446,7 +1446,8 @@ var query_pb = createCommonjsModule(function (module, exports) {
       var obj = {
         type: googleProtobuf.Message.getFieldWithDefault(msg, 1, 0),
         weight: googleProtobuf.Message.getFieldWithDefault(msg, 2, 0),
-        parametersList: googleProtobuf.Message.toObjectList(msg.getParametersList(), proto.impresso.query.CollectionRecommenderParameter.toObject, includeInstance)
+        parametersList: googleProtobuf.Message.toObjectList(msg.getParametersList(), proto.impresso.query.CollectionRecommenderParameter.toObject, includeInstance),
+        enabled: googleProtobuf.Message.getBooleanFieldWithDefault(msg, 4, false)
       };
 
       if (includeInstance) {
@@ -1506,6 +1507,13 @@ var query_pb = createCommonjsModule(function (module, exports) {
           msg.addParameters(value);
           break;
 
+        case 4:
+          var value =
+          /** @type {boolean} */
+          reader.readBool();
+          msg.setEnabled(value);
+          break;
+
         default:
           reader.skipField();
           break;
@@ -1552,6 +1560,12 @@ var query_pb = createCommonjsModule(function (module, exports) {
 
     if (f.length > 0) {
       writer.writeRepeatedMessage(3, f, proto.impresso.query.CollectionRecommenderParameter.serializeBinaryToWriter);
+    }
+
+    f = message.getEnabled();
+
+    if (f) {
+      writer.writeBool(4, f);
     }
   };
   /**
@@ -1646,6 +1660,27 @@ var query_pb = createCommonjsModule(function (module, exports) {
 
   proto.impresso.query.CollectionRecommender.prototype.clearParametersList = function () {
     return this.setParametersList([]);
+  };
+  /**
+   * optional bool enabled = 4;
+   * @return {boolean}
+   */
+
+
+  proto.impresso.query.CollectionRecommender.prototype.getEnabled = function () {
+    return (
+      /** @type {boolean} */
+      googleProtobuf.Message.getBooleanFieldWithDefault(this, 4, false)
+    );
+  };
+  /**
+   * @param {boolean} value
+   * @return {!proto.impresso.query.CollectionRecommender} returns this
+   */
+
+
+  proto.impresso.query.CollectionRecommender.prototype.setEnabled = function (value) {
+    return googleProtobuf.Message.setProto3BooleanField(this, 4, value);
   };
   /**
    * List of repeated fields within this message type.
@@ -2000,8 +2035,8 @@ function collectionRecommenderParameterSerializerConverter(obj) {
   var stringValue;
   var numberValue;
   var boolValue;
-  if (typeof obj.value === 'string') stringValue = obj.value;
   if (typeof obj.value === 'number') numberValue = toFixedPointNumber(obj.value);
+  if (typeof obj.value === 'string') stringValue = obj.value;
   if (typeof obj.value === 'boolean') boolValue = obj.value;
   return {
     key: getEnumNumber$1(CollectionRecommenderParameter.RecommenderParameterId, obj.key),
@@ -2031,9 +2066,9 @@ function collectionRecommendersSettingsSerializerConverter(obj) {
 
 function collectionRecommenderParameterDeserializerConverter(parameter) {
   var value;
-  if (parameter.stringValue !== '') value = parameter.stringValue;
+  if (parameter.boolValue != null) value = parameter.boolValue;
   if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
-  if (parameter.boolValue) value = parameter.boolValue;
+  if (parameter.stringValue !== '') value = parameter.stringValue;
   return omitUndefinedAndEmptyLists$1({
     key: getEnumString$1(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
     value: value
@@ -2044,7 +2079,8 @@ function collectionRecommenderDeserializerConverter(recommender) {
   return omitUndefinedAndEmptyLists$1(_objectSpread2({}, recommender, {
     type: getEnumString$1(CollectionRecommender.RecommenderType, recommender.type, false),
     weight: fromFixedPointNumber(recommender.weight) || 0,
-    parameters: (recommender.parameters || []).map(collectionRecommenderParameterDeserializerConverter)
+    parameters: (recommender.parameters || []).map(collectionRecommenderParameterDeserializerConverter),
+    enabled: recommender.enabled || undefined
   }));
 }
 

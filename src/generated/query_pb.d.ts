@@ -160,6 +160,9 @@ export class CollectionRecommender extends jspb.Message {
   setParametersList(value: Array<CollectionRecommenderParameter>): void;
   addParameters(value?: CollectionRecommenderParameter, index?: number): CollectionRecommenderParameter;
 
+  getEnabled(): boolean;
+  setEnabled(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CollectionRecommender.AsObject;
   static toObject(includeInstance: boolean, msg: CollectionRecommender): CollectionRecommender.AsObject;
@@ -175,6 +178,7 @@ export namespace CollectionRecommender {
     type: CollectionRecommender.RecommenderTypeMap[keyof CollectionRecommender.RecommenderTypeMap],
     weight: number,
     parametersList: Array<CollectionRecommenderParameter.AsObject>,
+    enabled: boolean,
   }
 
   export interface RecommenderTypeMap {

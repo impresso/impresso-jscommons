@@ -1153,7 +1153,8 @@ proto.impresso.query.CollectionRecommender.toObject = function(includeInstance, 
     type: jspb.Message.getFieldWithDefault(msg, 1, 0),
     weight: jspb.Message.getFieldWithDefault(msg, 2, 0),
     parametersList: jspb.Message.toObjectList(msg.getParametersList(),
-    proto.impresso.query.CollectionRecommenderParameter.toObject, includeInstance)
+    proto.impresso.query.CollectionRecommenderParameter.toObject, includeInstance),
+    enabled: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -1202,6 +1203,10 @@ proto.impresso.query.CollectionRecommender.deserializeBinaryFromReader = functio
       var value = new proto.impresso.query.CollectionRecommenderParameter;
       reader.readMessage(value,proto.impresso.query.CollectionRecommenderParameter.deserializeBinaryFromReader);
       msg.addParameters(value);
+      break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setEnabled(value);
       break;
     default:
       reader.skipField();
@@ -1252,6 +1257,13 @@ proto.impresso.query.CollectionRecommender.serializeBinaryToWriter = function(me
       3,
       f,
       proto.impresso.query.CollectionRecommenderParameter.serializeBinaryToWriter
+    );
+  }
+  f = message.getEnabled();
+  if (f) {
+    writer.writeBool(
+      4,
+      f
     );
   }
 };
@@ -1339,6 +1351,24 @@ proto.impresso.query.CollectionRecommender.prototype.addParameters = function(op
  */
 proto.impresso.query.CollectionRecommender.prototype.clearParametersList = function() {
   return this.setParametersList([]);
+};
+
+
+/**
+ * optional bool enabled = 4;
+ * @return {boolean}
+ */
+proto.impresso.query.CollectionRecommender.prototype.getEnabled = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.impresso.query.CollectionRecommender} returns this
+ */
+proto.impresso.query.CollectionRecommender.prototype.setEnabled = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 

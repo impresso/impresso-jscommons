@@ -56,6 +56,7 @@ export interface CollectionRecommender {
   type: string
   weight?: number
   parameters?: RecommenderParameter[]
+  enabled?: boolean
 }
 
 export interface CollectionRecommendersSettings {
