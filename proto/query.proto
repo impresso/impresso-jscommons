@@ -119,6 +119,7 @@ message CollectionRecommender {
   RecommenderType type = 1;
   sint32 weight = 2;
   repeated CollectionRecommenderParameter parameters = 3;
+  bool enabled = 4;
 }
 
 message CollectionRecommendersSettings {

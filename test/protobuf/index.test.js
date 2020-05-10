@@ -264,6 +264,7 @@ describe('CollectionRecommendersSettings <-> protobuf', () => {
         {
           type: 'topics',
           weight: 1,
+          enabled: true,
           parameters: [
             { key: 'countType', value: 'boo' },
           ],
@@ -271,7 +272,7 @@ describe('CollectionRecommendersSettings <-> protobuf', () => {
       ],
     };
 
-    const expectedBase64String = 'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKDggDEMgBGgcIARIDYm9v';
+    const expectedBase64String = 'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKEAgDEMgBGgcIARIDYm9vIAE=';
 
     const base64String = protobuf.collectionRecommendersSettings.serialize(settings);
     assert.equal(base64String, expectedBase64String);

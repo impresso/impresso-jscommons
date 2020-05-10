@@ -117,8 +117,8 @@ function collectionRecommenderParameterSerializerConverter(obj) {
   let stringValue;
   let numberValue;
   let boolValue;
-  if (typeof obj.value === 'string') stringValue = obj.value;
   if (typeof obj.value === 'number') numberValue = toFixedPointNumber(obj.value);
+  if (typeof obj.value === 'string') stringValue = obj.value;
   if (typeof obj.value === 'boolean') boolValue = obj.value;
 
   return {
@@ -152,9 +152,9 @@ function collectionRecommendersSettingsSerializerConverter(obj) {
 
 function collectionRecommenderParameterDeserializerConverter(parameter) {
   let value;
-  if (parameter.stringValue !== '') value = parameter.stringValue;
+  if (parameter.boolValue != null) value = parameter.boolValue;
   if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
-  if (parameter.boolValue) value = parameter.boolValue;
+  if (parameter.stringValue !== '') value = parameter.stringValue;
   return omitUndefinedAndEmptyLists({
     key: getEnumString(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
     value,
@@ -168,6 +168,7 @@ function collectionRecommenderDeserializerConverter(recommender) {
     weight: fromFixedPointNumber(recommender.weight) || 0,
     parameters: (recommender.parameters || [])
       .map(collectionRecommenderParameterDeserializerConverter),
+    enabled: recommender.enabled || undefined,
   });
 }
 
