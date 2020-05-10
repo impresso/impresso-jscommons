@@ -242,3 +242,40 @@ describe('constants', () => {
     assert.ok(Precision.includes('fuzzy'));
   });
 });
+
+describe('CollectionRecommendersSettings <-> protobuf', () => {
+  it('recommender settings', () => {
+    const settings = {
+      recommenders: [
+        {
+          type: 'timeRange',
+          weight: 0.33,
+          parameters: [
+            { key: 'margin', value: 5.78 },
+          ],
+        },
+        {
+          type: 'entities',
+          weight: 5,
+          parameters: [
+            { key: 'removeFullyMentioned', value: true },
+          ],
+        },
+        {
+          type: 'topics',
+          weight: 1,
+          parameters: [
+            { key: 'countType', value: 'boo' },
+          ],
+        },
+      ],
+    };
+
+    const expectedBase64String = 'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKDggDEMgBGgcIARIDYm9v';
+
+    const base64String = protobuf.collectionRecommendersSettings.serialize(settings);
+    assert.equal(base64String, expectedBase64String);
+    const deserializedFilter = protobuf.collectionRecommendersSettings.deserialize(base64String);
+    assert.deepEqual(deserializedFilter, settings);
+  });
+});

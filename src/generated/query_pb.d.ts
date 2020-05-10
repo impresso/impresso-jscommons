@@ -103,6 +103,113 @@ export namespace SearchQuery {
   }
 }
 
+export class CollectionRecommenderParameter extends jspb.Message {
+  getKey(): CollectionRecommenderParameter.RecommenderParameterIdMap[keyof CollectionRecommenderParameter.RecommenderParameterIdMap];
+  setKey(value: CollectionRecommenderParameter.RecommenderParameterIdMap[keyof CollectionRecommenderParameter.RecommenderParameterIdMap]): void;
+
+  getStringValue(): string;
+  setStringValue(value: string): void;
+
+  getNumberValue(): number;
+  setNumberValue(value: number): void;
+
+  getBoolValue(): boolean;
+  setBoolValue(value: boolean): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CollectionRecommenderParameter.AsObject;
+  static toObject(includeInstance: boolean, msg: CollectionRecommenderParameter): CollectionRecommenderParameter.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: CollectionRecommenderParameter, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CollectionRecommenderParameter;
+  static deserializeBinaryFromReader(message: CollectionRecommenderParameter, reader: jspb.BinaryReader): CollectionRecommenderParameter;
+}
+
+export namespace CollectionRecommenderParameter {
+  export type AsObject = {
+    key: CollectionRecommenderParameter.RecommenderParameterIdMap[keyof CollectionRecommenderParameter.RecommenderParameterIdMap],
+    stringValue: string,
+    numberValue: number,
+    boolValue: boolean,
+  }
+
+  export interface RecommenderParameterIdMap {
+    ID_UNSPECIFIED: 0;
+    ID_COUNT_TYPE: 1;
+    ID_MIN_OCCURRENCES: 2;
+    ID_NUMBER_TO_KEEP: 3;
+    ID_REMOVE_FULLY_MENTIONED: 4;
+    ID_NORMALIZE_MAX_SCORE: 5;
+    ID_MARGIN: 6;
+    ID_SCALING_FACTOR: 7;
+  }
+
+  export const RecommenderParameterId: RecommenderParameterIdMap;
+}
+
+export class CollectionRecommender extends jspb.Message {
+  getType(): CollectionRecommender.RecommenderTypeMap[keyof CollectionRecommender.RecommenderTypeMap];
+  setType(value: CollectionRecommender.RecommenderTypeMap[keyof CollectionRecommender.RecommenderTypeMap]): void;
+
+  getWeight(): number;
+  setWeight(value: number): void;
+
+  clearParametersList(): void;
+  getParametersList(): Array<CollectionRecommenderParameter>;
+  setParametersList(value: Array<CollectionRecommenderParameter>): void;
+  addParameters(value?: CollectionRecommenderParameter, index?: number): CollectionRecommenderParameter;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CollectionRecommender.AsObject;
+  static toObject(includeInstance: boolean, msg: CollectionRecommender): CollectionRecommender.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: CollectionRecommender, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CollectionRecommender;
+  static deserializeBinaryFromReader(message: CollectionRecommender, reader: jspb.BinaryReader): CollectionRecommender;
+}
+
+export namespace CollectionRecommender {
+  export type AsObject = {
+    type: CollectionRecommender.RecommenderTypeMap[keyof CollectionRecommender.RecommenderTypeMap],
+    weight: number,
+    parametersList: Array<CollectionRecommenderParameter.AsObject>,
+  }
+
+  export interface RecommenderTypeMap {
+    TYPE_UNSPECIFIED: 0;
+    TYPE_TIME_RANGE: 1;
+    TYPE_ENTITIES: 2;
+    TYPE_TOPICS: 3;
+    TYPE_TEXT_REUSE_CLUSTERS: 4;
+  }
+
+  export const RecommenderType: RecommenderTypeMap;
+}
+
+export class CollectionRecommendersSettings extends jspb.Message {
+  clearRecommendersList(): void;
+  getRecommendersList(): Array<CollectionRecommender>;
+  setRecommendersList(value: Array<CollectionRecommender>): void;
+  addRecommenders(value?: CollectionRecommender, index?: number): CollectionRecommender;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CollectionRecommendersSettings.AsObject;
+  static toObject(includeInstance: boolean, msg: CollectionRecommendersSettings): CollectionRecommendersSettings.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: CollectionRecommendersSettings, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CollectionRecommendersSettings;
+  static deserializeBinaryFromReader(message: CollectionRecommendersSettings, reader: jspb.BinaryReader): CollectionRecommendersSettings;
+}
+
+export namespace CollectionRecommendersSettings {
+  export type AsObject = {
+    recommendersList: Array<CollectionRecommender.AsObject>,
+  }
+}
+
 export interface FilterContextMap {
   CONTEXT_UNSPECIFIED: 0;
   CONTEXT_INCLUDE: 1;
