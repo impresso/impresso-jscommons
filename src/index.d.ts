@@ -47,6 +47,21 @@ export interface SearchQuery {
   filters: Filter[]
 }
 
+export interface RecommenderParameter {
+  key: string
+  value: string | number | boolean
+}
+
+export interface CollectionRecommender {
+  type: string
+  weight?: number
+  parameters?: RecommenderParameter[]
+}
+
+export interface CollectionRecommendersSettings {
+  recommenders: CollectionRecommender[]
+}
+
 export declare namespace protobuf {
   export namespace filter {
     function serialize(filter: Filter): string
@@ -55,6 +70,10 @@ export declare namespace protobuf {
   export namespace searchQuery {
     function serialize(searchQuery: SearchQuery): string
     function deserialize(serializedSearchQuery: string): SearchQuery
+  }
+  export namespace collectionRecommendersSettings {
+    function serialize(settings: CollectionRecommendersSettings): string
+    function deserialize(serializedSearchQuery: string): CollectionRecommendersSettings
   }
 }
 
