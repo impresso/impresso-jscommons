@@ -1,10 +1,10 @@
 {
-  "name": "impresso-jscommons",
+  "name": "@impresso/impresso-jscommons",
   "version": "1.4.0",
   "description": "Code shared between the middle layer and frontend",
-  "private": true,
   "main": "dist/impresso-jscommons.js",
   "author": "Roman Kalyakin <roman@kalyakin.com>",
+  "license": "AGPL-3.0",
   "scripts": {
     "compile": "make generate-js",
     "test": "mocha --recursive ./test",
@@ -22,10 +22,10 @@
   "devDependencies": {
     "@babel/core": "7",
     "@babel/preset-env": "7",
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "mocha": "7",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "mocha": "^10.2.0",
     "rollup": "1",
     "rollup-plugin-babel": "4",
     "rollup-plugin-commonjs": "10",
