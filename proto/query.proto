@@ -55,6 +55,9 @@ enum FilterType {
 
   // mentions and entities
   TYPE_MENTION_FUNCTION = 30;
+
+  // newly added mention and entities
+  TYPE_NAG = 31;
 }
 
 enum FilterPrecision {
