@@ -262,6 +262,7 @@ export interface FilterTypeMap {
   TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA: 28;
   TYPE_TEXT_REUSE_CLUSTER: 29;
   TYPE_MENTION_FUNCTION: 30;
+  TYPE_NAG: 31;
 }
 
 export const FilterType: FilterTypeMap;
