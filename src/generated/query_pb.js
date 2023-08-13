@@ -2,11 +2,14 @@
 /**
  * @fileoverview
  * @enhanceable
+ * @suppress {missingRequire} reports error on implicit type usages.
  * @suppress {messageConventions} JS Compiler reports an error if a variable or
  *     field starts with 'MSG_' and isn't a translatable message.
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
+/* eslint-disable */
+// @ts-nocheck
 
 var jspb = require('google-protobuf');
 var goog = jspb;
@@ -1584,7 +1587,8 @@ proto.impresso.query.FilterType = {
   TYPE_TEXT_REUSE_CLUSTER_LEXICAL_OVERLAP: 27,
   TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA: 28,
   TYPE_TEXT_REUSE_CLUSTER: 29,
-  TYPE_MENTION_FUNCTION: 30
+  TYPE_MENTION_FUNCTION: 30,
+  TYPE_NAG: 31
 };
 
 /**
