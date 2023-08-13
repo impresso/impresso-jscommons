@@ -1896,7 +1896,8 @@ var query_pb = createCommonjsModule(function (module, exports) {
     TYPE_TEXT_REUSE_CLUSTER_LEXICAL_OVERLAP: 27,
     TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA: 28,
     TYPE_TEXT_REUSE_CLUSTER: 29,
-    TYPE_MENTION_FUNCTION: 30
+    TYPE_MENTION_FUNCTION: 30,
+    TYPE_NAG: 31
   };
   /**
    * @enum {number}
