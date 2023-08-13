@@ -1,8 +1,9 @@
 // import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import * as meta from './package.json';
+import { babel } from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import terser from '@rollup/plugin-terser'
+
+const meta = { name: 'impresso-jscommons' }
 
 const config = {
   input: 'src/index.js',
@@ -11,7 +12,7 @@ const config = {
     file: `dist/${meta.name}.js`,
     name: meta.name,
     format: 'umd',
-    exports: 'named', /** Disable warning for default imports */
+    exports: 'named' /** Disable warning for default imports */,
     indent: false,
     extend: true,
     globals: {
@@ -24,6 +25,7 @@ const config = {
     // resolve()
     commonjs(),
     babel({
+      babelHelpers: 'bundled',
       exclude: 'node_modules/**',
       presets: [
         [
@@ -40,7 +42,7 @@ const config = {
       ],
     }),
   ],
-};
+}
 
 export default [
   config,
@@ -51,9 +53,6 @@ export default [
       compact: true,
       file: `dist/${meta.name}.min.js`,
     },
-    plugins: [
-      ...config.plugins,
-      terser(),
-    ],
+    plugins: [...config.plugins, terser()],
   },
-];
+]

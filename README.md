@@ -6,7 +6,9 @@
 
 ## Requirements: Protocol Buffers
 
-When a Protocol Buffer schema is changed - e.g. you change the file [query.proto](https://github.com/impresso/impresso-jscommons/blob/master/proto/query.proto), corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.  If you have brew, do `brew install protobuf` to install `protoc`.
+When a Protocol Buffer schema is changed - e.g. you change the file [query.proto](https://github.com/impresso/impresso-jscommons/blob/master/proto/query.proto), corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.  If you have brew, do `brew install protobuf@3` to install `protoc`.
+
+Note: As of July 2022, there is a known bug in protoc versions 21.1 and 21.2 (and libprotoc 3.21.1 and libprotoc 3.21.2), the brew protoc@3 would install the correct version. See [stackoverflow](https://stackoverflow.com/questions/72572040/protoc-gen-js-program-not-found-or-is-not-executable) thread.
 
 Regenerating `js` files from `proto` schemas:
 
