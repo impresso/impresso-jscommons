@@ -56,6 +56,7 @@ enum FilterType {
   // mentions and entities
   TYPE_MENTION_FUNCTION = 30;
   TYPE_NAG = 31;
+  TYPE_WIKIDATA_ID = 32;
 }
 
 enum FilterPrecision {

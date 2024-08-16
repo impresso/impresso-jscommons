@@ -1,6 +1,6 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.js",
