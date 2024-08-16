@@ -263,6 +263,7 @@ export interface FilterTypeMap {
   TYPE_TEXT_REUSE_CLUSTER: 29;
   TYPE_MENTION_FUNCTION: 30;
   TYPE_NAG: 31;
+  TYPE_WIKIDATA_ID: 32;
 }
 
 export const FilterType: FilterTypeMap;
