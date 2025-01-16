@@ -1551,7 +1551,9 @@ var query_pb = createCommonjsModule(function (module, exports) {
     TYPE_TEXT_REUSE_CLUSTER: 29,
     TYPE_MENTION_FUNCTION: 30,
     TYPE_NAG: 31,
-    TYPE_WIKIDATA_ID: 32
+    TYPE_WIKIDATA_ID: 32,
+    TYPE_DATA_DOMAIN: 33,
+    TYPE_COPYRIGHT: 34
   };
 
   /**
