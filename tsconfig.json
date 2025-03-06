@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2024",
     "lib": [
       "es2019"
     ],
     "noEmit": true,
     "allowJs": true,
-    "downlevelIteration": true
-  }
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext"
+  },
+  "include": ["src/**/*", "rollup.config.ts"]
 }
