@@ -1,5 +1,5 @@
-const filter = require('./filter');
+import * as filter from './filter.js'
 
-module.exports = {
+export default {
   filter,
 };

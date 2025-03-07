@@ -1,16 +1,17 @@
-// import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
-import * as meta from './package.json';
+import { RollupOptions } from "rollup";
+import meta from './package.json' with { type: 'json' };
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
-const config = {
+const defaultConfig: RollupOptions = {
   input: 'src/index.js',
   external: ['base64-js', 'case', 'google-protobuf'],
   output: {
     file: `dist/${meta.name}.js`,
     name: meta.name,
-    format: 'umd',
+    format: 'es',
     exports: 'named', /** Disable warning for default imports */
     indent: false,
     extend: true,
@@ -21,10 +22,12 @@ const config = {
     },
   },
   plugins: [
+    typescript(),
     // resolve()
     commonjs(),
     babel({
       exclude: 'node_modules/**',
+      babelHelpers: 'bundled',
       presets: [
         [
           '@babel/env',
@@ -40,20 +43,22 @@ const config = {
       ],
     }),
   ],
-};
+}
+
+const minifiedConfig: RollupOptions = {
+  ...defaultConfig,
+  output: {
+    ...defaultConfig.output,
+    file: `dist/${meta.name}.min.js`,
+  },
+  plugins: [
+    ...(defaultConfig.plugins as any[]),
+    terser(),
+  ],
+}
 
 export default [
-  config,
-  {
-    ...config,
-    output: {
-      ...config.output,
-      compact: true,
-      file: `dist/${meta.name}.min.js`,
-    },
-    plugins: [
-      ...config.plugins,
-      terser(),
-    ],
-  },
-];
+  defaultConfig,
+  // no need for a minified version now
+  // minifiedConfig,
+]
