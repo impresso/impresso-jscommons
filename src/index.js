@@ -1,8 +1,8 @@
-const protobuf = require('./protobuf');
-const constants = require('./util/constants');
-const logic = require('./logic');
+import protobuf from './protobuf/index.js'
+import constants from './util/constants.js'
+import logic from './logic/index.js'
 
-module.exports = {
+export {
   protobuf,
   constants,
   logic,

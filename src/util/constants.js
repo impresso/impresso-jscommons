@@ -1,10 +1,13 @@
-const { camel } = require('case');
+import Case from 'case';
+import Protobuf from '../generated/query_pb.js';
+
+const { camel } = Case;
 const {
   FilterType,
   FilterOperator,
   FilterContext,
   FilterPrecision,
-} = require('../generated/query_pb');
+} = Protobuf;
 
 const Types = Object.freeze(Object
   .keys(FilterType)
@@ -26,11 +29,13 @@ const Precision = Object.freeze(Object
   .filter((precision) => FilterPrecision[precision] !== FilterPrecision.PRECISION_UNSPECIFIED)
   .map((precision) => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
 
-module.exports = {
-  filter: {
-    Types,
-    Operators,
-    Contexts,
-    Precision,
-  },
+const filter = {
+  Types,
+  Operators,
+  Contexts,
+  Precision,
+};
+
+export default {
+  filter,
 };

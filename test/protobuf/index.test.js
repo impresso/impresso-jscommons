@@ -1,7 +1,9 @@
-const assert = require('assert');
-const { protobuf, constants } = require('../../src');
+import assert from 'assert';
+import { protobuf, constants } from '../../src/index.js';
 
 const normalizeDateString = (s) => new Date(Date.parse(s)).toISOString();
+
+
 
 describe('Filter <-> protobuf', () => {
   it('collection query', () => {
@@ -280,3 +282,4 @@ describe('CollectionRecommendersSettings <-> protobuf', () => {
     assert.deepEqual(deserializedFilter, settings);
   });
 });
+

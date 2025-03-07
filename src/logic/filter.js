@@ -29,7 +29,7 @@ const omitBy = (object, fn) => Object.keys(object).reduce((acc, key) => {
  * @param {Filter[]} filters
  * @returns {Filter[]}
  */
-function optimizeFilters(filters) {
+export function optimizeFilters(filters) {
   const groupingMap = filters.reduce((map, filter) => {
     const key = getFilterMergeKey(filter);
     const items = map.get(key) || [];
@@ -61,7 +61,7 @@ function optimizeFilters(filters) {
  * @param {Filter[][]} filtersSets
  * @returns {Filter[]}
  */
-function mergeFilters(filtersSets) {
+export function mergeFilters(filtersSets) {
   return optimizeFilters(filtersSets.flat().map((filter) => {
     const op = (Array.isArray(filter.q) && filter.q.length === 1) || !Array.isArray(filter.q)
       ? 'AND'
@@ -72,8 +72,3 @@ function mergeFilters(filtersSets) {
     };
   }));
 }
-
-module.exports = {
-  optimizeFilters,
-  mergeFilters,
-};

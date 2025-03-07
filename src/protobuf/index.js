@@ -1,11 +1,14 @@
-const {
+import {
   fromObject,
   omitUndefinedAndEmptyLists,
   getEnumString,
   getEnumNumber,
   serialize,
   deserialize,
-} = require('../util/protobuf');
+} from '../util/protobuf.js';
+
+import Protobuf from '../generated/query_pb.js';
+
 const {
   Filter,
   FilterContext,
@@ -18,7 +21,7 @@ const {
   CollectionRecommendersSettings,
   CollectionRecommender,
   CollectionRecommenderParameter,
-} = require('../generated/query_pb');
+} = Protobuf;
 
 function stringAsArray(s) {
   if (typeof s === 'string' || s instanceof String) return [s];
@@ -178,7 +181,7 @@ function collectionRecommendersSettingsDeserializerConverter(settings) {
   });
 }
 
-module.exports = {
+export default {
   filter: {
     serialize: (obj) => serialize(Filter, obj, filterSerializerConverter),
     deserialize: (base64String) => deserialize(Filter, base64String, filterDeserializerConverter),

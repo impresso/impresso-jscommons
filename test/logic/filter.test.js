@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-const assert = require('assert');
-const { optimizeFilters } = require('../../src/logic/filter');
+import assert from 'assert';
+import { optimizeFilters } from '../../src/logic/filter.js';
 
 describe('optimizeFilters', () => {
   it('does not merge filters of different types', () => {

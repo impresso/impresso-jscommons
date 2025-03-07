@@ -8,7 +8,7 @@
     "allowJs": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "module": "ESNext"
   },
   "include": ["src/**/*", "rollup.config.ts"]

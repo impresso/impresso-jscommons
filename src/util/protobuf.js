@@ -1,10 +1,10 @@
-const {
-  snake, camel, upper, pascal,
-} = require('case');
-const { fromByteArray, toByteArray } = require('base64-js');
+import Case from 'case';
+import { fromByteArray, toByteArray } from 'base64-js';
+
+const { snake, camel, upper, pascal } = Case;
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
-function fromObject(ProtoClass, obj) {
+export function fromObject(ProtoClass, obj) {
   if (obj === undefined) return undefined;
   const instance = new ProtoClass();
   Object.keys(obj).forEach((property) => {
@@ -19,7 +19,7 @@ function fromObject(ProtoClass, obj) {
 }
 
 
-function omitUndefinedAndEmptyLists(obj) {
+export function omitUndefinedAndEmptyLists(obj) {
   return Object.keys(obj).reduce((o, property) => {
     if (o[property] === undefined || (Array.isArray(o[property]) && o[property].length === 0)) {
       delete o[property];
@@ -28,7 +28,7 @@ function omitUndefinedAndEmptyLists(obj) {
   }, obj);
 }
 
-function fixRepeatedFields(obj) {
+export function fixRepeatedFields(obj) {
   return Object.keys(obj).reduce((o, property) => {
     if (property.endsWith('List')) {
       o[property.replace(/List$/, '')] = o[property].map(fixRepeatedFields);
@@ -38,7 +38,7 @@ function fixRepeatedFields(obj) {
   }, obj);
 }
 
-function getEnumString(Enum, enumNumber, upperCase = false) {
+export function getEnumString(Enum, enumNumber, upperCase = false) {
   // `0` element is `undefined` by convention.
   if (!enumNumber || enumNumber === 0) return undefined;
   const enumString = Object.keys(Enum).find((key) => Enum[key] === enumNumber);
@@ -47,7 +47,7 @@ function getEnumString(Enum, enumNumber, upperCase = false) {
   return upperCase ? upper(camelized) : camelized;
 }
 
-function getEnumNumber(Enum, enumString) {
+export function getEnumNumber(Enum, enumString) {
   if (enumString === undefined) return undefined;
   const prefix = Object.keys(Enum)[0].split('_')[0];
   const field = [prefix, upper(snake(enumString), '_')].join('_');
@@ -57,23 +57,13 @@ function getEnumNumber(Enum, enumString) {
 }
 
 
-function serialize(ProtoClass, obj, converter) {
+export function serialize(ProtoClass, obj, converter) {
   if (obj === undefined) return undefined;
   const convertedObj = converter ? converter(obj) : obj;
   return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
 }
 
-function deserialize(ProtoClass, base64String, converter) {
+export function deserialize(ProtoClass, base64String, converter) {
   const obj = fixRepeatedFields(ProtoClass.deserializeBinary(toByteArray(base64String)).toObject());
   return converter ? converter(obj) : obj;
 }
-
-module.exports = {
-  fromObject,
-  omitUndefinedAndEmptyLists,
-  fixRepeatedFields,
-  getEnumString,
-  getEnumNumber,
-  serialize,
-  deserialize,
-};

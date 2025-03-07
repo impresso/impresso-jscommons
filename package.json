@@ -1,13 +1,13 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.js",
   "author": "Roman Kalyakin <roman@kalyakin.com>",
   "scripts": {
     "compile": "make generate-js",
-    "test": "mocha --recursive ./test",
+    "test": "mocha --recursive ./test/**/*.js",
     "build": "npm run build:js",
     "build:js": "rollup --config rollup.config.ts --configPlugin typescript --configImportAttributesKey with --environment NODE_ENV:production",
     "watch": "npm run watch:js",

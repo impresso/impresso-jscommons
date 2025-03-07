@@ -1,12 +1,6 @@
-(function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('case'), require('base64-js'), require('google-protobuf')) :
-typeof define === 'function' && define.amd ? define(['exports', 'case', 'base64-js', 'google-protobuf'], factory) :
-(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["impresso-jscommons"] = global["impresso-jscommons"] || {}, global.case, global["base64-js"], global.goog));
-})(this, (function (exports, require$$0, require$$1, require$$0$1) { 'use strict';
-
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
+import Case from 'case';
+import { toByteArray, fromByteArray } from 'base64-js';
+import require$$0 from 'google-protobuf';
 
 function ownKeys(e, r) {
   var t = Object.keys(e);
@@ -58,87 +52,71 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-var protobuf$1;
-var hasRequiredProtobuf$1;
-function requireProtobuf$1() {
-  if (hasRequiredProtobuf$1) return protobuf$1;
-  hasRequiredProtobuf$1 = 1;
-  const {
-    snake,
-    camel,
-    upper,
-    pascal
-  } = require$$0;
-  const {
-    fromByteArray,
-    toByteArray
-  } = require$$1;
+const {
+  snake,
+  camel: camel$1,
+  upper,
+  pascal
+} = Case;
 
-  // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
-  function fromObject(ProtoClass, obj) {
-    if (obj === undefined) return undefined;
-    const instance = new ProtoClass();
-    Object.keys(obj).forEach(property => {
-      const setterName = `set${pascal(property)}`;
-      const listSetterName = `set${pascal(property)}List`;
-      const setter = instance[setterName] || instance[listSetterName];
-      if (setter === undefined) throw new Error(`Unknown property: "${property}"`);
-      setter.call(instance, obj[property]);
-    });
-    return instance;
-  }
-  function omitUndefinedAndEmptyLists(obj) {
-    return Object.keys(obj).reduce((o, property) => {
-      if (o[property] === undefined || Array.isArray(o[property]) && o[property].length === 0) {
-        delete o[property];
-      }
-      return o;
-    }, obj);
-  }
-  function fixRepeatedFields(obj) {
-    return Object.keys(obj).reduce((o, property) => {
-      if (property.endsWith('List')) {
-        o[property.replace(/List$/, '')] = o[property].map(fixRepeatedFields);
-        delete o[property];
-      }
-      return o;
-    }, obj);
-  }
-  function getEnumString(Enum, enumNumber, upperCase = false) {
-    // `0` element is `undefined` by convention.
-    if (!enumNumber || enumNumber === 0) return undefined;
-    const enumString = Object.keys(Enum).find(key => Enum[key] === enumNumber);
-    if (!enumString) throw new Error(`Unknown enum number: ${enumNumber}`);
-    const camelized = camel(enumString.split('_').slice(1).join('_'));
-    return upperCase ? upper(camelized) : camelized;
-  }
-  function getEnumNumber(Enum, enumString) {
-    if (enumString === undefined) return undefined;
-    const prefix = Object.keys(Enum)[0].split('_')[0];
-    const field = [prefix, upper(snake(enumString), '_')].join('_');
-    const val = Enum[field];
-    if (val === undefined) throw new Error(`Unknown enum value: ${enumString} (${field})`);
-    return val;
-  }
-  function serialize(ProtoClass, obj, converter) {
-    if (obj === undefined) return undefined;
-    const convertedObj = converter ? converter(obj) : obj;
-    return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
-  }
-  function deserialize(ProtoClass, base64String, converter) {
-    const obj = fixRepeatedFields(ProtoClass.deserializeBinary(toByteArray(base64String)).toObject());
-    return converter ? converter(obj) : obj;
-  }
-  protobuf$1 = {
-    fromObject,
-    omitUndefinedAndEmptyLists,
-    fixRepeatedFields,
-    getEnumString,
-    getEnumNumber,
-    serialize,
-    deserialize
-  };
-  return protobuf$1;
+// While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
+function fromObject(ProtoClass, obj) {
+  if (obj === undefined) return undefined;
+  const instance = new ProtoClass();
+  Object.keys(obj).forEach(property => {
+    const setterName = `set${pascal(property)}`;
+    const listSetterName = `set${pascal(property)}List`;
+    const setter = instance[setterName] || instance[listSetterName];
+    if (setter === undefined) throw new Error(`Unknown property: "${property}"`);
+    setter.call(instance, obj[property]);
+  });
+  return instance;
+}
+function omitUndefinedAndEmptyLists(obj) {
+  return Object.keys(obj).reduce((o, property) => {
+    if (o[property] === undefined || Array.isArray(o[property]) && o[property].length === 0) {
+      delete o[property];
+    }
+    return o;
+  }, obj);
+}
+function fixRepeatedFields(obj) {
+  return Object.keys(obj).reduce((o, property) => {
+    if (property.endsWith('List')) {
+      o[property.replace(/List$/, '')] = o[property].map(fixRepeatedFields);
+      delete o[property];
+    }
+    return o;
+  }, obj);
+}
+function getEnumString(Enum, enumNumber, upperCase = false) {
+  // `0` element is `undefined` by convention.
+  if (!enumNumber || enumNumber === 0) return undefined;
+  const enumString = Object.keys(Enum).find(key => Enum[key] === enumNumber);
+  if (!enumString) throw new Error(`Unknown enum number: ${enumNumber}`);
+  const camelized = camel$1(enumString.split('_').slice(1).join('_'));
+  return upperCase ? upper(camelized) : camelized;
+}
+function getEnumNumber(Enum, enumString) {
+  if (enumString === undefined) return undefined;
+  const prefix = Object.keys(Enum)[0].split('_')[0];
+  const field = [prefix, upper(snake(enumString), '_')].join('_');
+  const val = Enum[field];
+  if (val === undefined) throw new Error(`Unknown enum value: ${enumString} (${field})`);
+  return val;
+}
+function serialize(ProtoClass, obj, converter) {
+  if (obj === undefined) return undefined;
+  const convertedObj = converter ? converter(obj) : obj;
+  return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
+}
+function deserialize(ProtoClass, base64String, converter) {
+  const obj = fixRepeatedFields(ProtoClass.deserializeBinary(toByteArray(base64String)).toObject());
+  return converter ? converter(obj) : obj;
+}
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
 var query_pb = {};
@@ -161,7 +139,7 @@ function requireQuery_pb() {
     /* eslint-disable */
     // @ts-nocheck
 
-    var jspb = require$$0$1;
+    var jspb = require$$0;
     var goog = jspb;
     var global = typeof globalThis !== 'undefined' && globalThis || typeof window !== 'undefined' && window || typeof global !== 'undefined' && global || typeof self !== 'undefined' && self || function () {
       return this;
@@ -1589,327 +1567,273 @@ function requireQuery_pb() {
   return query_pb;
 }
 
-var protobuf;
-var hasRequiredProtobuf;
-function requireProtobuf() {
-  if (hasRequiredProtobuf) return protobuf;
-  hasRequiredProtobuf = 1;
-  const {
-    fromObject,
-    omitUndefinedAndEmptyLists,
-    getEnumString,
-    getEnumNumber,
-    serialize,
-    deserialize
-  } = requireProtobuf$1();
-  const {
-    Filter,
-    FilterContext,
-    FilterOperator,
-    FilterType,
-    FilterPrecision,
-    DateRange,
-    SearchQuery,
-    GroupValue,
-    CollectionRecommendersSettings,
-    CollectionRecommender,
-    CollectionRecommenderParameter
-  } = requireQuery_pb();
-  function stringAsArray(s) {
-    if (typeof s === 'string' || s instanceof String) return [s];
-    return s;
-  }
-  function maybeArrayAsString(a) {
-    if (a !== undefined && a.length === 1) return a[0];
-    return a;
-  }
-  function daterangeSerializeConverter(daterange) {
-    if (daterange === undefined) return undefined;
-    return {
-      from: Date.parse(daterange.from),
-      to: Date.parse(daterange.to)
-    };
-  }
-  function daterangeDeserializeConverter(daterange) {
-    if (daterange === undefined) return undefined;
-    return {
-      from: new Date(daterange.from).toISOString(),
-      to: new Date(daterange.to).toISOString()
-    };
-  }
+var query_pbExports = requireQuery_pb();
+var Protobuf = /*@__PURE__*/getDefaultExportFromCjs(query_pbExports);
 
-  /**
-   * Convert from JS `Filter` Object to Protobuf `Filter` Message.
-   * Used before serializing.
-   * @param {object} filter
-   */
-  function filterSerializerConverter(filter) {
+const {
+  Filter,
+  FilterContext: FilterContext$1,
+  FilterOperator: FilterOperator$1,
+  FilterType: FilterType$1,
+  FilterPrecision: FilterPrecision$1,
+  DateRange,
+  SearchQuery,
+  GroupValue,
+  CollectionRecommendersSettings,
+  CollectionRecommender,
+  CollectionRecommenderParameter
+} = Protobuf;
+function stringAsArray(s) {
+  if (typeof s === 'string' || s instanceof String) return [s];
+  return s;
+}
+function maybeArrayAsString(a) {
+  if (a !== undefined && a.length === 1) return a[0];
+  return a;
+}
+function daterangeSerializeConverter(daterange) {
+  if (daterange === undefined) return undefined;
+  return {
+    from: Date.parse(daterange.from),
+    to: Date.parse(daterange.to)
+  };
+}
+function daterangeDeserializeConverter(daterange) {
+  if (daterange === undefined) return undefined;
+  return {
+    from: new Date(daterange.from).toISOString(),
+    to: new Date(daterange.to).toISOString()
+  };
+}
+
+/**
+ * Convert from JS `Filter` Object to Protobuf `Filter` Message.
+ * Used before serializing.
+ * @param {object} filter
+ */
+function filterSerializerConverter(filter) {
+  return _objectSpread2(_objectSpread2({}, filter), {}, {
+    q: stringAsArray(filter.q),
+    context: getEnumNumber(FilterContext$1, filter.context),
+    op: getEnumNumber(FilterOperator$1, filter.op),
+    type: getEnumNumber(FilterType$1, filter.type),
+    precision: getEnumNumber(FilterPrecision$1, filter.precision),
+    daterange: fromObject(DateRange, daterangeSerializeConverter(filter.daterange))
+  });
+}
+
+/**
+ * Convert from Protobuf `Filter` Message to JS `Filter` Object and remove default enums.
+ * Used after serializing.
+ * @param {object} filter
+ */
+function filterDeserializerConverter(filter) {
+  return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, filter), {}, {
+    q: maybeArrayAsString(filter.q),
+    context: getEnumString(FilterContext$1, filter.context),
+    op: getEnumString(FilterOperator$1, filter.op, true),
+    type: getEnumString(FilterType$1, filter.type),
+    precision: getEnumString(FilterPrecision$1, filter.precision),
+    daterange: daterangeDeserializeConverter(filter.daterange)
+  }));
+}
+function searchQuerySerializerConverter(searchQuery) {
+  return _objectSpread2(_objectSpread2({}, searchQuery), {}, {
+    filters: (searchQuery.filters || []).map(f => fromObject(Filter, filterSerializerConverter(f))),
+    groupBy: getEnumNumber(GroupValue, searchQuery.groupBy)
+  });
+}
+function searchQueryDeserializerConverter(searchQuery) {
+  return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, searchQuery), {}, {
+    filters: (searchQuery.filters || []).map(filterDeserializerConverter),
+    groupBy: getEnumString(GroupValue, searchQuery.groupBy)
+  }));
+}
+
+/**
+ * @param {number} number
+ * @param {digits} digits
+ * @returns {number|undefined}
+ */
+function toFixedPointNumber(number, digits = 2) {
+  if (number == null) return undefined;
+  return parseFloat(number.toFixed(digits)) * 10 ** digits;
+}
+function fromFixedPointNumber(number, digits = 2) {
+  if (number == null) return undefined;
+  return number / 10 ** digits;
+}
+function collectionRecommenderParameterSerializerConverter(obj) {
+  let stringValue;
+  let numberValue;
+  let boolValue;
+  if (typeof obj.value === 'number') numberValue = toFixedPointNumber(obj.value);
+  if (typeof obj.value === 'string') stringValue = obj.value;
+  if (typeof obj.value === 'boolean') boolValue = obj.value;
+  return {
+    key: getEnumNumber(CollectionRecommenderParameter.RecommenderParameterId, obj.key),
+    stringValue,
+    numberValue,
+    boolValue
+  };
+}
+function collectionRecommenderSerializerConverter(obj) {
+  return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, obj), {}, {
+    type: getEnumNumber(CollectionRecommender.RecommenderType, obj.type),
+    weight: toFixedPointNumber(obj.weight),
+    parameters: (obj.parameters || []).map(f => fromObject(CollectionRecommenderParameter, collectionRecommenderParameterSerializerConverter(f)))
+  }));
+}
+function collectionRecommendersSettingsSerializerConverter(obj) {
+  return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, obj), {}, {
+    recommenders: (obj.recommenders || []).map(f => fromObject(CollectionRecommender, collectionRecommenderSerializerConverter(f)))
+  }));
+}
+function collectionRecommenderParameterDeserializerConverter(parameter) {
+  let value;
+  if (parameter.boolValue != null) value = parameter.boolValue;
+  if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
+  if (parameter.stringValue !== '') value = parameter.stringValue;
+  return omitUndefinedAndEmptyLists({
+    key: getEnumString(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
+    value
+  });
+}
+function collectionRecommenderDeserializerConverter(recommender) {
+  return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, recommender), {}, {
+    type: getEnumString(CollectionRecommender.RecommenderType, recommender.type, false),
+    weight: fromFixedPointNumber(recommender.weight) || 0,
+    parameters: (recommender.parameters || []).map(collectionRecommenderParameterDeserializerConverter),
+    enabled: recommender.enabled || undefined
+  }));
+}
+function collectionRecommendersSettingsDeserializerConverter(settings) {
+  return omitUndefinedAndEmptyLists({
+    recommenders: (settings.recommenders || []).map(collectionRecommenderDeserializerConverter)
+  });
+}
+var index$1 = {
+  filter: {
+    serialize: obj => serialize(Filter, obj, filterSerializerConverter),
+    deserialize: base64String => deserialize(Filter, base64String, filterDeserializerConverter)
+  },
+  searchQuery: {
+    serialize: obj => serialize(SearchQuery, obj, searchQuerySerializerConverter),
+    deserialize: base64String => deserialize(SearchQuery, base64String, searchQueryDeserializerConverter)
+  },
+  collectionRecommendersSettings: {
+    serialize: obj => serialize(CollectionRecommendersSettings, obj, collectionRecommendersSettingsSerializerConverter),
+    deserialize: base64String => deserialize(CollectionRecommendersSettings, base64String, collectionRecommendersSettingsDeserializerConverter)
+  }
+};
+
+const {
+  camel
+} = Case;
+const {
+  FilterType,
+  FilterOperator,
+  FilterContext,
+  FilterPrecision
+} = Protobuf;
+const Types = Object.freeze(Object.keys(FilterType).filter(filterType => FilterType[filterType] !== FilterType.TYPE_UNSPECIFIED).map(filterType => camel(filterType.split('_').slice(1).join('_'))));
+const Operators = Object.freeze(Object.keys(FilterOperator).filter(operator => FilterOperator[operator] !== FilterOperator.OPERATOR_UNSPECIFIED).map(operator => camel(operator.split('_').slice(1).join('_')).toUpperCase()));
+const Contexts = Object.freeze(Object.keys(FilterContext).filter(context => FilterContext[context] !== FilterContext.CONTEXT_UNSPECIFIED).map(context => camel(context.split('_').slice(1).join('_')).toLowerCase()));
+const Precision = Object.freeze(Object.keys(FilterPrecision).filter(precision => FilterPrecision[precision] !== FilterPrecision.PRECISION_UNSPECIFIED).map(precision => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
+const filter$1 = {
+  Types,
+  Operators,
+  Contexts,
+  Precision
+};
+var constants = {
+  filter: filter$1
+};
+
+// @ts-check
+
+/**
+ * @typedef {import('..').Filter} Filter
+ */
+
+/**
+ * @param {Filter} p
+ * @returns {string}
+ */
+const getFilterMergeKey = ({
+  type,
+  op = 'OR',
+  context = 'inclusive',
+  precision = 'exact'
+}) => `t:${type}-o:${op}-c:${context}-p:${precision}`;
+
+/**
+ * @param {object} object
+ * @param {function} fn
+ * @returns {object}
+ */
+const omitBy = (object, fn) => Object.keys(object).reduce((acc, key) => {
+  const value = object[key];
+  if (!fn(value)) acc[key] = value;
+  return acc;
+}, {});
+
+/**
+ * Optimize filters by merging filters of the same type with the same
+ * context/precision where possible.
+ * @param {Filter[]} filters
+ * @returns {Filter[]}
+ */
+function optimizeFilters(filters) {
+  const groupingMap = filters.reduce((map, filter) => {
+    const key = getFilterMergeKey(filter);
+    const items = map.get(key) || [];
+    map.set(key, items.concat([filter]));
+    return map;
+  }, new Map());
+  return [...groupingMap.entries()].map(([, groupedFilters]) => {
+    const {
+      type,
+      context,
+      precision,
+      op
+    } = groupedFilters[0];
+    const query = groupedFilters.flatMap(({
+      q
+    }) => Array.isArray(q) ? q : [q]).filter(value => value != null);
+    return omitBy({
+      type,
+      context,
+      precision,
+      op,
+      q: query.length > 1 ? query : query[0]
+    }, value => value == null);
+  });
+}
+
+/**
+ * Merge filters with a rule that all single item (`q`) filters operator
+ * is set to `AND`. Then the standard merge is applied.
+ * @param {Filter[][]} filtersSets
+ * @returns {Filter[]}
+ */
+function mergeFilters(filtersSets) {
+  return optimizeFilters(filtersSets.flat().map(filter => {
+    const op = Array.isArray(filter.q) && filter.q.length === 1 || !Array.isArray(filter.q) ? 'AND' : filter.op;
     return _objectSpread2(_objectSpread2({}, filter), {}, {
-      q: stringAsArray(filter.q),
-      context: getEnumNumber(FilterContext, filter.context),
-      op: getEnumNumber(FilterOperator, filter.op),
-      type: getEnumNumber(FilterType, filter.type),
-      precision: getEnumNumber(FilterPrecision, filter.precision),
-      daterange: fromObject(DateRange, daterangeSerializeConverter(filter.daterange))
+      op
     });
-  }
-
-  /**
-   * Convert from Protobuf `Filter` Message to JS `Filter` Object and remove default enums.
-   * Used after serializing.
-   * @param {object} filter
-   */
-  function filterDeserializerConverter(filter) {
-    return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, filter), {}, {
-      q: maybeArrayAsString(filter.q),
-      context: getEnumString(FilterContext, filter.context),
-      op: getEnumString(FilterOperator, filter.op, true),
-      type: getEnumString(FilterType, filter.type),
-      precision: getEnumString(FilterPrecision, filter.precision),
-      daterange: daterangeDeserializeConverter(filter.daterange)
-    }));
-  }
-  function searchQuerySerializerConverter(searchQuery) {
-    return _objectSpread2(_objectSpread2({}, searchQuery), {}, {
-      filters: (searchQuery.filters || []).map(f => fromObject(Filter, filterSerializerConverter(f))),
-      groupBy: getEnumNumber(GroupValue, searchQuery.groupBy)
-    });
-  }
-  function searchQueryDeserializerConverter(searchQuery) {
-    return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, searchQuery), {}, {
-      filters: (searchQuery.filters || []).map(filterDeserializerConverter),
-      groupBy: getEnumString(GroupValue, searchQuery.groupBy)
-    }));
-  }
-
-  /**
-   * @param {number} number
-   * @param {digits} digits
-   * @returns {number|undefined}
-   */
-  function toFixedPointNumber(number, digits = 2) {
-    if (number == null) return undefined;
-    return parseFloat(number.toFixed(digits)) * 10 ** digits;
-  }
-  function fromFixedPointNumber(number, digits = 2) {
-    if (number == null) return undefined;
-    return number / 10 ** digits;
-  }
-  function collectionRecommenderParameterSerializerConverter(obj) {
-    let stringValue;
-    let numberValue;
-    let boolValue;
-    if (typeof obj.value === 'number') numberValue = toFixedPointNumber(obj.value);
-    if (typeof obj.value === 'string') stringValue = obj.value;
-    if (typeof obj.value === 'boolean') boolValue = obj.value;
-    return {
-      key: getEnumNumber(CollectionRecommenderParameter.RecommenderParameterId, obj.key),
-      stringValue,
-      numberValue,
-      boolValue
-    };
-  }
-  function collectionRecommenderSerializerConverter(obj) {
-    return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, obj), {}, {
-      type: getEnumNumber(CollectionRecommender.RecommenderType, obj.type),
-      weight: toFixedPointNumber(obj.weight),
-      parameters: (obj.parameters || []).map(f => fromObject(CollectionRecommenderParameter, collectionRecommenderParameterSerializerConverter(f)))
-    }));
-  }
-  function collectionRecommendersSettingsSerializerConverter(obj) {
-    return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, obj), {}, {
-      recommenders: (obj.recommenders || []).map(f => fromObject(CollectionRecommender, collectionRecommenderSerializerConverter(f)))
-    }));
-  }
-  function collectionRecommenderParameterDeserializerConverter(parameter) {
-    let value;
-    if (parameter.boolValue != null) value = parameter.boolValue;
-    if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
-    if (parameter.stringValue !== '') value = parameter.stringValue;
-    return omitUndefinedAndEmptyLists({
-      key: getEnumString(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
-      value
-    });
-  }
-  function collectionRecommenderDeserializerConverter(recommender) {
-    return omitUndefinedAndEmptyLists(_objectSpread2(_objectSpread2({}, recommender), {}, {
-      type: getEnumString(CollectionRecommender.RecommenderType, recommender.type, false),
-      weight: fromFixedPointNumber(recommender.weight) || 0,
-      parameters: (recommender.parameters || []).map(collectionRecommenderParameterDeserializerConverter),
-      enabled: recommender.enabled || undefined
-    }));
-  }
-  function collectionRecommendersSettingsDeserializerConverter(settings) {
-    return omitUndefinedAndEmptyLists({
-      recommenders: (settings.recommenders || []).map(collectionRecommenderDeserializerConverter)
-    });
-  }
-  protobuf = {
-    filter: {
-      serialize: obj => serialize(Filter, obj, filterSerializerConverter),
-      deserialize: base64String => deserialize(Filter, base64String, filterDeserializerConverter)
-    },
-    searchQuery: {
-      serialize: obj => serialize(SearchQuery, obj, searchQuerySerializerConverter),
-      deserialize: base64String => deserialize(SearchQuery, base64String, searchQueryDeserializerConverter)
-    },
-    collectionRecommendersSettings: {
-      serialize: obj => serialize(CollectionRecommendersSettings, obj, collectionRecommendersSettingsSerializerConverter),
-      deserialize: base64String => deserialize(CollectionRecommendersSettings, base64String, collectionRecommendersSettingsDeserializerConverter)
-    }
-  };
-  return protobuf;
+  }));
 }
 
-var constants;
-var hasRequiredConstants;
-function requireConstants() {
-  if (hasRequiredConstants) return constants;
-  hasRequiredConstants = 1;
-  const {
-    camel
-  } = require$$0;
-  const {
-    FilterType,
-    FilterOperator,
-    FilterContext,
-    FilterPrecision
-  } = requireQuery_pb();
-  const Types = Object.freeze(Object.keys(FilterType).filter(filterType => FilterType[filterType] !== FilterType.TYPE_UNSPECIFIED).map(filterType => camel(filterType.split('_').slice(1).join('_'))));
-  const Operators = Object.freeze(Object.keys(FilterOperator).filter(operator => FilterOperator[operator] !== FilterOperator.OPERATOR_UNSPECIFIED).map(operator => camel(operator.split('_').slice(1).join('_')).toUpperCase()));
-  const Contexts = Object.freeze(Object.keys(FilterContext).filter(context => FilterContext[context] !== FilterContext.CONTEXT_UNSPECIFIED).map(context => camel(context.split('_').slice(1).join('_')).toLowerCase()));
-  const Precision = Object.freeze(Object.keys(FilterPrecision).filter(precision => FilterPrecision[precision] !== FilterPrecision.PRECISION_UNSPECIFIED).map(precision => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
-  constants = {
-    filter: {
-      Types,
-      Operators,
-      Contexts,
-      Precision
-    }
-  };
-  return constants;
-}
+var filter = /*#__PURE__*/Object.freeze({
+__proto__: null,
+mergeFilters: mergeFilters,
+optimizeFilters: optimizeFilters
+});
 
-var filter;
-var hasRequiredFilter;
-function requireFilter() {
-  if (hasRequiredFilter) return filter;
-  hasRequiredFilter = 1;
-  // @ts-check
+var index = {
+  filter
+};
 
-  /**
-   * @typedef {import('..').Filter} Filter
-   */
-
-  /**
-   * @param {Filter} p
-   * @returns {string}
-   */
-  const getFilterMergeKey = ({
-    type,
-    op = 'OR',
-    context = 'inclusive',
-    precision = 'exact'
-  }) => `t:${type}-o:${op}-c:${context}-p:${precision}`;
-
-  /**
-   * @param {object} object
-   * @param {function} fn
-   * @returns {object}
-   */
-  const omitBy = (object, fn) => Object.keys(object).reduce((acc, key) => {
-    const value = object[key];
-    if (!fn(value)) acc[key] = value;
-    return acc;
-  }, {});
-
-  /**
-   * Optimize filters by merging filters of the same type with the same
-   * context/precision where possible.
-   * @param {Filter[]} filters
-   * @returns {Filter[]}
-   */
-  function optimizeFilters(filters) {
-    const groupingMap = filters.reduce((map, filter) => {
-      const key = getFilterMergeKey(filter);
-      const items = map.get(key) || [];
-      map.set(key, items.concat([filter]));
-      return map;
-    }, new Map());
-    return [...groupingMap.entries()].map(([, groupedFilters]) => {
-      const {
-        type,
-        context,
-        precision,
-        op
-      } = groupedFilters[0];
-      const query = groupedFilters.flatMap(({
-        q
-      }) => Array.isArray(q) ? q : [q]).filter(value => value != null);
-      return omitBy({
-        type,
-        context,
-        precision,
-        op,
-        q: query.length > 1 ? query : query[0]
-      }, value => value == null);
-    });
-  }
-
-  /**
-   * Merge filters with a rule that all single item (`q`) filters operator
-   * is set to `AND`. Then the standard merge is applied.
-   * @param {Filter[][]} filtersSets
-   * @returns {Filter[]}
-   */
-  function mergeFilters(filtersSets) {
-    return optimizeFilters(filtersSets.flat().map(filter => {
-      const op = Array.isArray(filter.q) && filter.q.length === 1 || !Array.isArray(filter.q) ? 'AND' : filter.op;
-      return _objectSpread2(_objectSpread2({}, filter), {}, {
-        op
-      });
-    }));
-  }
-  filter = {
-    optimizeFilters,
-    mergeFilters
-  };
-  return filter;
-}
-
-var logic;
-var hasRequiredLogic;
-function requireLogic() {
-  if (hasRequiredLogic) return logic;
-  hasRequiredLogic = 1;
-  const filter = requireFilter();
-  logic = {
-    filter
-  };
-  return logic;
-}
-
-var src;
-var hasRequiredSrc;
-function requireSrc() {
-  if (hasRequiredSrc) return src;
-  hasRequiredSrc = 1;
-  const protobuf = requireProtobuf();
-  const constants = requireConstants();
-  const logic = requireLogic();
-  src = {
-    protobuf,
-    constants,
-    logic
-  };
-  return src;
-}
-
-var srcExports = requireSrc();
-var index = /*@__PURE__*/getDefaultExportFromCjs(srcExports);
-
-exports.default = index;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
+export { constants, index as logic, index$1 as protobuf };
