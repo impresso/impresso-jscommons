@@ -57,11 +57,11 @@ export interface Entity {
   firstIssue?: { date: Date },
   lastIssue?: { date: Date },
 
-  countArticles?: Number,
-  countIssues?: Number,
+  countArticles?: number,
+  countIssues?: number,
 
-  start?: Number,
-  end?: Number
+  start?: number,
+  end?: number
 }
 
 export interface Filter {
