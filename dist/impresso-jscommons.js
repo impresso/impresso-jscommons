@@ -1,6 +1,8 @@
-import Case from 'case';
-import { toByteArray, fromByteArray } from 'base64-js';
-import require$$0 from 'google-protobuf';
+(function (global, factory) {
+typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('case'), require('base64-js'), require('google-protobuf')) :
+typeof define === 'function' && define.amd ? define(['exports', 'case', 'base64-js', 'google-protobuf'], factory) :
+(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["impresso-jscommons"] = global["impresso-jscommons"] || {}, global.case, global["base64-js"], global.goog));
+})(this, (function (exports, Case, base64Js, require$$0) { 'use strict';
 
 function ownKeys(e, r) {
   var t = Object.keys(e);
@@ -108,10 +110,10 @@ function getEnumNumber(Enum, enumString) {
 function serialize(ProtoClass, obj, converter) {
   if (obj === undefined) return undefined;
   const convertedObj = converter ? converter(obj) : obj;
-  return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
+  return base64Js.fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
 }
 function deserialize(ProtoClass, base64String, converter) {
-  const obj = fixRepeatedFields(ProtoClass.deserializeBinary(toByteArray(base64String)).toObject());
+  const obj = fixRepeatedFields(ProtoClass.deserializeBinary(base64Js.toByteArray(base64String)).toObject());
   return converter ? converter(obj) : obj;
 }
 
@@ -1836,4 +1838,8 @@ var index = {
   filter
 };
 
-export { constants, index as logic, index$1 as protobuf };
+exports.constants = constants;
+exports.logic = index;
+exports.protobuf = index$1;
+
+}));

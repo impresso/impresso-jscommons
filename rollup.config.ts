@@ -11,7 +11,7 @@ const defaultConfig: RollupOptions = {
   output: {
     file: `dist/${meta.name}.js`,
     name: meta.name,
-    format: 'es',
+    format: 'umd',
     exports: 'named', /** Disable warning for default imports */
     indent: false,
     extend: true,
