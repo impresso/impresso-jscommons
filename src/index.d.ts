@@ -27,10 +27,10 @@ type FilterContextWithoutPrefix = {
 }
 type FilterContext = keyof FilterContextWithoutPrefix
 
-// Remapped type without the OP_ prefix and in camelCase
+// Remapped type without the OP_ prefix and in upper case
 type FilterOperatorWithoutPrefix = {
   [K in keyof FilterOperatorMap as K extends `OPERATOR_${infer R}`
-    ? OmitUnspecified<SnakeToCamel<Lowercase<R>>>
+    ? Uppercase<OmitUnspecified<Lowercase<R>>>
     : K]: FilterOperatorMap[K]
 }
 type FilterOperator = keyof FilterOperatorWithoutPrefix
