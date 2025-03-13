@@ -1,8 +1,8 @@
-(function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('case'), require('base64-js'), require('google-protobuf')) :
-typeof define === 'function' && define.amd ? define(['exports', 'case', 'base64-js', 'google-protobuf'], factory) :
-(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["impresso-jscommons"] = global["impresso-jscommons"] || {}, global.case, global["base64-js"], global.goog));
-})(this, (function (exports, _case, base64Js, require$$0) { 'use strict';
+'use strict';
+
+var _case = require('case');
+var base64Js = require('base64-js');
+var require$$0 = require('google-protobuf');
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
 function fromObject(ProtoClass, obj) {
@@ -1818,5 +1818,3 @@ exports.constants = constants;
 exports.jsonSchemas = index;
 exports.logic = index$1;
 exports.protobuf = index$2;
-
-}));

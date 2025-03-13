@@ -1,9 +1,5 @@
-import assert from 'assert';
-import { protobuf, constants } from '../../src/index.js';
-
-const normalizeDateString = (s) => new Date(Date.parse(s)).toISOString();
-
-
+import { protobuf, constants, jsonSchemas } from '../../src/index';
+import { Filter, CollectionRecommendersSettings } from '../../src/types/index';
 
 describe('Filter <-> protobuf', () => {
   it('collection query', () => {
@@ -12,58 +8,26 @@ describe('Filter <-> protobuf', () => {
       op: 'AND',
       type: 'collection',
       q: ['abc123', 'def'],
-    };
+    } satisfies Filter;
     const expectedBase64String = 'CAEQARgTKgZhYmMxMjMqA2RlZg==';
 
     const base64String = protobuf.filter.serialize(testFilter);
-    assert.equal(base64String, expectedBase64String);
+    expect(base64String).toBe(expectedBase64String);
     const deserializedFilter = protobuf.filter.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testFilter);
-  });
-
-  it('daterange query before Unix time', () => {
-    const testFilter = {
-      type: 'daterange',
-      daterange: {
-        from: normalizeDateString('1869-02-03'),
-        to: normalizeDateString('2019-02-05T12:35:17Z'),
-      },
-    };
-    const expectedBase64String = 'GAoyDwj//+iorbkBEJCuvtqXWg==';
-
-    const base64String = protobuf.filter.serialize(testFilter);
-    assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = protobuf.filter.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testFilter);
-  });
-
-  it('daterange query after Unix time', () => {
-    const testFilter = {
-      type: 'daterange',
-      daterange: {
-        from: normalizeDateString('1989-02-03'),
-        to: normalizeDateString('2019-02-05T12:35:17Z'),
-      },
-    };
-    const expectedBase64String = 'GAoyDgiAsL/diCMQkK6+2pda';
-
-    const base64String = protobuf.filter.serialize(testFilter);
-    assert.equal(base64String, expectedBase64String);
-    const deserializedFilter = protobuf.filter.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testFilter);
+    expect(deserializedFilter).toEqual(testFilter);
   });
 
   it('uids query', () => {
     const testFilter = {
       type: 'uid',
       uids: ['123'],
-    };
+    } satisfies Filter;
     const expectedBase64String = 'GAE6AzEyMw==';
 
     const base64String = protobuf.filter.serialize(testFilter);
-    assert.equal(base64String, expectedBase64String);
+    expect(base64String).toBe(expectedBase64String);
     const deserializedFilter = protobuf.filter.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testFilter);
+    expect(deserializedFilter).toEqual(testFilter);
   });
 });
 
@@ -79,10 +43,7 @@ describe('SearchQuery <-> protobuf', () => {
         },
         {
           type: 'daterange',
-          daterange: {
-            from: normalizeDateString('1989-02-03'),
-            to: normalizeDateString('2019-02-05T12:35:17Z'),
-          },
+          q: "1989-02-03 TO 2019-02-05T12:35:17Z",
         },
         {
           type: 'uid',
@@ -92,15 +53,15 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'hasTextContents',
           uids: ['foo', 'bar'],
         },
-      ],
+      ] satisfies Filter[],
       groupBy: 'articles',
     };
-    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwoSGAoyDgiAsL/diCMQkK6+2pdaCgcYAToDMTIzCgwYAjoDZm9vOgNiYXIQAQ==';
+    const expectedBase64String = 'Cg4IARABGBMqBmFiYzEyMwomGAoqIjE5ODktMDItMDMgVE8gMjAxOS0wMi0wNVQxMjozNToxN1oKBxgBOgMxMjMKDBgCOgNmb286A2JhchAB';
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, expectedBase64String);
+    expect(base64String).toBe(expectedBase64String);
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 
   it('fails with unknown groupBy value', () => {
@@ -112,10 +73,10 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'collection',
           q: 'abc123',
         },
-      ],
+      ] satisfies Filter[],
       groupBy: 'asdf',
     };
-    assert.throws(() => protobuf.searchQuery.serialize(testSearchQuery), /Unknown enum value: asdf/);
+    expect(() => protobuf.searchQuery.serialize(testSearchQuery)).toThrow(/Unknown enum value: asdf/);
   });
 
   it('real query 1', () => {
@@ -128,13 +89,13 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'person',
           q: ['aida-0001-50-Albert_Einstein', 'aida-0001-50-Max_Planck'],
         },
-      ],
+      ] satisfies Filter[],
     };
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'CgYIARACGAIKPQgBEAEYECocYWlkYS0wMDAxLTUwLUFsYmVydF9FaW5zdGVpbioXYWlkYS0wMDAxLTUwLU1heF9QbGFuY2s=');
+    expect(base64String).toBe('CgYIARACGAIKPQgBEAEYECocYWlkYS0wMDAxLTUwLUFsYmVydF9FaW5zdGVpbioXYWlkYS0wMDAxLTUwLU1heF9QbGFuY2s=');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 
   it('string query single term', () => {
@@ -148,12 +109,12 @@ describe('SearchQuery <-> protobuf', () => {
           q: 'Albert',
           precision: 'exact',
         },
-      ],
+      ] satisfies Filter[],
     };
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'CgIYAgoMGAcgASoGQWxiZXJ0');
+    expect(base64String).toBe('CgIYAgoMGAcgASoGQWxiZXJ0');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 
   it('test new filters', () => {
@@ -169,12 +130,12 @@ describe('SearchQuery <-> protobuf', () => {
           q: 'SNL',
           op: 'OR',
         },
-      ],
+      ] satisfies Filter[],
     };
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'ChAQAhgXKgpPcGVuUHVibGljCgkQAhgYKgNTTkw=');
+    expect(base64String).toBe('ChAQAhgXKgpPcGVuUHVibGljCgkQAhgYKgNTTkw=');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 
   it('test complex filters', () => {
@@ -195,12 +156,12 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'accessRight',
           q: 'OpenPublic',
         },
-      ],
+      ] satisfies Filter[],
     };
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM=');
+    expect(base64String).toBe('CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM=');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 
   it('test text reuse cluster filters', () => {
@@ -212,36 +173,36 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'textReuseCluster',
           q: ['a', 'b'],
         },
-      ],
+      ] satisfies Filter[],
     };
     const base64String = protobuf.searchQuery.serialize(testSearchQuery);
-    assert.equal(base64String, 'CgwIARACGB0qAWEqAWI=');
+    expect(base64String).toBe('CgwIARACGB0qAWEqAWI=');
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, testSearchQuery);
+    expect(deserializedFilter).toEqual(testSearchQuery);
   });
 });
 
 describe('constants', () => {
   it('represents multiword filter types right', () => {
     const { filter: { Types } } = constants;
-    assert.ok(Types.includes('person'));
-    assert.ok(Types.includes('accessRight'));
-    assert.ok(Types.includes('textReuseClusterSize'));
+    expect(Types).toContain('person');
+    expect(Types).toContain('accessRight');
+    expect(Types).toContain('textReuseClusterSize');
   });
 
   it('represents operators', () => {
     const { filter: { Operators } } = constants;
-    assert.equal(JSON.stringify(Operators), JSON.stringify(['AND', 'OR']));
+    expect(JSON.stringify(Operators)).toBe(JSON.stringify(['AND', 'OR']));
   });
 
   it('represents contexts', () => {
     const { filter: { Contexts } } = constants;
-    assert.equal(JSON.stringify(Contexts), JSON.stringify(['include', 'exclude']));
+    expect(JSON.stringify(Contexts)).toBe(JSON.stringify(['include', 'exclude']));
   });
 
   it('represents precision', () => {
     const { filter: { Precision } } = constants;
-    assert.ok(Precision.includes('fuzzy'));
+    expect(Precision).toContain('fuzzy');
   });
 });
 
@@ -272,14 +233,22 @@ describe('CollectionRecommendersSettings <-> protobuf', () => {
           ],
         },
       ],
-    };
+    } satisfies CollectionRecommendersSettings;
 
     const expectedBase64String = 'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKEAgDEMgBGgcIARIDYm9vIAE=';
 
     const base64String = protobuf.collectionRecommendersSettings.serialize(settings);
-    assert.equal(base64String, expectedBase64String);
+    expect(base64String).toBe(expectedBase64String);
     const deserializedFilter = protobuf.collectionRecommendersSettings.deserialize(base64String);
-    assert.deepEqual(deserializedFilter, settings);
+    expect(deserializedFilter).toEqual(settings);
+  });
+});
+
+describe('jsonSchemas', () => {
+  it('can import jsonSchemas', () => {
+    expect(jsonSchemas).toBeDefined();
+    expect(Object.keys(jsonSchemas).length).toBeGreaterThan(0);
+    expect(jsonSchemas.Filter.title).toBe('Filter');
   });
 });
 

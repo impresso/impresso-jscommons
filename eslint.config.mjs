@@ -28,7 +28,6 @@ export default tseslint.config(
         },
         languageOptions: {
           globals: {
-            ...globals.mocha,
             ...globals.node,
           },
         },

@@ -1,8 +1,6 @@
-(function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('case'), require('base64-js'), require('google-protobuf')) :
-typeof define === 'function' && define.amd ? define(['exports', 'case', 'base64-js', 'google-protobuf'], factory) :
-(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["impresso-jscommons"] = global["impresso-jscommons"] || {}, global.case, global["base64-js"], global.goog));
-})(this, (function (exports, _case, base64Js, require$$0) { 'use strict';
+import { pascal, camel, upper, snake } from 'case';
+import { fromByteArray, toByteArray } from 'base64-js';
+import require$$0 from 'google-protobuf';
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
 function fromObject(ProtoClass, obj) {
@@ -10,8 +8,8 @@ function fromObject(ProtoClass, obj) {
         return undefined;
     const instance = new ProtoClass();
     Object.keys(obj).forEach((property) => {
-        const setterName = `set${_case.pascal(property)}`;
-        const listSetterName = `set${_case.pascal(property)}List`;
+        const setterName = `set${pascal(property)}`;
+        const listSetterName = `set${pascal(property)}List`;
         const setter = instance[setterName] || instance[listSetterName];
         if (setter === undefined)
             throw new Error(`Unknown property: "${property}"`);
@@ -43,14 +41,14 @@ function getEnumString(Enum, enumNumber, upperCase = false) {
     const enumString = Object.keys(Enum).find((key) => Enum[key] === enumNumber);
     if (!enumString)
         throw new Error(`Unknown enum number: ${enumNumber}`);
-    const camelized = _case.camel(enumString.split('_').slice(1).join('_'));
-    return upperCase ? _case.upper(camelized) : camelized;
+    const camelized = camel(enumString.split('_').slice(1).join('_'));
+    return upperCase ? upper(camelized) : camelized;
 }
 function getEnumNumber(Enum, enumString) {
     if (enumString === undefined)
         return undefined;
     const prefix = Object.keys(Enum)[0].split('_')[0];
-    const field = [prefix, _case.upper(_case.snake(enumString), '_')].join('_');
+    const field = [prefix, upper(snake(enumString), '_')].join('_');
     const val = Enum[field];
     if (val === undefined)
         throw new Error(`Unknown enum value: ${enumString} (${field})`);
@@ -60,10 +58,10 @@ function serialize(ProtoClass, obj, converter) {
     if (obj === undefined)
         return undefined;
     const convertedObj = converter ? converter(obj) : obj;
-    return base64Js.fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
+    return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
 }
 function deserialize(ProtoClass, base64String, converter) {
-    const obj = fixRepeatedFields(ProtoClass.deserializeBinary(base64Js.toByteArray(base64String)).toObject());
+    const obj = fixRepeatedFields(ProtoClass.deserializeBinary(toByteArray(base64String)).toObject());
     return converter ? converter(obj) : obj;
 }
 
@@ -1684,19 +1682,19 @@ var index$2 = {
 const Types = Object.freeze(Object
     .keys(query_pbExports.FilterType)
     .filter((filterType) => query_pbExports.FilterType[filterType] !== query_pbExports.FilterType.TYPE_UNSPECIFIED)
-    .map((filterType) => _case.camel(filterType.split('_').slice(1).join('_'))));
+    .map((filterType) => camel(filterType.split('_').slice(1).join('_'))));
 const Operators = Object.freeze(Object
     .keys(query_pbExports.FilterOperator)
     .filter((operator) => query_pbExports.FilterOperator[operator] !== query_pbExports.FilterOperator.OPERATOR_UNSPECIFIED)
-    .map((operator) => _case.camel(operator.split('_').slice(1).join('_')).toUpperCase()));
+    .map((operator) => camel(operator.split('_').slice(1).join('_')).toUpperCase()));
 const Contexts = Object.freeze(Object
     .keys(query_pbExports.FilterContext)
     .filter((context) => query_pbExports.FilterContext[context] !== query_pbExports.FilterContext.CONTEXT_UNSPECIFIED)
-    .map((context) => _case.camel(context.split('_').slice(1).join('_')).toLowerCase()));
+    .map((context) => camel(context.split('_').slice(1).join('_')).toLowerCase()));
 const Precision = Object.freeze(Object
     .keys(query_pbExports.FilterPrecision)
     .filter((precision) => query_pbExports.FilterPrecision[precision] !== query_pbExports.FilterPrecision.PRECISION_UNSPECIFIED)
-    .map((precision) => _case.camel(precision.split('_').slice(1).join('_')).toLowerCase()));
+    .map((precision) => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
 var constants = {
     filter: {
         Types,
@@ -1814,9 +1812,5 @@ var Filter = {
 
 var index = { Filter };
 
-exports.constants = constants;
-exports.jsonSchemas = index;
-exports.logic = index$1;
-exports.protobuf = index$2;
-
-}));
+export { constants, index as jsonSchemas, index$1 as logic, index$2 as protobuf };
+//# sourceMappingURL=impresso-jscommons.esm.js.map

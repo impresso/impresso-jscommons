@@ -82,7 +82,7 @@ message Filter {
   FilterType type = 3;
   FilterPrecision precision = 4;
   repeated string q = 5;
-  DateRange daterange = 6;
+  DateRange daterange = 6 [deprecated=true]; // not used anymore, q is used instead
   repeated string uids = 7;
 }
 
