@@ -5,26 +5,13 @@ import {
   getEnumNumber,
   serialize,
   deserialize,
-} from '../util/protobuf.js';
+} from '../util/protobuf';
+import * as pb from '../generated/query_pb.js';
 
-import Protobuf from '../generated/query_pb.js';
+import { Filter, CollectionRecommendersSettings, SearchQuery } from '../types/index';
 
-const {
-  Filter,
-  FilterContext,
-  FilterOperator,
-  FilterType,
-  FilterPrecision,
-  DateRange,
-  SearchQuery,
-  GroupValue,
-  CollectionRecommendersSettings,
-  CollectionRecommender,
-  CollectionRecommenderParameter,
-} = Protobuf;
-
-function stringAsArray(s) {
-  if (typeof s === 'string' || s instanceof String) return [s];
+function stringAsArray(s: string | string[]): string[] {
+  if (typeof s === 'string' || s instanceof String) return [s as string];
   return s;
 }
 
@@ -59,11 +46,11 @@ function filterSerializerConverter(filter) {
   return {
     ...filter,
     q: stringAsArray(filter.q),
-    context: getEnumNumber(FilterContext, filter.context),
-    op: getEnumNumber(FilterOperator, filter.op),
-    type: getEnumNumber(FilterType, filter.type),
-    precision: getEnumNumber(FilterPrecision, filter.precision),
-    daterange: fromObject(DateRange, daterangeSerializeConverter(filter.daterange)),
+    context: getEnumNumber(pb.FilterContext, filter.context),
+    op: getEnumNumber(pb.FilterOperator, filter.op),
+    type: getEnumNumber(pb.FilterType, filter.type),
+    precision: getEnumNumber(pb.FilterPrecision, filter.precision),
+    daterange: fromObject(pb.DateRange, daterangeSerializeConverter(filter.daterange)),
   };
 }
 
@@ -76,10 +63,10 @@ function filterDeserializerConverter(filter) {
   return omitUndefinedAndEmptyLists({
     ...filter,
     q: maybeArrayAsString(filter.q),
-    context: getEnumString(FilterContext, filter.context),
-    op: getEnumString(FilterOperator, filter.op, true),
-    type: getEnumString(FilterType, filter.type),
-    precision: getEnumString(FilterPrecision, filter.precision),
+    context: getEnumString(pb.FilterContext, filter.context),
+    op: getEnumString(pb.FilterOperator, filter.op, true),
+    type: getEnumString(pb.FilterType, filter.type),
+    precision: getEnumString(pb.FilterPrecision, filter.precision),
     daterange: daterangeDeserializeConverter(filter.daterange),
   });
 }
@@ -88,8 +75,8 @@ function searchQuerySerializerConverter(searchQuery) {
   return {
     ...searchQuery,
     filters: (searchQuery.filters || [])
-      .map((f) => fromObject(Filter, filterSerializerConverter(f))),
-    groupBy: getEnumNumber(GroupValue, searchQuery.groupBy),
+      .map((f) => fromObject(pb.Filter, filterSerializerConverter(f))),
+    groupBy: getEnumNumber(pb.GroupValue, searchQuery.groupBy),
   };
 }
 
@@ -97,7 +84,7 @@ function searchQueryDeserializerConverter(searchQuery) {
   return omitUndefinedAndEmptyLists({
     ...searchQuery,
     filters: (searchQuery.filters || []).map(filterDeserializerConverter),
-    groupBy: getEnumString(GroupValue, searchQuery.groupBy),
+    groupBy: getEnumString(pb.GroupValue, searchQuery.groupBy),
   });
 }
 
@@ -125,7 +112,7 @@ function collectionRecommenderParameterSerializerConverter(obj) {
   if (typeof obj.value === 'boolean') boolValue = obj.value;
 
   return {
-    key: getEnumNumber(CollectionRecommenderParameter.RecommenderParameterId, obj.key),
+    key: getEnumNumber(pb.CollectionRecommenderParameter.RecommenderParameterId, obj.key),
     stringValue,
     numberValue,
     boolValue,
@@ -135,11 +122,11 @@ function collectionRecommenderParameterSerializerConverter(obj) {
 function collectionRecommenderSerializerConverter(obj) {
   return omitUndefinedAndEmptyLists({
     ...obj,
-    type: getEnumNumber(CollectionRecommender.RecommenderType, obj.type),
+    type: getEnumNumber(pb.CollectionRecommender.RecommenderType, obj.type),
     weight: toFixedPointNumber(obj.weight),
     parameters: (obj.parameters || [])
       .map((f) => fromObject(
-        CollectionRecommenderParameter,
+        pb.CollectionRecommenderParameter,
         collectionRecommenderParameterSerializerConverter(f),
       )),
   });
@@ -149,7 +136,7 @@ function collectionRecommendersSettingsSerializerConverter(obj) {
   return omitUndefinedAndEmptyLists({
     ...obj,
     recommenders: (obj.recommenders || [])
-      .map((f) => fromObject(CollectionRecommender, collectionRecommenderSerializerConverter(f))),
+      .map((f) => fromObject(pb.CollectionRecommender, collectionRecommenderSerializerConverter(f))),
   });
 }
 
@@ -159,7 +146,7 @@ function collectionRecommenderParameterDeserializerConverter(parameter) {
   if (parameter.numberValue !== 0) value = fromFixedPointNumber(parameter.numberValue);
   if (parameter.stringValue !== '') value = parameter.stringValue;
   return omitUndefinedAndEmptyLists({
-    key: getEnumString(CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
+    key: getEnumString(pb.CollectionRecommenderParameter.RecommenderParameterId, parameter.key, false),
     value,
   });
 }
@@ -167,7 +154,7 @@ function collectionRecommenderParameterDeserializerConverter(parameter) {
 function collectionRecommenderDeserializerConverter(recommender) {
   return omitUndefinedAndEmptyLists({
     ...recommender,
-    type: getEnumString(CollectionRecommender.RecommenderType, recommender.type, false),
+    type: getEnumString(pb.CollectionRecommender.RecommenderType, recommender.type, false),
     weight: fromFixedPointNumber(recommender.weight) || 0,
     parameters: (recommender.parameters || [])
       .map(collectionRecommenderParameterDeserializerConverter),
@@ -183,23 +170,23 @@ function collectionRecommendersSettingsDeserializerConverter(settings) {
 
 export default {
   filter: {
-    serialize: (obj) => serialize(Filter, obj, filterSerializerConverter),
-    deserialize: (base64String) => deserialize(Filter, base64String, filterDeserializerConverter),
+    serialize: (obj: Filter): string => serialize(pb.Filter, obj, filterSerializerConverter),
+    deserialize: (base64String: string): Filter => deserialize(pb.Filter, base64String, filterDeserializerConverter),
   },
   searchQuery: {
-    serialize: (obj) => serialize(SearchQuery, obj, searchQuerySerializerConverter),
-    deserialize: (base64String) => deserialize(
-      SearchQuery, base64String, searchQueryDeserializerConverter,
+    serialize: (obj: SearchQuery): string => serialize(pb.SearchQuery, obj, searchQuerySerializerConverter),
+    deserialize: (base64String: string): SearchQuery => deserialize(
+      pb.SearchQuery, base64String, searchQueryDeserializerConverter,
     ),
   },
   collectionRecommendersSettings: {
-    serialize: (obj) => serialize(
-      CollectionRecommendersSettings,
+    serialize: (obj: CollectionRecommendersSettings): string => serialize(
+      pb.CollectionRecommendersSettings,
       obj,
       collectionRecommendersSettingsSerializerConverter,
     ),
-    deserialize: (base64String) => deserialize(
-      CollectionRecommendersSettings,
+    deserialize: (base64String: string): CollectionRecommendersSettings => deserialize(
+      pb.CollectionRecommendersSettings,
       base64String,
       collectionRecommendersSettingsDeserializerConverter,
     ),

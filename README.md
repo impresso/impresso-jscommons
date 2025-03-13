@@ -28,8 +28,6 @@ The library **must be built** before **every commit** because it is used as a di
 
 # Testing
 
-Make sure `mocha` is installed.
-
 ```shell
 npm test
 ```

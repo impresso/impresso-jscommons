@@ -1,20 +1,30 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
-  "main": "dist/impresso-jscommons.js",
+  "main": "dist/impresso-jscommons.cjs.js",
+  "module": "dist/impresso-jscommons.esm.js",
+  "browser": "dist/impresso-jscommons.min.js",
+  "unpkg": "dist/impresso-jscommons.min.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/impresso-jscommons.esm.js",
+      "require": "./dist/impresso-jscommons.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "author": "Roman Kalyakin <roman@kalyakin.com>",
   "scripts": {
     "compile": "make generate-js",
-    "test": "mocha --recursive ./test/**/*.js",
-    "build": "npm run build:js",
-    "build:js": "rollup --config rollup.config.ts --configPlugin typescript --configImportAttributesKey with --environment NODE_ENV:production",
+    "test": "jest",
+    "build": "npm run build:js && copyfiles -u 1 src/**/*.d.ts dist",
+    "build:js": "rollup --bundleConfigAsCjs --config rollup.config.js --configPlugin typescript --configImportAttributesKey with --environment NODE_ENV:production",
     "watch": "npm run watch:js",
-    "watch:js": "rollup --config rollup.config.ts --configPlugin typescript --configImportAttributesKey with --watch",
+    "watch:js": "rollup --bundleConfigAsCjs --config rollup.config.js --configPlugin typescript --configImportAttributesKey with --watch",
     "lint": "eslint src test"
   },
-  "types": "./src/index.d.ts",
   "dependencies": {
     "base64-js": "1.5.1",
     "case": "1.6.3",
@@ -29,11 +39,14 @@
     "@rollup/plugin-node-resolve": "16",
     "@rollup/plugin-terser": "0",
     "@rollup/plugin-typescript": "12",
+    "@types/jest": "^29.5.14",
+    "copyfiles": "^2.4.1",
     "eslint": "9",
     "globals": "^16.0.0",
-    "mocha": "^11.1.0",
+    "jest": "^29.7.0",
     "protoc-gen-js": "^3.21.3",
     "rollup": "4",
+    "ts-jest": "^29.2.6",
     "ts-protoc-gen": "0.15.0",
     "tslib": "2",
     "typescript": "5",
