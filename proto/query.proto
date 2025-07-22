@@ -60,6 +60,13 @@ enum FilterType {
 
   TYPE_DATA_DOMAIN = 33;
   TYPE_COPYRIGHT = 34;
+
+  // meta source
+  TYPE_SOURCE_TYPE = 35;
+  TYPE_SOURCE_MEDIUM = 36;
+
+  // organization type
+  TYPE_ORGANISATION = 37;
 }
 
 enum FilterPrecision {
