@@ -266,6 +266,9 @@ export interface FilterTypeMap {
   TYPE_WIKIDATA_ID: 32;
   TYPE_DATA_DOMAIN: 33;
   TYPE_COPYRIGHT: 34;
+  TYPE_SOURCE_TYPE: 35;
+  TYPE_SOURCE_MEDIUM: 36;
+  TYPE_ORGANISATION: 37;
 }
 
 export const FilterType: FilterTypeMap;
