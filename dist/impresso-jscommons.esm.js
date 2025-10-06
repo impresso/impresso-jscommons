@@ -632,9 +632,7 @@ function requireQuery_pb() {
      * @return {?proto.impresso.query.DateRange}
      */
     proto.impresso.query.Filter.prototype.getDaterange = function () {
-      return /** @type{?proto.impresso.query.DateRange} */(
-        jspb.Message.getWrapperField(this, proto.impresso.query.DateRange, 6)
-      );
+      return /** @type{?proto.impresso.query.DateRange} */jspb.Message.getWrapperField(this, proto.impresso.query.DateRange, 6);
     };
 
     /**
@@ -814,9 +812,7 @@ function requireQuery_pb() {
      * @return {!Array<!proto.impresso.query.Filter>}
      */
     proto.impresso.query.SearchQuery.prototype.getFiltersList = function () {
-      return /** @type{!Array<!proto.impresso.query.Filter>} */(
-        jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.Filter, 1)
-      );
+      return /** @type{!Array<!proto.impresso.query.Filter>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.Filter, 1);
     };
 
     /**
@@ -1244,9 +1240,7 @@ function requireQuery_pb() {
      * @return {!Array<!proto.impresso.query.CollectionRecommenderParameter>}
      */
     proto.impresso.query.CollectionRecommender.prototype.getParametersList = function () {
-      return /** @type{!Array<!proto.impresso.query.CollectionRecommenderParameter>} */(
-        jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommenderParameter, 3)
-      );
+      return /** @type{!Array<!proto.impresso.query.CollectionRecommenderParameter>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommenderParameter, 3);
     };
 
     /**
@@ -1401,9 +1395,7 @@ function requireQuery_pb() {
      * @return {!Array<!proto.impresso.query.CollectionRecommender>}
      */
     proto.impresso.query.CollectionRecommendersSettings.prototype.getRecommendersList = function () {
-      return /** @type{!Array<!proto.impresso.query.CollectionRecommender>} */(
-        jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommender, 1)
-      );
+      return /** @type{!Array<!proto.impresso.query.CollectionRecommender>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommender, 1);
     };
 
     /**
@@ -1490,7 +1482,8 @@ function requireQuery_pb() {
       TYPE_COPYRIGHT: 34,
       TYPE_SOURCE_TYPE: 35,
       TYPE_SOURCE_MEDIUM: 36,
-      TYPE_ORGANISATION: 37
+      TYPE_ORGANISATION: 37,
+      TYPE_EMBEDDING: 38
     };
 
     /**

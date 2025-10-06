@@ -269,6 +269,7 @@ export interface FilterTypeMap {
   TYPE_SOURCE_TYPE: 35;
   TYPE_SOURCE_MEDIUM: 36;
   TYPE_ORGANISATION: 37;
+  TYPE_EMBEDDING: 38;
 }
 
 export const FilterType: FilterTypeMap;
