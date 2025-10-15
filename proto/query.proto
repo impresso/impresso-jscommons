@@ -67,6 +67,9 @@ enum FilterType {
 
   // organization type
   TYPE_ORGANISATION = 37;
+
+  // search by embedding (text or image)
+  TYPE_EMBEDDING = 38;
 }
 
 enum FilterPrecision {
