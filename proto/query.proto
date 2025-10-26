@@ -70,6 +70,12 @@ enum FilterType {
 
   // search by embedding (text or image)
   TYPE_EMBEDDING = 38;
+
+  // image types
+  TYPE_IMAGE_VISUAL_CONTENT = 39;
+  TYPE_IMAGE_TECHNIQUE = 40;
+  TYPE_IMAGE_COMMUNICATION_GOAL = 41;
+  TYPE_IMAGE_CONTENT_TYPE = 42;
 }
 
 enum FilterPrecision {
