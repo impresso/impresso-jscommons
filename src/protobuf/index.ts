@@ -170,7 +170,7 @@ function collectionRecommendersSettingsDeserializerConverter(settings) {
 
 export default {
   filter: {
-    serialize: (obj: Filter): string => serialize(pb.Filter, obj, filterSerializerConverter),
+    serialize: (obj: Filter, ignoreUnknownProperties = false): string => serialize(pb.Filter, obj, filterSerializerConverter, ignoreUnknownProperties),
     deserialize: (base64String: string): Filter => deserialize(pb.Filter, base64String, filterDeserializerConverter),
   },
   searchQuery: {

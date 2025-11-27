@@ -1,7 +1,7 @@
 import { Filter, CollectionRecommendersSettings, SearchQuery } from '../types/index';
 declare const _default: {
     filter: {
-        serialize: (obj: Filter) => string;
+        serialize: (obj: Filter, ignoreUnknownProperties?: boolean) => string;
         deserialize: (base64String: string) => Filter;
     };
     searchQuery: {

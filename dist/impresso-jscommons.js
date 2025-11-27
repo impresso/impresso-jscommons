@@ -5,7 +5,7 @@ typeof define === 'function' && define.amd ? define(['exports', 'case', 'base64-
 })(this, (function (exports, _case, base64Js, require$$0) { 'use strict';
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
-function fromObject(ProtoClass, obj) {
+function fromObject(ProtoClass, obj, ignoreUnknownProperties = false) {
     if (obj === undefined)
         return undefined;
     const instance = new ProtoClass();
@@ -13,9 +13,13 @@ function fromObject(ProtoClass, obj) {
         const setterName = `set${_case.pascal(property)}`;
         const listSetterName = `set${_case.pascal(property)}List`;
         const setter = instance[setterName] || instance[listSetterName];
-        if (setter === undefined)
-            throw new Error(`Unknown property: "${property}"`);
-        setter.call(instance, obj[property]);
+        if (setter === undefined) {
+            if (!ignoreUnknownProperties)
+                throw new Error(`Unknown property: "${property}"`);
+        }
+        else {
+            setter.call(instance, obj[property]);
+        }
     });
     return instance;
 }
@@ -56,11 +60,11 @@ function getEnumNumber(Enum, enumString) {
         throw new Error(`Unknown enum value: ${enumString} (${field})`);
     return val;
 }
-function serialize(ProtoClass, obj, converter) {
+function serialize(ProtoClass, obj, converter, ignoreUnknownProperties = false) {
     if (obj === undefined)
         return undefined;
     const convertedObj = converter ? converter(obj) : obj;
-    return base64Js.fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
+    return base64Js.fromByteArray(fromObject(ProtoClass, convertedObj, ignoreUnknownProperties)?.serializeBinary());
 }
 function deserialize(ProtoClass, base64String, converter) {
     const obj = fixRepeatedFields(ProtoClass.deserializeBinary(base64Js.toByteArray(base64String)).toObject());
@@ -1668,7 +1672,7 @@ function collectionRecommendersSettingsDeserializerConverter(settings) {
 }
 var index$2 = {
     filter: {
-        serialize: (obj) => serialize(query_pbExports.Filter, obj, filterSerializerConverter),
+        serialize: (obj, ignoreUnknownProperties = false) => serialize(query_pbExports.Filter, obj, filterSerializerConverter, ignoreUnknownProperties),
         deserialize: (base64String) => deserialize(query_pbExports.Filter, base64String, filterDeserializerConverter),
     },
     searchQuery: {

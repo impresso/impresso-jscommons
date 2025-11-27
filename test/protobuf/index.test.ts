@@ -29,6 +29,26 @@ describe('Filter <-> protobuf', () => {
     const deserializedFilter = protobuf.filter.deserialize(base64String);
     expect(deserializedFilter).toEqual(testFilter);
   });
+
+  it('query with extra fields', () => {
+    const testFilter = {
+      context: 'include',
+      op: 'AND',
+      type: 'collection',
+      q: ['abc123', 'def'],
+      uid: 'shouldBeIgnored',
+    } as any satisfies Filter;
+    const expectedBase64String = 'CAEQARgTKgZhYmMxMjMqA2RlZg==';
+
+    expect(() => protobuf.filter.serialize(testFilter)).toThrow(/Unknown property: "uid"/);
+
+    const base64String = protobuf.filter.serialize(testFilter, true);
+    expect(base64String).toBe(expectedBase64String);
+    const deserializedFilter = protobuf.filter.deserialize(base64String);
+
+    const { uid, ...testFilterWithoutExtra } = testFilter
+    expect(deserializedFilter).toEqual(testFilterWithoutExtra);
+  });
 });
 
 describe('SearchQuery <-> protobuf', () => {

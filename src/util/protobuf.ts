@@ -2,15 +2,22 @@ import { snake, camel, upper, pascal } from 'case';
 import { fromByteArray, toByteArray } from 'base64-js';
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
-export function fromObject(ProtoClass, obj) {
+export function fromObject<T extends { new (): any }>(
+  ProtoClass: T,
+  obj: Record<string, any> | undefined,
+  ignoreUnknownProperties = false,
+): InstanceType<T> | undefined {
   if (obj === undefined) return undefined;
   const instance = new ProtoClass();
   Object.keys(obj).forEach((property) => {
     const setterName = `set${pascal(property)}`;
     const listSetterName = `set${pascal(property)}List`;
     const setter = instance[setterName] || instance[listSetterName];
-    if (setter === undefined) throw new Error(`Unknown property: "${property}"`);
-    setter.call(instance, obj[property]);
+    if (setter === undefined) {
+      if (!ignoreUnknownProperties) throw new Error(`Unknown property: "${property}"`);
+    } else {
+      setter.call(instance, obj[property]);
+    }
   });
 
   return instance;
@@ -55,10 +62,18 @@ export function getEnumNumber(Enum, enumString) {
 }
 
 
-export function serialize(ProtoClass, obj, converter) {
+export function serialize<
+  T extends { new (): { serializeBinary: () => Uint8Array } },
+  O extends Record<string, any>
+>(
+  ProtoClass: T,
+  obj: O | undefined,
+  converter?: (obj: O) => Record<string, any>,
+  ignoreUnknownProperties = false,
+): string | undefined {
   if (obj === undefined) return undefined;
   const convertedObj = converter ? converter(obj) : obj;
-  return fromByteArray(fromObject(ProtoClass, convertedObj).serializeBinary());
+  return fromByteArray(fromObject(ProtoClass, convertedObj, ignoreUnknownProperties)?.serializeBinary());
 }
 
 export function deserialize(ProtoClass, base64String, converter) {
