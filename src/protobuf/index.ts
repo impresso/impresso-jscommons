@@ -71,11 +71,12 @@ function filterDeserializerConverter(filter) {
   });
 }
 
-function searchQuerySerializerConverter(searchQuery) {
+
+function searchQuerySerializerConverter(searchQuery: SearchQuery, ignoreUnknownProperties = false): Record<string, any> {
   return {
     ...searchQuery,
     filters: (searchQuery.filters || [])
-      .map((f) => fromObject(pb.Filter, filterSerializerConverter(f))),
+      .map((f) => fromObject(pb.Filter, filterSerializerConverter(f), ignoreUnknownProperties)),
     groupBy: getEnumNumber(pb.GroupValue, searchQuery.groupBy),
   };
 }
@@ -174,7 +175,7 @@ export default {
     deserialize: (base64String: string): Filter => deserialize(pb.Filter, base64String, filterDeserializerConverter),
   },
   searchQuery: {
-    serialize: (obj: SearchQuery, ignoreUnknownProperties = false): string => serialize(pb.SearchQuery, obj, searchQuerySerializerConverter, ignoreUnknownProperties),
+    serialize: (obj: SearchQuery, ignoreUnknownProperties = false): string => serialize(pb.SearchQuery, obj, v => searchQuerySerializerConverter(v, ignoreUnknownProperties), ignoreUnknownProperties),
     deserialize: (base64String: string): SearchQuery => deserialize(
       pb.SearchQuery, base64String, searchQueryDeserializerConverter,
     ),

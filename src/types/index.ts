@@ -38,6 +38,7 @@ export { Filter }
 
 export interface SearchQuery {
   filters: Filter[]
+  groupBy?: string
 }
 
 export interface FilterWithItems extends Filter {

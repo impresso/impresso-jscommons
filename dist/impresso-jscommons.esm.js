@@ -1577,11 +1577,11 @@ function filterDeserializerConverter(filter) {
         daterange: daterangeDeserializeConverter(filter.daterange),
     });
 }
-function searchQuerySerializerConverter(searchQuery) {
+function searchQuerySerializerConverter(searchQuery, ignoreUnknownProperties = false) {
     return {
         ...searchQuery,
         filters: (searchQuery.filters || [])
-            .map((f) => fromObject(query_pbExports.Filter, filterSerializerConverter(f))),
+            .map((f) => fromObject(query_pbExports.Filter, filterSerializerConverter(f), ignoreUnknownProperties)),
         groupBy: getEnumNumber(query_pbExports.GroupValue, searchQuery.groupBy),
     };
 }
@@ -1674,7 +1674,7 @@ var index$2 = {
         deserialize: (base64String) => deserialize(query_pbExports.Filter, base64String, filterDeserializerConverter),
     },
     searchQuery: {
-        serialize: (obj, ignoreUnknownProperties = false) => serialize(query_pbExports.SearchQuery, obj, searchQuerySerializerConverter, ignoreUnknownProperties),
+        serialize: (obj, ignoreUnknownProperties = false) => serialize(query_pbExports.SearchQuery, obj, v => searchQuerySerializerConverter(v, ignoreUnknownProperties), ignoreUnknownProperties),
         deserialize: (base64String) => deserialize(query_pbExports.SearchQuery, base64String, searchQueryDeserializerConverter),
     },
     collectionRecommendersSettings: {

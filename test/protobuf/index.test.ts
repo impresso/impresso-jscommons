@@ -200,6 +200,29 @@ describe('SearchQuery <-> protobuf', () => {
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
     expect(deserializedFilter).toEqual(testSearchQuery);
   });
+
+  it('test unknown properties', () => {
+    const testSearchQuery = {
+      filters: [
+        {
+          context: 'include',
+          op: 'OR',
+          type: 'textReuseCluster',
+          q: ['a', 'b'],
+          uid: 'shouldBeIgnored',
+        },
+      ] as any satisfies Filter[],
+    };
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery, true);
+    expect(base64String).toBe('CgwIARACGB0qAWEqAWI=');
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String);
+    const { filters } = testSearchQuery;
+    const { uid, ...filterWithoutExtra } = filters[0];
+    const testFilterWithoutExtra = {
+      filters: [filterWithoutExtra],
+    };
+    expect(deserializedFilter).toEqual(testFilterWithoutExtra);
+  });
 });
 
 describe('constants', () => {
