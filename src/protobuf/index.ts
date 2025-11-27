@@ -174,7 +174,7 @@ export default {
     deserialize: (base64String: string): Filter => deserialize(pb.Filter, base64String, filterDeserializerConverter),
   },
   searchQuery: {
-    serialize: (obj: SearchQuery): string => serialize(pb.SearchQuery, obj, searchQuerySerializerConverter),
+    serialize: (obj: SearchQuery, ignoreUnknownProperties = false): string => serialize(pb.SearchQuery, obj, searchQuerySerializerConverter, ignoreUnknownProperties),
     deserialize: (base64String: string): SearchQuery => deserialize(
       pb.SearchQuery, base64String, searchQueryDeserializerConverter,
     ),

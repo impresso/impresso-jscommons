@@ -5,7 +5,7 @@ declare const _default: {
         deserialize: (base64String: string) => Filter;
     };
     searchQuery: {
-        serialize: (obj: SearchQuery) => string;
+        serialize: (obj: SearchQuery, ignoreUnknownProperties?: boolean) => string;
         deserialize: (base64String: string) => SearchQuery;
     };
     collectionRecommendersSettings: {

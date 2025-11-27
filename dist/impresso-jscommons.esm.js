@@ -1674,7 +1674,7 @@ var index$2 = {
         deserialize: (base64String) => deserialize(query_pbExports.Filter, base64String, filterDeserializerConverter),
     },
     searchQuery: {
-        serialize: (obj) => serialize(query_pbExports.SearchQuery, obj, searchQuerySerializerConverter),
+        serialize: (obj, ignoreUnknownProperties = false) => serialize(query_pbExports.SearchQuery, obj, searchQuerySerializerConverter, ignoreUnknownProperties),
         deserialize: (base64String) => deserialize(query_pbExports.SearchQuery, base64String, searchQueryDeserializerConverter),
     },
     collectionRecommendersSettings: {
