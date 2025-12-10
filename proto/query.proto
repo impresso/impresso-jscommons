@@ -76,6 +76,9 @@ enum FilterType {
   TYPE_IMAGE_TECHNIQUE = 40;
   TYPE_IMAGE_COMMUNICATION_GOAL = 41;
   TYPE_IMAGE_CONTENT_TYPE = 42;
+
+  // contentItemId type 
+  TYPE_CONTENT_ITEM_ID = 43;
 }
 
 enum FilterPrecision {
