@@ -274,6 +274,7 @@ export interface FilterTypeMap {
   TYPE_IMAGE_TECHNIQUE: 40;
   TYPE_IMAGE_COMMUNICATION_GOAL: 41;
   TYPE_IMAGE_CONTENT_TYPE: 42;
+  TYPE_CONTENT_ITEM_ID: 43;
 }
 
 export const FilterType: FilterTypeMap;
