@@ -60,6 +60,7 @@ describe('Filter <-> protobuf', () => {
     expect(base64String).toBe(expectedBase64String)
     const deserializedFilter = protobuf.filter.deserialize(base64String)
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { uid, ...testFilterWithoutExtra } = testFilter
     expect(deserializedFilter).toEqual(testFilterWithoutExtra)
   })
@@ -238,6 +239,8 @@ describe('SearchQuery <-> protobuf', () => {
     expect(base64String).toBe('CgwIARACGB0qAWEqAWI=')
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String)
     const { filters } = testSearchQuery
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { uid, ...filterWithoutExtra } = filters[0]
     const testFilterWithoutExtra = {
       filters: [filterWithoutExtra],
