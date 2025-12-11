@@ -77,7 +77,7 @@ var hasRequiredQuery_pb;
 function requireQuery_pb() {
   if (hasRequiredQuery_pb) return query_pb;
   hasRequiredQuery_pb = 1;
-  (function (exports$1) {
+  (function (exports) {
     // source: query.proto
     /**
      * @fileoverview
@@ -90,11 +90,12 @@ function requireQuery_pb() {
     // GENERATED CODE -- DO NOT EDIT!
     /* eslint-disable */
     // @ts-nocheck
+
     var jspb = require$$0;
     var goog = jspb;
-    var global = function () {
-      return this || window || global || self || Function('return this')();
-    }.call(null);
+    var global = typeof globalThis !== 'undefined' && globalThis || typeof window !== 'undefined' && window || typeof global !== 'undefined' && global || typeof self !== 'undefined' && self || function () {
+      return this;
+    }.call(null) || Function('return this')();
     goog.exportSymbol('proto.impresso.query.CollectionRecommender', null, global);
     goog.exportSymbol('proto.impresso.query.CollectionRecommender.RecommenderType', null, global);
     goog.exportSymbol('proto.impresso.query.CollectionRecommenderParameter', null, global);
@@ -250,6 +251,7 @@ function requireQuery_pb() {
       proto.impresso.query.DateRange.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.DateRange.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -270,6 +272,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -280,6 +283,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.DateRange();
       return proto.impresso.query.DateRange.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -309,6 +313,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -318,6 +323,7 @@ function requireQuery_pb() {
       proto.impresso.query.DateRange.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -336,6 +342,7 @@ function requireQuery_pb() {
         writer.writeSint64(2, f);
       }
     };
+
     /**
      * optional sint64 from = 1;
      * @return {number}
@@ -343,6 +350,7 @@ function requireQuery_pb() {
     proto.impresso.query.DateRange.prototype.getFrom = function () {
       return /** @type {number} */jspb.Message.getFieldWithDefault(this, 1, 0);
     };
+
     /**
      * @param {number} value
      * @return {!proto.impresso.query.DateRange} returns this
@@ -350,6 +358,7 @@ function requireQuery_pb() {
     proto.impresso.query.DateRange.prototype.setFrom = function (value) {
       return jspb.Message.setProto3IntField(this, 1, value);
     };
+
     /**
      * optional sint64 to = 2;
      * @return {number}
@@ -357,6 +366,7 @@ function requireQuery_pb() {
     proto.impresso.query.DateRange.prototype.getTo = function () {
       return /** @type {number} */jspb.Message.getFieldWithDefault(this, 2, 0);
     };
+
     /**
      * @param {number} value
      * @return {!proto.impresso.query.DateRange} returns this
@@ -364,6 +374,7 @@ function requireQuery_pb() {
     proto.impresso.query.DateRange.prototype.setTo = function (value) {
       return jspb.Message.setProto3IntField(this, 2, value);
     };
+
     /**
      * List of repeated fields within this message type.
      * @private {!Array<number>}
@@ -386,6 +397,7 @@ function requireQuery_pb() {
       proto.impresso.query.Filter.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.Filter.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -412,6 +424,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -422,6 +435,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.Filter();
       return proto.impresso.query.Filter.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -472,6 +486,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -481,6 +496,7 @@ function requireQuery_pb() {
       proto.impresso.query.Filter.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -519,6 +535,7 @@ function requireQuery_pb() {
         writer.writeRepeatedString(7, f);
       }
     };
+
     /**
      * optional FilterContext context = 1;
      * @return {!proto.impresso.query.FilterContext}
@@ -526,6 +543,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getContext = function () {
       return /** @type {!proto.impresso.query.FilterContext} */jspb.Message.getFieldWithDefault(this, 1, 0);
     };
+
     /**
      * @param {!proto.impresso.query.FilterContext} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -533,6 +551,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setContext = function (value) {
       return jspb.Message.setProto3EnumField(this, 1, value);
     };
+
     /**
      * optional FilterOperator op = 2;
      * @return {!proto.impresso.query.FilterOperator}
@@ -540,6 +559,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getOp = function () {
       return /** @type {!proto.impresso.query.FilterOperator} */jspb.Message.getFieldWithDefault(this, 2, 0);
     };
+
     /**
      * @param {!proto.impresso.query.FilterOperator} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -547,6 +567,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setOp = function (value) {
       return jspb.Message.setProto3EnumField(this, 2, value);
     };
+
     /**
      * optional FilterType type = 3;
      * @return {!proto.impresso.query.FilterType}
@@ -554,6 +575,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getType = function () {
       return /** @type {!proto.impresso.query.FilterType} */jspb.Message.getFieldWithDefault(this, 3, 0);
     };
+
     /**
      * @param {!proto.impresso.query.FilterType} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -561,6 +583,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setType = function (value) {
       return jspb.Message.setProto3EnumField(this, 3, value);
     };
+
     /**
      * optional FilterPrecision precision = 4;
      * @return {!proto.impresso.query.FilterPrecision}
@@ -568,6 +591,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getPrecision = function () {
       return /** @type {!proto.impresso.query.FilterPrecision} */jspb.Message.getFieldWithDefault(this, 4, 0);
     };
+
     /**
      * @param {!proto.impresso.query.FilterPrecision} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -575,6 +599,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setPrecision = function (value) {
       return jspb.Message.setProto3EnumField(this, 4, value);
     };
+
     /**
      * repeated string q = 5;
      * @return {!Array<string>}
@@ -582,6 +607,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getQList = function () {
       return /** @type {!Array<string>} */jspb.Message.getRepeatedField(this, 5);
     };
+
     /**
      * @param {!Array<string>} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -589,6 +615,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setQList = function (value) {
       return jspb.Message.setField(this, 5, value || []);
     };
+
     /**
      * @param {string} value
      * @param {number=} opt_index
@@ -597,6 +624,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.addQ = function (value, opt_index) {
       return jspb.Message.addToRepeatedField(this, 5, value, opt_index);
     };
+
     /**
      * Clears the list making it empty but non-null.
      * @return {!proto.impresso.query.Filter} returns this
@@ -604,6 +632,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.clearQList = function () {
       return this.setQList([]);
     };
+
     /**
      * optional DateRange daterange = 6;
      * @return {?proto.impresso.query.DateRange}
@@ -611,6 +640,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getDaterange = function () {
       return /** @type{?proto.impresso.query.DateRange} */jspb.Message.getWrapperField(this, proto.impresso.query.DateRange, 6);
     };
+
     /**
      * @param {?proto.impresso.query.DateRange|undefined} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -618,6 +648,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setDaterange = function (value) {
       return jspb.Message.setWrapperField(this, 6, value);
     };
+
     /**
      * Clears the message field making it undefined.
      * @return {!proto.impresso.query.Filter} returns this
@@ -625,6 +656,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.clearDaterange = function () {
       return this.setDaterange(undefined);
     };
+
     /**
      * Returns whether this field is set.
      * @return {boolean}
@@ -632,6 +664,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.hasDaterange = function () {
       return jspb.Message.getField(this, 6) != null;
     };
+
     /**
      * repeated string uids = 7;
      * @return {!Array<string>}
@@ -639,6 +672,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.getUidsList = function () {
       return /** @type {!Array<string>} */jspb.Message.getRepeatedField(this, 7);
     };
+
     /**
      * @param {!Array<string>} value
      * @return {!proto.impresso.query.Filter} returns this
@@ -646,6 +680,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.setUidsList = function (value) {
       return jspb.Message.setField(this, 7, value || []);
     };
+
     /**
      * @param {string} value
      * @param {number=} opt_index
@@ -654,6 +689,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.addUids = function (value, opt_index) {
       return jspb.Message.addToRepeatedField(this, 7, value, opt_index);
     };
+
     /**
      * Clears the list making it empty but non-null.
      * @return {!proto.impresso.query.Filter} returns this
@@ -661,6 +697,7 @@ function requireQuery_pb() {
     proto.impresso.query.Filter.prototype.clearUidsList = function () {
       return this.setUidsList([]);
     };
+
     /**
      * List of repeated fields within this message type.
      * @private {!Array<number>}
@@ -683,6 +720,7 @@ function requireQuery_pb() {
       proto.impresso.query.SearchQuery.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.SearchQuery.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -703,6 +741,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -713,6 +752,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.SearchQuery();
       return proto.impresso.query.SearchQuery.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -743,6 +783,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -752,6 +793,7 @@ function requireQuery_pb() {
       proto.impresso.query.SearchQuery.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -770,6 +812,7 @@ function requireQuery_pb() {
         writer.writeEnum(2, f);
       }
     };
+
     /**
      * repeated Filter filters = 1;
      * @return {!Array<!proto.impresso.query.Filter>}
@@ -777,6 +820,7 @@ function requireQuery_pb() {
     proto.impresso.query.SearchQuery.prototype.getFiltersList = function () {
       return /** @type{!Array<!proto.impresso.query.Filter>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.Filter, 1);
     };
+
     /**
      * @param {!Array<!proto.impresso.query.Filter>} value
      * @return {!proto.impresso.query.SearchQuery} returns this
@@ -784,6 +828,7 @@ function requireQuery_pb() {
     proto.impresso.query.SearchQuery.prototype.setFiltersList = function (value) {
       return jspb.Message.setRepeatedWrapperField(this, 1, value);
     };
+
     /**
      * @param {!proto.impresso.query.Filter=} opt_value
      * @param {number=} opt_index
@@ -792,6 +837,7 @@ function requireQuery_pb() {
     proto.impresso.query.SearchQuery.prototype.addFilters = function (opt_value, opt_index) {
       return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.impresso.query.Filter, opt_index);
     };
+
     /**
      * Clears the list making it empty but non-null.
      * @return {!proto.impresso.query.SearchQuery} returns this
@@ -799,6 +845,7 @@ function requireQuery_pb() {
     proto.impresso.query.SearchQuery.prototype.clearFiltersList = function () {
       return this.setFiltersList([]);
     };
+
     /**
      * optional GroupValue group_by = 2;
      * @return {!proto.impresso.query.GroupValue}
@@ -806,6 +853,7 @@ function requireQuery_pb() {
     proto.impresso.query.SearchQuery.prototype.getGroupBy = function () {
       return /** @type {!proto.impresso.query.GroupValue} */jspb.Message.getFieldWithDefault(this, 2, 0);
     };
+
     /**
      * @param {!proto.impresso.query.GroupValue} value
      * @return {!proto.impresso.query.SearchQuery} returns this
@@ -829,6 +877,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommenderParameter.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.CollectionRecommenderParameter.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -851,6 +900,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -861,6 +911,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.CollectionRecommenderParameter();
       return proto.impresso.query.CollectionRecommenderParameter.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -898,6 +949,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -907,6 +959,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommenderParameter.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -933,6 +986,7 @@ function requireQuery_pb() {
         writer.writeBool(4, f);
       }
     };
+
     /**
      * @enum {number}
      */
@@ -946,6 +1000,7 @@ function requireQuery_pb() {
       ID_MARGIN: 6,
       ID_SCALING_FACTOR: 7
     };
+
     /**
      * optional RecommenderParameterId key = 1;
      * @return {!proto.impresso.query.CollectionRecommenderParameter.RecommenderParameterId}
@@ -953,6 +1008,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.getKey = function () {
       return /** @type {!proto.impresso.query.CollectionRecommenderParameter.RecommenderParameterId} */jspb.Message.getFieldWithDefault(this, 1, 0);
     };
+
     /**
      * @param {!proto.impresso.query.CollectionRecommenderParameter.RecommenderParameterId} value
      * @return {!proto.impresso.query.CollectionRecommenderParameter} returns this
@@ -960,6 +1016,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.setKey = function (value) {
       return jspb.Message.setProto3EnumField(this, 1, value);
     };
+
     /**
      * optional string string_value = 2;
      * @return {string}
@@ -967,6 +1024,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.getStringValue = function () {
       return /** @type {string} */jspb.Message.getFieldWithDefault(this, 2, "");
     };
+
     /**
      * @param {string} value
      * @return {!proto.impresso.query.CollectionRecommenderParameter} returns this
@@ -974,6 +1032,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.setStringValue = function (value) {
       return jspb.Message.setProto3StringField(this, 2, value);
     };
+
     /**
      * optional sint32 number_value = 3;
      * @return {number}
@@ -981,6 +1040,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.getNumberValue = function () {
       return /** @type {number} */jspb.Message.getFieldWithDefault(this, 3, 0);
     };
+
     /**
      * @param {number} value
      * @return {!proto.impresso.query.CollectionRecommenderParameter} returns this
@@ -988,6 +1048,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.setNumberValue = function (value) {
       return jspb.Message.setProto3IntField(this, 3, value);
     };
+
     /**
      * optional bool bool_value = 4;
      * @return {boolean}
@@ -995,6 +1056,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.getBoolValue = function () {
       return /** @type {boolean} */jspb.Message.getBooleanFieldWithDefault(this, 4, false);
     };
+
     /**
      * @param {boolean} value
      * @return {!proto.impresso.query.CollectionRecommenderParameter} returns this
@@ -1002,6 +1064,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommenderParameter.prototype.setBoolValue = function (value) {
       return jspb.Message.setProto3BooleanField(this, 4, value);
     };
+
     /**
      * List of repeated fields within this message type.
      * @private {!Array<number>}
@@ -1024,6 +1087,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommender.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.CollectionRecommender.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -1046,6 +1110,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -1056,6 +1121,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.CollectionRecommender();
       return proto.impresso.query.CollectionRecommender.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -1094,6 +1160,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -1103,6 +1170,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommender.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -1129,6 +1197,7 @@ function requireQuery_pb() {
         writer.writeBool(4, f);
       }
     };
+
     /**
      * @enum {number}
      */
@@ -1139,6 +1208,7 @@ function requireQuery_pb() {
       TYPE_TOPICS: 3,
       TYPE_TEXT_REUSE_CLUSTERS: 4
     };
+
     /**
      * optional RecommenderType type = 1;
      * @return {!proto.impresso.query.CollectionRecommender.RecommenderType}
@@ -1146,6 +1216,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.getType = function () {
       return /** @type {!proto.impresso.query.CollectionRecommender.RecommenderType} */jspb.Message.getFieldWithDefault(this, 1, 0);
     };
+
     /**
      * @param {!proto.impresso.query.CollectionRecommender.RecommenderType} value
      * @return {!proto.impresso.query.CollectionRecommender} returns this
@@ -1153,6 +1224,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.setType = function (value) {
       return jspb.Message.setProto3EnumField(this, 1, value);
     };
+
     /**
      * optional sint32 weight = 2;
      * @return {number}
@@ -1160,6 +1232,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.getWeight = function () {
       return /** @type {number} */jspb.Message.getFieldWithDefault(this, 2, 0);
     };
+
     /**
      * @param {number} value
      * @return {!proto.impresso.query.CollectionRecommender} returns this
@@ -1167,6 +1240,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.setWeight = function (value) {
       return jspb.Message.setProto3IntField(this, 2, value);
     };
+
     /**
      * repeated CollectionRecommenderParameter parameters = 3;
      * @return {!Array<!proto.impresso.query.CollectionRecommenderParameter>}
@@ -1174,6 +1248,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.getParametersList = function () {
       return /** @type{!Array<!proto.impresso.query.CollectionRecommenderParameter>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommenderParameter, 3);
     };
+
     /**
      * @param {!Array<!proto.impresso.query.CollectionRecommenderParameter>} value
      * @return {!proto.impresso.query.CollectionRecommender} returns this
@@ -1181,6 +1256,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.setParametersList = function (value) {
       return jspb.Message.setRepeatedWrapperField(this, 3, value);
     };
+
     /**
      * @param {!proto.impresso.query.CollectionRecommenderParameter=} opt_value
      * @param {number=} opt_index
@@ -1189,6 +1265,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.addParameters = function (opt_value, opt_index) {
       return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.impresso.query.CollectionRecommenderParameter, opt_index);
     };
+
     /**
      * Clears the list making it empty but non-null.
      * @return {!proto.impresso.query.CollectionRecommender} returns this
@@ -1196,6 +1273,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.clearParametersList = function () {
       return this.setParametersList([]);
     };
+
     /**
      * optional bool enabled = 4;
      * @return {boolean}
@@ -1203,6 +1281,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.getEnabled = function () {
       return /** @type {boolean} */jspb.Message.getBooleanFieldWithDefault(this, 4, false);
     };
+
     /**
      * @param {boolean} value
      * @return {!proto.impresso.query.CollectionRecommender} returns this
@@ -1210,6 +1289,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommender.prototype.setEnabled = function (value) {
       return jspb.Message.setProto3BooleanField(this, 4, value);
     };
+
     /**
      * List of repeated fields within this message type.
      * @private {!Array<number>}
@@ -1232,6 +1312,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommendersSettings.prototype.toObject = function (opt_includeInstance) {
         return proto.impresso.query.CollectionRecommendersSettings.toObject(opt_includeInstance, this);
       };
+
       /**
        * Static version of the {@see toObject} method.
        * @param {boolean|undefined} includeInstance Deprecated. Whether to include
@@ -1251,6 +1332,7 @@ function requireQuery_pb() {
         return obj;
       };
     }
+
     /**
      * Deserializes binary data (in protobuf wire format).
      * @param {jspb.ByteSource} bytes The bytes to deserialize.
@@ -1261,6 +1343,7 @@ function requireQuery_pb() {
       var msg = new proto.impresso.query.CollectionRecommendersSettings();
       return proto.impresso.query.CollectionRecommendersSettings.deserializeBinaryFromReader(msg, reader);
     };
+
     /**
      * Deserializes binary data (in protobuf wire format) from the
      * given reader into the given message object.
@@ -1287,6 +1370,7 @@ function requireQuery_pb() {
       }
       return msg;
     };
+
     /**
      * Serializes the message to binary data (in protobuf wire format).
      * @return {!Uint8Array}
@@ -1296,6 +1380,7 @@ function requireQuery_pb() {
       proto.impresso.query.CollectionRecommendersSettings.serializeBinaryToWriter(this, writer);
       return writer.getResultBuffer();
     };
+
     /**
      * Serializes the given message to binary data (in protobuf wire
      * format), writing to the given BinaryWriter.
@@ -1310,6 +1395,7 @@ function requireQuery_pb() {
         writer.writeRepeatedMessage(1, f, proto.impresso.query.CollectionRecommender.serializeBinaryToWriter);
       }
     };
+
     /**
      * repeated CollectionRecommender recommenders = 1;
      * @return {!Array<!proto.impresso.query.CollectionRecommender>}
@@ -1317,6 +1403,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommendersSettings.prototype.getRecommendersList = function () {
       return /** @type{!Array<!proto.impresso.query.CollectionRecommender>} */jspb.Message.getRepeatedWrapperField(this, proto.impresso.query.CollectionRecommender, 1);
     };
+
     /**
      * @param {!Array<!proto.impresso.query.CollectionRecommender>} value
      * @return {!proto.impresso.query.CollectionRecommendersSettings} returns this
@@ -1324,6 +1411,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommendersSettings.prototype.setRecommendersList = function (value) {
       return jspb.Message.setRepeatedWrapperField(this, 1, value);
     };
+
     /**
      * @param {!proto.impresso.query.CollectionRecommender=} opt_value
      * @param {number=} opt_index
@@ -1332,6 +1420,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommendersSettings.prototype.addRecommenders = function (opt_value, opt_index) {
       return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.impresso.query.CollectionRecommender, opt_index);
     };
+
     /**
      * Clears the list making it empty but non-null.
      * @return {!proto.impresso.query.CollectionRecommendersSettings} returns this
@@ -1339,6 +1428,7 @@ function requireQuery_pb() {
     proto.impresso.query.CollectionRecommendersSettings.prototype.clearRecommendersList = function () {
       return this.setRecommendersList([]);
     };
+
     /**
      * @enum {number}
      */
@@ -1347,6 +1437,7 @@ function requireQuery_pb() {
       CONTEXT_INCLUDE: 1,
       CONTEXT_EXCLUDE: 2
     };
+
     /**
      * @enum {number}
      */
@@ -1355,6 +1446,7 @@ function requireQuery_pb() {
       OPERATOR_AND: 1,
       OPERATOR_OR: 2
     };
+
     /**
      * @enum {number}
      */
@@ -1404,6 +1496,7 @@ function requireQuery_pb() {
       TYPE_IMAGE_CONTENT_TYPE: 42,
       TYPE_CONTENT_ITEM_ID: 43
     };
+
     /**
      * @enum {number}
      */
@@ -1414,6 +1507,7 @@ function requireQuery_pb() {
       PRECISION_FUZZY: 3,
       PRECISION_SOFT: 4
     };
+
     /**
      * @enum {number}
      */
@@ -1421,7 +1515,7 @@ function requireQuery_pb() {
       GROUPVALUE_UNSPECIFIED: 0,
       GROUPVALUE_ARTICLES: 1
     };
-    goog.object.extend(exports$1, proto.impresso.query);
+    goog.object.extend(exports, proto.impresso.query);
   })(query_pb);
   return query_pb;
 }

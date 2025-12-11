@@ -13,7 +13,13 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() { return this || window || global || self || Function('return this')(); }).call(null);
+var global =
+    (typeof globalThis !== 'undefined' && globalThis) ||
+    (typeof window !== 'undefined' && window) ||
+    (typeof global !== 'undefined' && global) ||
+    (typeof self !== 'undefined' && self) ||
+    (function () { return this; }).call(null) ||
+    Function('return this')();
 
 goog.exportSymbol('proto.impresso.query.CollectionRecommender', null, global);
 goog.exportSymbol('proto.impresso.query.CollectionRecommender.RecommenderType', null, global);
@@ -186,8 +192,8 @@ proto.impresso.query.DateRange.prototype.toObject = function(opt_includeInstance
  */
 proto.impresso.query.DateRange.toObject = function(includeInstance, msg) {
   var f, obj = {
-    from: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    to: jspb.Message.getFieldWithDefault(msg, 2, 0)
+from: jspb.Message.getFieldWithDefault(msg, 1, 0),
+to: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -353,13 +359,13 @@ proto.impresso.query.Filter.prototype.toObject = function(opt_includeInstance) {
  */
 proto.impresso.query.Filter.toObject = function(includeInstance, msg) {
   var f, obj = {
-    context: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    op: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    type: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    precision: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    qList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
-    daterange: (f = msg.getDaterange()) && proto.impresso.query.DateRange.toObject(includeInstance, f),
-    uidsList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
+context: jspb.Message.getFieldWithDefault(msg, 1, 0),
+op: jspb.Message.getFieldWithDefault(msg, 2, 0),
+type: jspb.Message.getFieldWithDefault(msg, 3, 0),
+precision: jspb.Message.getFieldWithDefault(msg, 4, 0),
+qList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
+daterange: (f = msg.getDaterange()) && proto.impresso.query.DateRange.toObject(includeInstance, f),
+uidsList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -729,9 +735,9 @@ proto.impresso.query.SearchQuery.prototype.toObject = function(opt_includeInstan
  */
 proto.impresso.query.SearchQuery.toObject = function(includeInstance, msg) {
   var f, obj = {
-    filtersList: jspb.Message.toObjectList(msg.getFiltersList(),
+filtersList: jspb.Message.toObjectList(msg.getFiltersList(),
     proto.impresso.query.Filter.toObject, includeInstance),
-    groupBy: jspb.Message.getFieldWithDefault(msg, 2, 0)
+groupBy: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -912,10 +918,10 @@ proto.impresso.query.CollectionRecommenderParameter.prototype.toObject = functio
  */
 proto.impresso.query.CollectionRecommenderParameter.toObject = function(includeInstance, msg) {
   var f, obj = {
-    key: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    stringValue: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    numberValue: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    boolValue: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
+key: jspb.Message.getFieldWithDefault(msg, 1, 0),
+stringValue: jspb.Message.getFieldWithDefault(msg, 2, ""),
+numberValue: jspb.Message.getFieldWithDefault(msg, 3, 0),
+boolValue: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -1153,11 +1159,11 @@ proto.impresso.query.CollectionRecommender.prototype.toObject = function(opt_inc
  */
 proto.impresso.query.CollectionRecommender.toObject = function(includeInstance, msg) {
   var f, obj = {
-    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    weight: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    parametersList: jspb.Message.toObjectList(msg.getParametersList(),
+type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+weight: jspb.Message.getFieldWithDefault(msg, 2, 0),
+parametersList: jspb.Message.toObjectList(msg.getParametersList(),
     proto.impresso.query.CollectionRecommenderParameter.toObject, includeInstance),
-    enabled: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
+enabled: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -1414,7 +1420,7 @@ proto.impresso.query.CollectionRecommendersSettings.prototype.toObject = functio
  */
 proto.impresso.query.CollectionRecommendersSettings.toObject = function(includeInstance, msg) {
   var f, obj = {
-    recommendersList: jspb.Message.toObjectList(msg.getRecommendersList(),
+recommendersList: jspb.Message.toObjectList(msg.getRecommendersList(),
     proto.impresso.query.CollectionRecommender.toObject, includeInstance)
   };
 
