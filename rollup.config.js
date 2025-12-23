@@ -8,7 +8,7 @@ import typescript from '@rollup/plugin-typescript';
 const createConfig = (format, outputFile, isMinified = false) => {
   const config = {
     input: 'src/index.ts',
-    external: ['base64-js', 'case', 'google-protobuf'],
+    external: ['base64-js', 'google-protobuf'],
     output: {
       file: outputFile,
       format,
@@ -18,7 +18,6 @@ const createConfig = (format, outputFile, isMinified = false) => {
       extend: true,
       globals: {
         'base64-js': 'base64-js',
-        case: 'case',
         'google-protobuf': 'goog',
       },
       // For esm format, add useful properties

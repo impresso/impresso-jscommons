@@ -21,7 +21,7 @@ declare const _default: {
             type: {
                 type: string;
                 description: string;
-                enum: readonly ("string" | "uid" | "hasTextContents" | "title" | "isFront" | "page" | "issue" | "entity" | "newspaper" | "daterange" | "year" | "language" | "type" | "regex" | "mention" | "person" | "location" | "topic" | "collection" | "ocrQuality" | "contentLength" | "country" | "accessRight" | "partner" | "month" | "textReuseClusterSize" | "textReuseClusterLexicalOverlap" | "textReuseClusterDayDelta" | "textReuseCluster" | "mentionFunction" | "nag" | "wikidataId" | "dataDomain" | "copyright" | "sourceType" | "sourceMedium" | "organisation" | "embedding" | "imageVisualContent" | "imageTechnique" | "imageCommunicationGoal" | "imageContentType" | "contentItemId")[];
+                enum: readonly ("string" | "type" | "title" | "uid" | "hasTextContents" | "isFront" | "page" | "issue" | "entity" | "newspaper" | "daterange" | "year" | "language" | "regex" | "mention" | "person" | "location" | "topic" | "collection" | "ocrQuality" | "contentLength" | "country" | "accessRight" | "partner" | "month" | "textReuseClusterSize" | "textReuseClusterLexicalOverlap" | "textReuseClusterDayDelta" | "textReuseCluster" | "mentionFunction" | "nag" | "wikidataId" | "dataDomain" | "copyright" | "sourceType" | "sourceMedium" | "organisation" | "embedding" | "imageVisualContent" | "imageTechnique" | "imageCommunicationGoal" | "imageContentType" | "contentItemId")[];
             };
             context: {
                 type: string;

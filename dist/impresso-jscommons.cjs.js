@@ -1,10 +1,181 @@
 'use strict';
 
-var caseModule = require('case');
 var base64Js = require('base64-js');
 var require$$0 = require('google-protobuf');
 
-const { pascal, camel, upper, snake } = caseModule;
+/**
+ * Case conversion utilities - ESM version
+ * Converted from the CommonJS 'case' module to ESM
+ */
+const unicodes = (s, prefix = '') => {
+    prefix = prefix || '';
+    return s.replace(/(^|-)/g, `$1\\u${prefix}`).replace(/,/g, `\\u${prefix}`);
+};
+const basicSymbols = unicodes('20-26,28-2F,3A-40,5B-60,7B-7E,A0-BF,D7,F7', '00');
+const baseLowerCase = 'a-z' + unicodes('DF-F6,F8-FF', '00');
+const baseUpperCase = 'A-Z' + unicodes('C0-D6,D8-DE', '00');
+const improperInTitle = 'A|An|And|As|At|But|By|En|For|If|In|Of|On|Or|The|To|Vs?\\.?|Via';
+const regexps = (symbols, lowers, uppers, impropers) => {
+    symbols = symbols || basicSymbols;
+    lowers = lowers || baseLowerCase;
+    uppers = uppers || baseUpperCase;
+    impropers = impropers || improperInTitle;
+    return {
+        capitalize: new RegExp(`(^|[${symbols}])([${lowers}])`, 'g'),
+        pascal: new RegExp(`(^|[${symbols}])+([${lowers}${uppers}])`, 'g'),
+        fill: new RegExp(`[${symbols}]+(.|$)`, 'g'),
+        sentence: new RegExp(`(^\\s*|[\\?\\!\\.]+"?\\s+"?|,\\s+")([${lowers}])`, 'g'),
+        improper: new RegExp(`\\b(${impropers})\\b`, 'g'),
+        relax: new RegExp(`([^${uppers}])([${uppers}]*)([${uppers}])(?=[^${uppers}]|$)`, 'g'),
+        upper: new RegExp(`^[^${lowers}]+$`),
+        hole: /[^\s]\s[^\s]/,
+        apostrophe: /'/g,
+        room: new RegExp(`[${symbols}]`),
+    };
+};
+const re = regexps();
+const utils = {
+    re,
+    unicodes,
+    regexps,
+    types: [],
+    up: String.prototype.toUpperCase,
+    low: String.prototype.toLowerCase,
+    cap: (s) => {
+        return utils.up.call(s.charAt(0)) + s.slice(1);
+    },
+    decap: (s) => {
+        return utils.low.call(s.charAt(0)) + s.slice(1);
+    },
+    deapostrophe: (s) => {
+        return s.replace(re.apostrophe, '');
+    },
+    fill: (s, fill, deapostrophe) => {
+        if (fill != null) {
+            s = s.replace(re.fill, (m, next) => {
+                return next ? fill + next : '';
+            });
+        }
+        if (deapostrophe) {
+            s = utils.deapostrophe(s);
+        }
+        return s;
+    },
+    prep: (s, fill, pascal, upper) => {
+        s = s == null ? '' : s + ''; // force to string
+        if (!upper && re.upper.test(s)) {
+            s = utils.low.call(s);
+        }
+        if (!fill && !re.hole.test(s)) {
+            const holey = utils.fill(s, ' ');
+            if (re.hole.test(holey)) {
+                s = holey;
+            }
+        }
+        if (!pascal && !re.room.test(s)) {
+            s = s.replace(re.relax, (m, before, acronym, caps) => {
+                return before + ' ' + (acronym ? acronym + ' ' : '') + caps;
+            });
+        }
+        return s;
+    },
+    relax: (m, before, acronym, caps) => {
+        return before + ' ' + (acronym ? acronym + ' ' : '') + caps;
+    },
+};
+const types = {
+    lower: (s, fill, deapostrophe) => {
+        return utils.fill(utils.low.call(utils.prep(s, fill)), fill, deapostrophe);
+    },
+    snake: (s) => {
+        return caseModule.lower(s, '_', true);
+    },
+    constant: (s) => {
+        return caseModule.upper(s, '_', true);
+    },
+    camel: (s) => {
+        return utils.decap(caseModule.pascal(s));
+    },
+    kebab: (s) => {
+        return caseModule.lower(s, '-', true);
+    },
+    upper: (s, fill, deapostrophe) => {
+        return utils.fill(utils.up.call(utils.prep(s, fill, false, true)), fill, deapostrophe);
+    },
+    capital: (s, fill, deapostrophe) => {
+        return utils.fill(utils.prep(s).replace(re.capitalize, (m, border, letter) => {
+            return border + utils.up.call(letter);
+        }), fill, deapostrophe);
+    },
+    header: (s) => {
+        return caseModule.capital(s, '-', true);
+    },
+    pascal: (s) => {
+        return utils.fill(utils.prep(s, false, true).replace(re.pascal, (m, border, letter) => {
+            return utils.up.call(letter);
+        }), '', true);
+    },
+    title: (s) => {
+        return caseModule.capital(s).replace(re.improper, (small, p, i, s) => {
+            return i > 0 && i < s.lastIndexOf(' ') ? utils.low.call(small) : small;
+        });
+    },
+    sentence: (s, names, abbreviations) => {
+        s = caseModule.lower(s).replace(re.sentence, (m, prelude, letter) => {
+            return prelude + utils.up.call(letter);
+        });
+        if (names) {
+            names.forEach((name) => {
+                s = s.replace(new RegExp(`\\b${caseModule.lower(name)}\\b`, 'g'), utils.cap);
+            });
+        }
+        if (abbreviations) {
+            abbreviations.forEach((abbr) => {
+                s = s.replace(new RegExp(`(\\b${caseModule.lower(abbr)}\\.\\s+)(\\w)`), (m, abbrAndSpace, letter) => {
+                    return abbrAndSpace + utils.low.call(letter);
+                });
+            });
+        }
+        return s;
+    },
+};
+const caseModule = {
+    _: utils,
+    of: (s) => {
+        for (let i = 0; i < utils.types.length; i++) {
+            const fn = caseModule[utils.types[i]];
+            if (typeof fn === 'function' && fn.apply(caseModule, [s]) === s) {
+                return utils.types[i];
+            }
+        }
+        return undefined;
+    },
+    flip: (s) => {
+        return s.replace(/\w/g, (l) => {
+            return (l === utils.up.call(l) ? utils.low : utils.up).call(l);
+        });
+    },
+    random: (s) => {
+        return s.replace(/\w/g, (l) => {
+            return (Math.round(Math.random()) ? utils.up : utils.low).call(l);
+        });
+    },
+    type: (type, fn) => {
+        caseModule[type] = fn;
+        utils.types.push(type);
+    },
+};
+// Add types
+Object.keys(types).forEach((type) => {
+    caseModule.type(type, types[type]);
+});
+// TODO: Remove "squish" in a future breaking release.
+caseModule.squish = caseModule.pascal;
+// Allow import default
+caseModule.default = caseModule;
+// Export named functions
+const { lower, upper, pascal, camel, snake, kebab, capital, header, constant, title, sentence, flip, random } = caseModule;
+
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
 function fromObject(ProtoClass, obj, ignoreUnknownProperties = false) {
     if (obj === undefined)
@@ -1690,19 +1861,19 @@ var index$2 = {
 const Types = Object.freeze(Object
     .keys(query_pbExports.FilterType)
     .filter((filterType) => query_pbExports.FilterType[filterType] !== query_pbExports.FilterType.TYPE_UNSPECIFIED)
-    .map((filterType) => caseModule.camel(filterType.split('_').slice(1).join('_'))));
+    .map((filterType) => camel(filterType.split('_').slice(1).join('_'))));
 const Operators = Object.freeze(Object
     .keys(query_pbExports.FilterOperator)
     .filter((operator) => query_pbExports.FilterOperator[operator] !== query_pbExports.FilterOperator.OPERATOR_UNSPECIFIED)
-    .map((operator) => caseModule.camel(operator.split('_').slice(1).join('_')).toUpperCase()));
+    .map((operator) => camel(operator.split('_').slice(1).join('_')).toUpperCase()));
 const Contexts = Object.freeze(Object
     .keys(query_pbExports.FilterContext)
     .filter((context) => query_pbExports.FilterContext[context] !== query_pbExports.FilterContext.CONTEXT_UNSPECIFIED)
-    .map((context) => caseModule.camel(context.split('_').slice(1).join('_')).toLowerCase()));
+    .map((context) => camel(context.split('_').slice(1).join('_')).toLowerCase()));
 const Precision = Object.freeze(Object
     .keys(query_pbExports.FilterPrecision)
     .filter((precision) => query_pbExports.FilterPrecision[precision] !== query_pbExports.FilterPrecision.PRECISION_UNSPECIFIED)
-    .map((precision) => caseModule.camel(precision.split('_').slice(1).join('_')).toLowerCase()));
+    .map((precision) => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
 var constants = {
     filter: {
         Types,

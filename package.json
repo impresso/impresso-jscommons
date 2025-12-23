@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "base64-js": "1.5.1",
-    "case": "1.6.3",
     "google-protobuf": "4.0.0"
   },
   "devDependencies": {

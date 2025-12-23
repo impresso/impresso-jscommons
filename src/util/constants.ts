@@ -1,4 +1,4 @@
-import { camel } from 'case';
+import { camel } from './case';
 import * as pb from '../generated/query_pb.js';
 import { FilterType, FilterOperator, FilterContext, FilterPrecision } from '../types/filter';
 
