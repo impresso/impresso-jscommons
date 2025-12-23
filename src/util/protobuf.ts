@@ -1,5 +1,7 @@
-import { snake, camel, upper, pascal } from 'case';
+import caseModule from 'case'
 import { fromByteArray, toByteArray } from 'base64-js';
+
+const { pascal, camel, upper, snake } = caseModule
 
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
 export function fromObject<T extends { new (): any }>(

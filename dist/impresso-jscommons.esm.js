@@ -1,7 +1,8 @@
-import { pascal, camel, upper, snake } from 'case';
+import caseModule, { camel as camel$1 } from 'case';
 import { fromByteArray, toByteArray } from 'base64-js';
 import require$$0 from 'google-protobuf';
 
+const { pascal, camel, upper, snake } = caseModule;
 // While this one is being implemented: https://github.com/protocolbuffers/protobuf/issues/1591
 function fromObject(ProtoClass, obj, ignoreUnknownProperties = false) {
     if (obj === undefined)
@@ -1686,19 +1687,19 @@ var index$2 = {
 const Types = Object.freeze(Object
     .keys(query_pbExports.FilterType)
     .filter((filterType) => query_pbExports.FilterType[filterType] !== query_pbExports.FilterType.TYPE_UNSPECIFIED)
-    .map((filterType) => camel(filterType.split('_').slice(1).join('_'))));
+    .map((filterType) => camel$1(filterType.split('_').slice(1).join('_'))));
 const Operators = Object.freeze(Object
     .keys(query_pbExports.FilterOperator)
     .filter((operator) => query_pbExports.FilterOperator[operator] !== query_pbExports.FilterOperator.OPERATOR_UNSPECIFIED)
-    .map((operator) => camel(operator.split('_').slice(1).join('_')).toUpperCase()));
+    .map((operator) => camel$1(operator.split('_').slice(1).join('_')).toUpperCase()));
 const Contexts = Object.freeze(Object
     .keys(query_pbExports.FilterContext)
     .filter((context) => query_pbExports.FilterContext[context] !== query_pbExports.FilterContext.CONTEXT_UNSPECIFIED)
-    .map((context) => camel(context.split('_').slice(1).join('_')).toLowerCase()));
+    .map((context) => camel$1(context.split('_').slice(1).join('_')).toLowerCase()));
 const Precision = Object.freeze(Object
     .keys(query_pbExports.FilterPrecision)
     .filter((precision) => query_pbExports.FilterPrecision[precision] !== query_pbExports.FilterPrecision.PRECISION_UNSPECIFIED)
-    .map((precision) => camel(precision.split('_').slice(1).join('_')).toLowerCase()));
+    .map((precision) => camel$1(precision.split('_').slice(1).join('_')).toLowerCase()));
 var constants = {
     filter: {
         Types,
