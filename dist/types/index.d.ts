@@ -1,6 +1,6 @@
 import { Filter } from './filter';
 export interface Entity {
-    uid: string;
+    id: string;
     name?: string;
     language?: string;
     htmlExcerpt?: string;
@@ -21,7 +21,7 @@ export interface Entity {
     end?: number;
 }
 export interface Bucket {
-    val: string;
+    value: string;
     count: number;
     item?: Entity;
 }
