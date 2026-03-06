@@ -1,4 +1,5 @@
-import { Filter, CollectionRecommendersSettings, SearchQuery } from '../types/index';
+import { Filter, SearchQuery } from '../types/index';
+import { CollectionRecommendersSettings } from '../types/collectionRecommender';
 declare const _default: {
     filter: {
         serialize: (obj: Filter, ignoreUnknownProperties?: boolean) => string;

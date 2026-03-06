@@ -1,54 +1,6 @@
-import { Filter } from './filter';
-export interface Entity {
-    id: string;
-    name?: string;
-    language?: string;
-    htmlExcerpt?: string;
-    creator?: {
-        username?: string;
-    };
-    lastModifiedDate?: Date;
-    y?: string;
-    firstIssue?: {
-        date: Date;
-    };
-    lastIssue?: {
-        date: Date;
-    };
-    countArticles?: number;
-    countIssues?: number;
-    start?: number;
-    end?: number;
-}
-export interface Bucket {
-    value: string;
-    count: number;
-    item?: Entity;
-}
-export interface Facet {
-    type: string;
-    buckets: Bucket[];
-    operators?: string[];
-    numBuckets?: number;
-}
-export { Filter };
-export interface SearchQuery {
+import { Filter, FilterType } from './filter';
+export { Filter, FilterType };
+export interface SearchQuery<G = string> {
     filters: Filter[];
-    groupBy?: string;
-}
-export interface FilterWithItems extends Filter {
-    items?: Entity[];
-}
-export interface RecommenderParameter {
-    key: string;
-    value: string | number | boolean;
-}
-export interface CollectionRecommender {
-    type: string;
-    weight?: number;
-    parameters?: RecommenderParameter[];
-    enabled?: boolean;
-}
-export interface CollectionRecommendersSettings {
-    recommenders: CollectionRecommender[];
+    groupBy?: G;
 }
