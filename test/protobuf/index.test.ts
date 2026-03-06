@@ -1,5 +1,6 @@
 import { protobuf, constants, jsonSchemas } from '../../src/index'
-import { Filter, CollectionRecommendersSettings } from '../../src/types/index'
+import { CollectionRecommendersSettings } from '../../src/types/collectionRecommender'
+import { Filter } from '../../src/types/index'
 
 describe('Filter <-> protobuf', () => {
   it('collection query', () => {

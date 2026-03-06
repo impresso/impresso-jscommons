@@ -8,7 +8,8 @@ import {
 } from '../util/protobuf';
 import * as pb from '../generated/query_pb.js';
 
-import { Filter, CollectionRecommendersSettings, SearchQuery } from '../types/index';
+import { Filter, SearchQuery } from '../types/index';
+import { CollectionRecommendersSettings } from '../types/collectionRecommender';
 
 function stringAsArray(s: string | string[]): string[] {
   if (typeof s === 'string' || s instanceof String) return [s as string];
