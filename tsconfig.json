@@ -3,7 +3,6 @@
     "target": "ES2024",
     "noEmit": false,
     "allowJs": true,
-    "downlevelIteration": true,
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "module": "ESNext",
@@ -11,7 +10,8 @@
     "declarationDir": "dist",
     "outDir": "dist",
     "emitDeclarationOnly": false,
+    "types": ["jest"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

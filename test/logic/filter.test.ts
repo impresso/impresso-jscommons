@@ -1,4 +1,4 @@
-import { optimizeFilters } from '../../src/logic/filter';
+import { optimizeFilters, mergeFilters } from '../../src/logic/filter';
 import { Filter } from '../../src/types/index';
 
 describe('optimizeFilters', () => {
@@ -40,5 +40,51 @@ describe('optimizeFilters', () => {
     ] satisfies Filter[];
 
     expect(optimizeFilters(filters)).toEqual(optimizedFilters);
+  });
+});
+
+describe('mergeFilters', () => {
+  it('flattens multiple filter sets into one', () => {
+    const sets = [
+      [{ type: 'language', q: ['de'] }],
+      [{ type: 'newspaper', q: ['DTT'] }],
+    ] satisfies Filter[][];
+
+    expect(mergeFilters(sets)).toEqual([
+      { type: 'language', q: 'de', op: 'AND' },
+      { type: 'newspaper', q: 'DTT', op: 'AND' },
+    ]);
+  });
+
+  it('sets op to AND for filters with a single q value', () => {
+    const sets = [
+      [{ type: 'string', q: 'foo' }],
+      [{ type: 'string', q: ['bar'] }],
+    ] satisfies Filter[][];
+
+    expect(mergeFilters(sets)).toEqual([
+      { type: 'string', q: ['foo', 'bar'], op: 'AND' },
+    ]);
+  });
+
+  it('preserves op for filters with multiple q values', () => {
+    const sets = [
+      [{ type: 'newspaper', q: ['DTT', 'BOO'], op: 'OR' }],
+    ] satisfies Filter[][];
+
+    expect(mergeFilters(sets)).toEqual([
+      { type: 'newspaper', q: ['DTT', 'BOO'], op: 'OR' },
+    ]);
+  });
+
+  it('merges same-type filters from different sets', () => {
+    const sets = [
+      [{ type: 'string', q: 'foo' }],
+      [{ type: 'string', q: 'bar' }],
+    ] satisfies Filter[][];
+
+    expect(mergeFilters(sets)).toEqual([
+      { type: 'string', q: ['foo', 'bar'], op: 'AND' },
+    ]);
   });
 });

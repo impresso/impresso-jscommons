@@ -105,13 +105,15 @@ message DateRange {
 }
 
 message Filter {
-  FilterContext context = 1;
-  FilterOperator op = 2;
+  reserved 6, 7; // legacy. DateRange is not used anymore, q is used instead. UIDs are not used anymore.
+
+  optional FilterContext context = 1;
+  optional FilterOperator op = 2;
   FilterType type = 3;
-  FilterPrecision precision = 4;
+  optional FilterPrecision precision = 4;
   repeated string q = 5;
-  DateRange daterange = 6 [deprecated=true]; // not used anymore, q is used instead
-  repeated string uids = 7;
+  // DateRange daterange = 6 [deprecated=true]; // not used anymore, q is used instead
+  // repeated string uids = 7;
 }
 
 enum GroupValue {
@@ -121,7 +123,7 @@ enum GroupValue {
 
 message SearchQuery {
   repeated Filter filters = 1;
-  GroupValue group_by = 2;
+  optional GroupValue group_by = 2;
 }
 
 // Collection Recommender

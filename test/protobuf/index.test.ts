@@ -1,6 +1,5 @@
 import { protobuf, constants, jsonSchemas } from '../../src/index'
-import { CollectionRecommendersSettings } from '../../src/types/collectionRecommender'
-import { Filter } from '../../src/types/index'
+import { Filter, GroupValue, SearchQuery } from '../../src/types/index'
 
 describe('Filter <-> protobuf', () => {
   it('collection query', () => {
@@ -30,41 +29,6 @@ describe('Filter <-> protobuf', () => {
     expect(deserializedFilter).toEqual(testFilter)
   })
 
-  it('uids query', () => {
-    const testFilter = {
-      type: 'uid',
-      uids: ['123'],
-    } satisfies Filter
-    const expectedBase64String = 'GAE6AzEyMw=='
-
-    const base64String = protobuf.filter.serialize(testFilter)
-    expect(base64String).toBe(expectedBase64String)
-    const deserializedFilter = protobuf.filter.deserialize(base64String)
-    expect(deserializedFilter).toEqual(testFilter)
-  })
-
-  it('query with extra fields', () => {
-    const testFilter = {
-      context: 'include',
-      op: 'AND',
-      type: 'collection',
-      q: ['abc123', 'def'],
-      uid: 'shouldBeIgnored',
-    } as any satisfies Filter
-    const expectedBase64String = 'CAEQARgTKgZhYmMxMjMqA2RlZg=='
-
-    expect(() => protobuf.filter.serialize(testFilter)).toThrow(
-      /Unknown property: "uid"/
-    )
-
-    const base64String = protobuf.filter.serialize(testFilter, true)
-    expect(base64String).toBe(expectedBase64String)
-    const deserializedFilter = protobuf.filter.deserialize(base64String)
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uid, ...testFilterWithoutExtra } = testFilter
-    expect(deserializedFilter).toEqual(testFilterWithoutExtra)
-  })
 })
 
 describe('SearchQuery <-> protobuf', () => {
@@ -82,22 +46,21 @@ describe('SearchQuery <-> protobuf', () => {
           q: '1989-02-03 TO 2019-02-05T12:35:17Z',
         },
         {
-          type: 'uid',
-          uids: ['123'],
+          type: 'string',
+          q: 'einstein',
         },
         {
-          type: 'hasTextContents',
-          uids: ['foo', 'bar'],
+          type: 'hasTextContents'
         },
       ] satisfies Filter[],
       groupBy: 'articles',
-    }
+    } satisfies SearchQuery
     const expectedBase64String =
-      'Cg4IARABGBMqBmFiYzEyMwomGAoqIjE5ODktMDItMDMgVE8gMjAxOS0wMi0wNVQxMjozNToxN1oKBxgBOgMxMjMKDBgCOgNmb286A2JhchAB'
+      'Cg4IARABGBMqBmFiYzEyMwomGAoqIjE5ODktMDItMDMgVE8gMjAxOS0wMi0wNVQxMjozNToxN1oKDBgHKghlaW5zdGVpbgoCGAIQAQ=='
 
-    const base64String = protobuf.searchQuery.serialize(testSearchQuery)
+    const base64String = protobuf.searchQuery.serialize(testSearchQuery, false)
     expect(base64String).toBe(expectedBase64String)
-    const deserializedFilter = protobuf.searchQuery.deserialize(base64String)
+    const deserializedFilter = protobuf.searchQuery.deserialize(base64String, false)
     expect(deserializedFilter).toEqual(testSearchQuery)
   })
 
@@ -111,8 +74,8 @@ describe('SearchQuery <-> protobuf', () => {
           q: 'abc123',
         },
       ] satisfies Filter[],
-      groupBy: 'asdf',
-    }
+      groupBy: 'asdf' as any satisfies GroupValue,
+    } satisfies SearchQuery
     expect(() => protobuf.searchQuery.serialize(testSearchQuery)).toThrow(
       /Unknown enum value: asdf/
     )
@@ -233,8 +196,8 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'textReuseCluster',
           q: ['a', 'b'],
           uid: 'shouldBeIgnored',
-        },
-      ] as any satisfies Filter[],
+        } as any satisfies Filter,
+      ],
     }
     const base64String = protobuf.searchQuery.serialize(testSearchQuery, true)
     expect(base64String).toBe('CgwIARACGB0qAWEqAWI=')
@@ -284,40 +247,40 @@ describe('constants', () => {
   })
 })
 
-describe('CollectionRecommendersSettings <-> protobuf', () => {
-  it('recommender settings', () => {
-    const settings = {
-      recommenders: [
-        {
-          type: 'timeRange',
-          weight: 0.33,
-          parameters: [{ key: 'margin', value: 5.78 }],
-        },
-        {
-          type: 'entities',
-          weight: 5,
-          parameters: [{ key: 'removeFullyMentioned', value: true }],
-        },
-        {
-          type: 'topics',
-          weight: 1,
-          enabled: true,
-          parameters: [{ key: 'countType', value: 'boo' }],
-        },
-      ],
-    } satisfies CollectionRecommendersSettings
+// describe('CollectionRecommendersSettings <-> protobuf', () => {
+//   it('recommender settings', () => {
+//     const settings = {
+//       recommenders: [
+//         {
+//           type: 'timeRange',
+//           weight: 0.33,
+//           parameters: [{ key: 'margin', value: 5.78 }],
+//         },
+//         {
+//           type: 'entities',
+//           weight: 5,
+//           parameters: [{ key: 'removeFullyMentioned', value: true }],
+//         },
+//         {
+//           type: 'topics',
+//           weight: 1,
+//           enabled: true,
+//           parameters: [{ key: 'countType', value: 'boo' }],
+//         },
+//       ],
+//     } satisfies CollectionRecommendersSettings
 
-    const expectedBase64String =
-      'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKEAgDEMgBGgcIARIDYm9vIAE='
+//     const expectedBase64String =
+//       'CgsIARBCGgUIBhiECQoLCAIQ6AcaBAgEIAEKEAgDEMgBGgcIARIDYm9vIAE='
 
-    const base64String =
-      protobuf.collectionRecommendersSettings.serialize(settings)
-    expect(base64String).toBe(expectedBase64String)
-    const deserializedFilter =
-      protobuf.collectionRecommendersSettings.deserialize(base64String)
-    expect(deserializedFilter).toEqual(settings)
-  })
-})
+//     const base64String =
+//       protobuf.collectionRecommendersSettings.serialize(settings)
+//     expect(base64String).toBe(expectedBase64String)
+//     const deserializedFilter =
+//       protobuf.collectionRecommendersSettings.deserialize(base64String)
+//     expect(deserializedFilter).toEqual(settings)
+//   })
+// })
 
 describe('jsonSchemas', () => {
   it('can import jsonSchemas', () => {

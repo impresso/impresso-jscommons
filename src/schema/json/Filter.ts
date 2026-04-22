@@ -40,11 +40,6 @@ export default {
       type: "string",
       description: "The filter operator (without OP_ prefix and in uppercase)",
       enum: constants.filter.Operators,
-    },
-    uids: {
-      type: "array",
-      items: { type: "string" },
-      description: "Array of unique identifiers",
     }
   },
 };

@@ -4,9 +4,9 @@ const getFilterMergeKey = ({
   type, op = 'OR', context = 'include', precision = 'exact',
 }: Filter) => `t:${type}-o:${op}-c:${context}-p:${precision}`;
 
-const omitBy = <K extends string | number | symbol, V>(object: Record<K, V>, fn: (V) => boolean): Record<K, V> => Object.keys(object).reduce((acc, key) => {
-  const value = object[key];
-  if (!fn(value)) acc[key] = value;
+const omitBy = <K extends string | number | symbol, V>(object: Record<K, V>, fn: (arg: V) => boolean): Record<K, V> => Object.keys(object).reduce((acc, key) => {
+  const value = object[key as K];
+  if (!fn(value)) acc[key as K] = value;
   return acc;
 }, {} as Record<K, V>);
 
@@ -20,7 +20,7 @@ export function optimizeFilters(filters: Filter[]): Filter[] {
     const items = map.get(key) || [];
     map.set(key, items.concat([filter]));
     return map;
-  }, new Map());
+  }, new Map<string, Filter[]>());
   return [...groupingMap.entries()]
     .map(([, groupedFilters]) => {
       const {
@@ -36,7 +36,7 @@ export function optimizeFilters(filters: Filter[]): Filter[] {
         precision,
         op,
         q: query.length > 1 ? query : query[0],
-      }, (value) => value == null);
+      }, (value) => value == null) as Filter;
     });
 }
 
