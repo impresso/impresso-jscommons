@@ -17,68 +17,77 @@ enum FilterOperator {
 }
 
 enum FilterType {
+  // legacy types below:
+  // 30 - MENTION_FUNCTION (not used anymore)
+  reserved 30;
+
+  // used and deprecated types below:
+
+  // Applies to: content item
   TYPE_UNSPECIFIED = 0;
-  TYPE_UID = 1;
-  TYPE_HAS_TEXT_CONTENTS = 2;
-  TYPE_TITLE = 3;
-  TYPE_IS_FRONT = 4;
-  TYPE_PAGE = 5;
-  TYPE_ISSUE = 6;
-  TYPE_STRING = 7;
-  TYPE_ENTITY = 8;
-  TYPE_NEWSPAPER = 9;
-  TYPE_DATERANGE = 10;
-  TYPE_YEAR = 11;
-  TYPE_LANGUAGE = 12;
-  TYPE_TYPE = 13;
-  TYPE_REGEX = 14;
-  TYPE_MENTION = 15;
-  TYPE_PERSON = 16;
-  TYPE_LOCATION = 17;
-  TYPE_TOPIC = 18;
-  TYPE_COLLECTION = 19;
-  TYPE_OCR_QUALITY = 20;
-  TYPE_CONTENT_LENGTH = 21;
-  TYPE_COUNTRY = 22;
-  TYPE_ACCESS_RIGHT = 23;
-  TYPE_PARTNER = 24;
+  TYPE_UID = 1 [deprecated = true]; // legacy. Remove soon.
+  TYPE_HAS_TEXT_CONTENTS = 2; // type:boolean Usually implicitly added in the web app
+  TYPE_TITLE = 3; // type:string
+  TYPE_IS_FRONT = 4; // type:boolean
+  TYPE_PAGE = 5; // type:number
+  TYPE_ISSUE = 6 [deprecated = true]; // legacy. may still be used internally
+  TYPE_STRING = 7; // type:string
+  TYPE_ENTITY = 8 [deprecated = true]; // legacy. superceded by more specific entity types (person, location, nag, organisation)
+  TYPE_NEWSPAPER = 9 [deprecated = true]; // legacy. Alias to MEDIA_SOURCE type
+  TYPE_DATERANGE = 10; // type:daterange
+  TYPE_YEAR = 11; // type:number
+  TYPE_LANGUAGE = 12; // type:string
+  TYPE_TYPE = 13; // type:string
+  TYPE_REGEX = 14 [deprecated = true]; // legacy.
+  TYPE_MENTION = 15; // type:string
+  TYPE_PERSON = 16; // type:string
+  TYPE_LOCATION = 17; // type:string
+  TYPE_TOPIC = 18; // type:string
+  TYPE_COLLECTION = 19; // type:string
+  TYPE_OCR_QUALITY = 20; // type:numericRange
+  TYPE_CONTENT_LENGTH = 21; // type:number
+  TYPE_COUNTRY = 22; // type:string
+  TYPE_ACCESS_RIGHT = 23 [deprecated = true]; // legacy. Use COPYRIGHT
+  TYPE_PARTNER = 24; // type:string
+  TYPE_MONTH = 25; // type:number
 
-  TYPE_MONTH = 25;
+  // Applies to: text reuse
+  TYPE_TEXT_REUSE_CLUSTER_SIZE = 26; // type:number
+  TYPE_TEXT_REUSE_CLUSTER_LEXICAL_OVERLAP = 27; // type:numericRange
+  TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA = 28; // type:numericRange
 
-  // text reuse types
-  TYPE_TEXT_REUSE_CLUSTER_SIZE = 26;
-  TYPE_TEXT_REUSE_CLUSTER_LEXICAL_OVERLAP = 27;
-  TYPE_TEXT_REUSE_CLUSTER_DAY_DELTA = 28;
+  // Applies to: content item
+  TYPE_TEXT_REUSE_CLUSTER = 29; // type:string cluster in articles
 
-  // cluster in articles
-  TYPE_TEXT_REUSE_CLUSTER = 29;
+  // Applies to: content item
+  TYPE_NAG = 31; // type:string Newsagency
 
-  // mentions and entities
-  TYPE_MENTION_FUNCTION = 30;
-  TYPE_NAG = 31;
-  TYPE_WIKIDATA_ID = 32;
+  // Applies to: entities
+  TYPE_WIKIDATA_ID = 32; // type:string
 
-  TYPE_DATA_DOMAIN = 33;
-  TYPE_COPYRIGHT = 34;
+  // Applies to: content item
+  TYPE_DATA_DOMAIN = 33 [deprecated = true]; // Use COPYRIGHT
+  TYPE_COPYRIGHT = 34; // type:string
+  TYPE_SOURCE_TYPE = 35; // type:string
+  TYPE_SOURCE_MEDIUM = 36; // type:string
 
-  // meta source
-  TYPE_SOURCE_TYPE = 35;
-  TYPE_SOURCE_MEDIUM = 36;
+  // Applies to: content item
+  TYPE_ORGANISATION = 37; // type:string
 
-  // organization type
-  TYPE_ORGANISATION = 37;
+  // Applies to: content item, images
+  TYPE_EMBEDDING = 38; // type:string
 
-  // search by embedding (text or image)
-  TYPE_EMBEDDING = 38;
+  // Applies to: images
+  TYPE_IMAGE_VISUAL_CONTENT = 39; // type:string
+  TYPE_IMAGE_TECHNIQUE = 40; // type:string
+  TYPE_IMAGE_COMMUNICATION_GOAL = 41; // type:string
+  TYPE_IMAGE_CONTENT_TYPE = 42; // type:string
 
-  // image types
-  TYPE_IMAGE_VISUAL_CONTENT = 39;
-  TYPE_IMAGE_TECHNIQUE = 40;
-  TYPE_IMAGE_COMMUNICATION_GOAL = 41;
-  TYPE_IMAGE_CONTENT_TYPE = 42;
+  // Applies to: text reuse passages
+  TYPE_CONTENT_ITEM_ID = 43; // type:string
 
-  // contentItemId type 
-  TYPE_CONTENT_ITEM_ID = 43;
+  // Applies to: content item
+  TYPE_MEDIA_SOURCE = 44; // type:string
 }
 
 enum FilterPrecision {
