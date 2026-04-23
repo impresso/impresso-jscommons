@@ -1,26 +1,31 @@
 import { camel } from 'case';
-import * as pb from '../generated/query_pb.js';
+import {
+  FilterType as FilterTypeMap,
+  FilterContext as FilterContextMap,
+  FilterOperator as FilterOperatorMap,
+  FilterPrecision as FilterPrecisionMap
+} from '../generated/proto/query_pb'
 import { FilterType, FilterOperator, FilterContext, FilterPrecision } from '../types/filter';
 
-const Types = Object.freeze(Object
-  .keys(pb.FilterType)
-  .filter((filterType) => pb.FilterType[filterType] !== pb.FilterType.TYPE_UNSPECIFIED)
-  .map((filterType) => camel(filterType.split('_').slice(1).join('_')) as FilterType));
+const Types = Object.freeze(
+  Object.entries(FilterTypeMap)
+    .filter(([, value]) => typeof value === 'number' && value !== FilterTypeMap.TYPE_UNSPECIFIED)
+    .map(([key]) => camel(key.split('_').slice(1).join('_')) as FilterType));
 
-const Operators = Object.freeze(Object
-  .keys(pb.FilterOperator)
-  .filter((operator) => pb.FilterOperator[operator] !== pb.FilterOperator.OPERATOR_UNSPECIFIED)
-  .map((operator) => camel(operator.split('_').slice(1).join('_')).toUpperCase() as FilterOperator));
+const Operators = Object.freeze(
+  Object.entries(FilterOperatorMap)
+    .filter(([, value]) => typeof value === 'number' && value !== FilterOperatorMap.OPERATOR_UNSPECIFIED)
+    .map(([key]) => camel(key.split('_').slice(1).join('_')).toUpperCase() as FilterOperator));
 
-const Contexts = Object.freeze(Object
-  .keys(pb.FilterContext)
-  .filter((context) => pb.FilterContext[context] !== pb.FilterContext.CONTEXT_UNSPECIFIED)
-  .map((context) => camel(context.split('_').slice(1).join('_')).toLowerCase() as FilterContext));
+const Contexts = Object.freeze(
+  Object.entries(FilterContextMap)
+    .filter(([, value]) => typeof value === 'number' && value !== FilterContextMap.CONTEXT_UNSPECIFIED)
+    .map(([key]) => camel(key.split('_').slice(1).join('_')).toLowerCase() as FilterContext));
 
-const Precision = Object.freeze(Object
-  .keys(pb.FilterPrecision)
-  .filter((precision) => pb.FilterPrecision[precision] !== pb.FilterPrecision.PRECISION_UNSPECIFIED)
-  .map((precision) => camel(precision.split('_').slice(1).join('_')).toLowerCase() as FilterPrecision));
+const Precision = Object.freeze(
+  Object.entries(FilterPrecisionMap)
+    .filter(([, value]) => typeof value === 'number' && value !== FilterPrecisionMap.PRECISION_UNSPECIFIED)
+    .map(([key]) => camel(key.split('_').slice(1).join('_')).toLowerCase() as FilterPrecision));
 
 export default {
   filter: {

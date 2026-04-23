@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2024",
-    "noEmit": false,
+    "noEmit": true,
     "allowJs": true,
-    "downlevelIteration": true,
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "module": "ESNext",
@@ -11,7 +10,8 @@
     "declarationDir": "dist",
     "outDir": "dist",
     "emitDeclarationOnly": false,
+    "types": ["jest"],
+    "rootDir": "./src"
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
