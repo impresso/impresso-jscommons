@@ -12,35 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file proto/query.proto.
  */
 export const file_proto_query: GenFile = /*@__PURE__*/
-  fileDesc("ChFwcm90by9xdWVyeS5wcm90bxIOaW1wcmVzc28ucXVlcnkiJQoJRGF0ZVJhbmdlEgwKBGZyb20YASABKBISCgoCdG8YAiABKBIiiQIKBkZpbHRlchIzCgdjb250ZXh0GAEgASgOMh0uaW1wcmVzc28ucXVlcnkuRmlsdGVyQ29udGV4dEgAiAEBEi8KAm9wGAIgASgOMh4uaW1wcmVzc28ucXVlcnkuRmlsdGVyT3BlcmF0b3JIAYgBARIoCgR0eXBlGAMgASgOMhouaW1wcmVzc28ucXVlcnkuRmlsdGVyVHlwZRI3CglwcmVjaXNpb24YBCABKA4yHy5pbXByZXNzby5xdWVyeS5GaWx0ZXJQcmVjaXNpb25IAogBARIJCgFxGAUgAygJQgoKCF9jb250ZXh0QgUKA19vcEIMCgpfcHJlY2lzaW9uSgQIBhAHSgQIBxAIInYKC1NlYXJjaFF1ZXJ5EicKB2ZpbHRlcnMYASADKAsyFi5pbXByZXNzby5xdWVyeS5GaWx0ZXISMQoIZ3JvdXBfYnkYAiABKA4yGi5pbXByZXNzby5xdWVyeS5Hcm91cFZhbHVlSACIAQFCCwoJX2dyb3VwX2J5IoYDCh5Db2xsZWN0aW9uUmVjb21tZW5kZXJQYXJhbWV0ZXISUgoDa2V5GAEgASgOMkUuaW1wcmVzc28ucXVlcnkuQ29sbGVjdGlvblJlY29tbWVuZGVyUGFyYW1ldGVyLlJlY29tbWVuZGVyUGFyYW1ldGVySWQSFAoMc3RyaW5nX3ZhbHVlGAIgASgJEhQKDG51bWJlcl92YWx1ZRgDIAEoERISCgpib29sX3ZhbHVlGAQgASgIIs8BChZSZWNvbW1lbmRlclBhcmFtZXRlcklkEhIKDklEX1VOU1BFQ0lGSUVEEAASEQoNSURfQ09VTlRfVFlQRRABEhYKEklEX01JTl9PQ0NVUlJFTkNFUxACEhUKEUlEX05VTUJFUl9UT19LRUVQEAMSHQoZSURfUkVNT1ZFX0ZVTExZX01FTlRJT05FRBAEEhoKFklEX05PUk1BTElaRV9NQVhfU0NPUkUQBRINCglJRF9NQVJHSU4QBhIVChFJRF9TQ0FMSU5HX0ZBQ1RPUhAHIsECChVDb2xsZWN0aW9uUmVjb21tZW5kZXISQwoEdHlwZRgBIAEoDjI1LmltcHJlc3NvLnF1ZXJ5LkNvbGxlY3Rpb25SZWNvbW1lbmRlci5SZWNvbW1lbmRlclR5cGUSDgoGd2VpZ2h0GAIgASgREkIKCnBhcmFtZXRlcnMYAyADKAsyLi5pbXByZXNzby5xdWVyeS5Db2xsZWN0aW9uUmVjb21tZW5kZXJQYXJhbWV0ZXISDwoHZW5hYmxlZBgEIAEoCCJ+Cg9SZWNvbW1lbmRlclR5cGUSFAoQVFlQRV9VTlNQRUNJRklFRBAAEhMKD1RZUEVfVElNRV9SQU5HRRABEhEKDVRZUEVfRU5USVRJRVMQAhIPCgtUWVBFX1RPUElDUxADEhwKGFRZUEVfVEVYVF9SRVVTRV9DTFVTVEVSUxAEIl0KHkNvbGxlY3Rpb25SZWNvbW1lbmRlcnNTZXR0aW5ncxI7CgxyZWNvbW1lbmRlcnMYASADKAsyJS5pbXByZXNzby5xdWVyeS5Db2xsZWN0aW9uUmVjb21tZW5kZXIqUgoNRmlsdGVyQ29udGV4dBIXChNDT05URVhUX1VOU1BFQ0lGSUVEEAASEwoPQ09OVEVYVF9JTkNMVURFEAESEwoPQ09OVEVYVF9FWENMVURFEAIqTQoORmlsdGVyT3BlcmF0b3ISGAoUT1BFUkFUT1JfVU5TUEVDSUZJRUQQABIQCgxPUEVSQVRPUl9BTkQQARIPCgtPUEVSQVRPUl9PUhACKvQHCgpGaWx0ZXJUeXBlEhQKEFRZUEVfVU5TUEVDSUZJRUQQABIQCghUWVBFX1VJRBABGgIIARIaChZUWVBFX0hBU19URVhUX0NPTlRFTlRTEAISDgoKVFlQRV9USVRMRRADEhEKDVRZUEVfSVNfRlJPTlQQBBINCglUWVBFX1BBR0UQBRISCgpUWVBFX0lTU1VFEAYaAggBEg8KC1RZUEVfU1RSSU5HEAcSEwoLVFlQRV9FTlRJVFkQCBoCCAESFgoOVFlQRV9ORVdTUEFQRVIQCRoCCAESEgoOVFlQRV9EQVRFUkFOR0UQChINCglUWVBFX1lFQVIQCxIRCg1UWVBFX0xBTkdVQUdFEAwSDQoJVFlQRV9UWVBFEA0SEgoKVFlQRV9SRUdFWBAOGgIIARIQCgxUWVBFX01FTlRJT04QDxIPCgtUWVBFX1BFUlNPThAQEhEKDVRZUEVfTE9DQVRJT04QERIOCgpUWVBFX1RPUElDEBISEwoPVFlQRV9DT0xMRUNUSU9OEBMSFAoQVFlQRV9PQ1JfUVVBTElUWRAUEhcKE1RZUEVfQ09OVEVOVF9MRU5HVEgQFRIQCgxUWVBFX0NPVU5UUlkQFhIZChFUWVBFX0FDQ0VTU19SSUdIVBAXGgIIARIQCgxUWVBFX1BBUlRORVIQGBIOCgpUWVBFX01PTlRIEBkSIAocVFlQRV9URVhUX1JFVVNFX0NMVVNURVJfU0laRRAaEisKJ1RZUEVfVEVYVF9SRVVTRV9DTFVTVEVSX0xFWElDQUxfT1ZFUkxBUBAbEiUKIVRZUEVfVEVYVF9SRVVTRV9DTFVTVEVSX0RBWV9ERUxUQRAcEhsKF1RZUEVfVEVYVF9SRVVTRV9DTFVTVEVSEB0SDAoIVFlQRV9OQUcQHxIUChBUWVBFX1dJS0lEQVRBX0lEECASGAoQVFlQRV9EQVRBX0RPTUFJThAhGgIIARISCg5UWVBFX0NPUFlSSUdIVBAiEhQKEFRZUEVfU09VUkNFX1RZUEUQIxIWChJUWVBFX1NPVVJDRV9NRURJVU0QJBIVChFUWVBFX09SR0FOSVNBVElPThAlEhIKDlRZUEVfRU1CRURESU5HECYSHQoZVFlQRV9JTUFHRV9WSVNVQUxfQ09OVEVOVBAnEhgKFFRZUEVfSU1BR0VfVEVDSE5JUVVFECgSIQodVFlQRV9JTUFHRV9DT01NVU5JQ0FUSU9OX0dPQUwQKRIbChdUWVBFX0lNQUdFX0NPTlRFTlRfVFlQRRAqEhgKFFRZUEVfQ09OVEVOVF9JVEVNX0lEECsSFQoRVFlQRV9NRURJQV9TT1VSQ0UQLCIECB4QHiqBAQoPRmlsdGVyUHJlY2lzaW9uEhkKFVBSRUNJU0lPTl9VTlNQRUNJRklFRBAAEhMKD1BSRUNJU0lPTl9FWEFDVBABEhUKEVBSRUNJU0lPTl9QQVJUSUFMEAISEwoPUFJFQ0lTSU9OX0ZVWlpZEAMSEgoOUFJFQ0lTSU9OX1NPRlQQBCpBCgpHcm91cFZhbHVlEhoKFkdST1VQVkFMVUVfVU5TUEVDSUZJRUQQABIXChNHUk9VUFZBTFVFX0FSVElDTEVTEAFiBnByb3RvMw");
-
-/**
- * @generated from message impresso.query.DateRange
- */
-export type DateRange = Message<"impresso.query.DateRange"> & {
-  /**
-   * https://developers.google.com/protocol-buffers/docs/encoding#signed-integers
-   *
-   * UNIX timestamp
-   *
-   * @generated from field: sint64 from = 1;
-   */
-  from: bigint;
-
-  /**
-   * UNIX timestamp
-   *
-   * @generated from field: sint64 to = 2;
-   */
-  to: bigint;
-};
-
-/**
- * Describes the message impresso.query.DateRange.
- * Use `create(DateRangeSchema)` to create a new message.
- */
-export const DateRangeSchema: GenMessage<DateRange> = /*@__PURE__*/
-  messageDesc(file_proto_query, 0);
+  fileDesc("ChFwcm90by9xdWVyeS5wcm90bxIOaW1wcmVzc28ucXVlcnkiiQIKBkZpbHRlchIzCgdjb250ZXh0GAEgASgOMh0uaW1wcmVzc28ucXVlcnkuRmlsdGVyQ29udGV4dEgAiAEBEi8KAm9wGAIgASgOMh4uaW1wcmVzc28ucXVlcnkuRmlsdGVyT3BlcmF0b3JIAYgBARIoCgR0eXBlGAMgASgOMhouaW1wcmVzc28ucXVlcnkuRmlsdGVyVHlwZRI3CglwcmVjaXNpb24YBCABKA4yHy5pbXByZXNzby5xdWVyeS5GaWx0ZXJQcmVjaXNpb25IAogBARIJCgFxGAUgAygJQgoKCF9jb250ZXh0QgUKA19vcEIMCgpfcHJlY2lzaW9uSgQIBhAHSgQIBxAIInYKC1NlYXJjaFF1ZXJ5EicKB2ZpbHRlcnMYASADKAsyFi5pbXByZXNzby5xdWVyeS5GaWx0ZXISMQoIZ3JvdXBfYnkYAiABKA4yGi5pbXByZXNzby5xdWVyeS5Hcm91cFZhbHVlSACIAQFCCwoJX2dyb3VwX2J5KlIKDUZpbHRlckNvbnRleHQSFwoTQ09OVEVYVF9VTlNQRUNJRklFRBAAEhMKD0NPTlRFWFRfSU5DTFVERRABEhMKD0NPTlRFWFRfRVhDTFVERRACKk0KDkZpbHRlck9wZXJhdG9yEhgKFE9QRVJBVE9SX1VOU1BFQ0lGSUVEEAASEAoMT1BFUkFUT1JfQU5EEAESDwoLT1BFUkFUT1JfT1IQAir0BwoKRmlsdGVyVHlwZRIUChBUWVBFX1VOU1BFQ0lGSUVEEAASEAoIVFlQRV9VSUQQARoCCAESGgoWVFlQRV9IQVNfVEVYVF9DT05URU5UUxACEg4KClRZUEVfVElUTEUQAxIRCg1UWVBFX0lTX0ZST05UEAQSDQoJVFlQRV9QQUdFEAUSEgoKVFlQRV9JU1NVRRAGGgIIARIPCgtUWVBFX1NUUklORxAHEhMKC1RZUEVfRU5USVRZEAgaAggBEhYKDlRZUEVfTkVXU1BBUEVSEAkaAggBEhIKDlRZUEVfREFURVJBTkdFEAoSDQoJVFlQRV9ZRUFSEAsSEQoNVFlQRV9MQU5HVUFHRRAMEg0KCVRZUEVfVFlQRRANEhIKClRZUEVfUkVHRVgQDhoCCAESEAoMVFlQRV9NRU5USU9OEA8SDwoLVFlQRV9QRVJTT04QEBIRCg1UWVBFX0xPQ0FUSU9OEBESDgoKVFlQRV9UT1BJQxASEhMKD1RZUEVfQ09MTEVDVElPThATEhQKEFRZUEVfT0NSX1FVQUxJVFkQFBIXChNUWVBFX0NPTlRFTlRfTEVOR1RIEBUSEAoMVFlQRV9DT1VOVFJZEBYSGQoRVFlQRV9BQ0NFU1NfUklHSFQQFxoCCAESEAoMVFlQRV9QQVJUTkVSEBgSDgoKVFlQRV9NT05USBAZEiAKHFRZUEVfVEVYVF9SRVVTRV9DTFVTVEVSX1NJWkUQGhIrCidUWVBFX1RFWFRfUkVVU0VfQ0xVU1RFUl9MRVhJQ0FMX09WRVJMQVAQGxIlCiFUWVBFX1RFWFRfUkVVU0VfQ0xVU1RFUl9EQVlfREVMVEEQHBIbChdUWVBFX1RFWFRfUkVVU0VfQ0xVU1RFUhAdEgwKCFRZUEVfTkFHEB8SFAoQVFlQRV9XSUtJREFUQV9JRBAgEhgKEFRZUEVfREFUQV9ET01BSU4QIRoCCAESEgoOVFlQRV9DT1BZUklHSFQQIhIUChBUWVBFX1NPVVJDRV9UWVBFECMSFgoSVFlQRV9TT1VSQ0VfTUVESVVNECQSFQoRVFlQRV9PUkdBTklTQVRJT04QJRISCg5UWVBFX0VNQkVERElORxAmEh0KGVRZUEVfSU1BR0VfVklTVUFMX0NPTlRFTlQQJxIYChRUWVBFX0lNQUdFX1RFQ0hOSVFVRRAoEiEKHVRZUEVfSU1BR0VfQ09NTVVOSUNBVElPTl9HT0FMECkSGwoXVFlQRV9JTUFHRV9DT05URU5UX1RZUEUQKhIYChRUWVBFX0NPTlRFTlRfSVRFTV9JRBArEhUKEVRZUEVfTUVESUFfU09VUkNFECwiBAgeEB4qgQEKD0ZpbHRlclByZWNpc2lvbhIZChVQUkVDSVNJT05fVU5TUEVDSUZJRUQQABITCg9QUkVDSVNJT05fRVhBQ1QQARIVChFQUkVDSVNJT05fUEFSVElBTBACEhMKD1BSRUNJU0lPTl9GVVpaWRADEhIKDlBSRUNJU0lPTl9TT0ZUEAQqQQoKR3JvdXBWYWx1ZRIaChZHUk9VUFZBTFVFX1VOU1BFQ0lGSUVEEAASFwoTR1JPVVBWQUxVRV9BUlRJQ0xFUxABYgZwcm90bzM");
 
 /**
  * @generated from message impresso.query.Filter
@@ -80,7 +52,7 @@ export type Filter = Message<"impresso.query.Filter"> & {
  * Use `create(FilterSchema)` to create a new message.
  */
 export const FilterSchema: GenMessage<Filter> = /*@__PURE__*/
-  messageDesc(file_proto_query, 1);
+  messageDesc(file_proto_query, 0);
 
 /**
  * @generated from message impresso.query.SearchQuery
@@ -102,175 +74,7 @@ export type SearchQuery = Message<"impresso.query.SearchQuery"> & {
  * Use `create(SearchQuerySchema)` to create a new message.
  */
 export const SearchQuerySchema: GenMessage<SearchQuery> = /*@__PURE__*/
-  messageDesc(file_proto_query, 2);
-
-/**
- * @generated from message impresso.query.CollectionRecommenderParameter
- */
-export type CollectionRecommenderParameter = Message<"impresso.query.CollectionRecommenderParameter"> & {
-  /**
-   * @generated from field: impresso.query.CollectionRecommenderParameter.RecommenderParameterId key = 1;
-   */
-  key: CollectionRecommenderParameter_RecommenderParameterId;
-
-  /**
-   * @generated from field: string string_value = 2;
-   */
-  stringValue: string;
-
-  /**
-   * @generated from field: sint32 number_value = 3;
-   */
-  numberValue: number;
-
-  /**
-   * @generated from field: bool bool_value = 4;
-   */
-  boolValue: boolean;
-};
-
-/**
- * Describes the message impresso.query.CollectionRecommenderParameter.
- * Use `create(CollectionRecommenderParameterSchema)` to create a new message.
- */
-export const CollectionRecommenderParameterSchema: GenMessage<CollectionRecommenderParameter> = /*@__PURE__*/
-  messageDesc(file_proto_query, 3);
-
-/**
- * @generated from enum impresso.query.CollectionRecommenderParameter.RecommenderParameterId
- */
-export enum CollectionRecommenderParameter_RecommenderParameterId {
-  /**
-   * @generated from enum value: ID_UNSPECIFIED = 0;
-   */
-  ID_UNSPECIFIED = 0,
-
-  /**
-   * @generated from enum value: ID_COUNT_TYPE = 1;
-   */
-  ID_COUNT_TYPE = 1,
-
-  /**
-   * @generated from enum value: ID_MIN_OCCURRENCES = 2;
-   */
-  ID_MIN_OCCURRENCES = 2,
-
-  /**
-   * @generated from enum value: ID_NUMBER_TO_KEEP = 3;
-   */
-  ID_NUMBER_TO_KEEP = 3,
-
-  /**
-   * @generated from enum value: ID_REMOVE_FULLY_MENTIONED = 4;
-   */
-  ID_REMOVE_FULLY_MENTIONED = 4,
-
-  /**
-   * @generated from enum value: ID_NORMALIZE_MAX_SCORE = 5;
-   */
-  ID_NORMALIZE_MAX_SCORE = 5,
-
-  /**
-   * @generated from enum value: ID_MARGIN = 6;
-   */
-  ID_MARGIN = 6,
-
-  /**
-   * @generated from enum value: ID_SCALING_FACTOR = 7;
-   */
-  ID_SCALING_FACTOR = 7,
-}
-
-/**
- * Describes the enum impresso.query.CollectionRecommenderParameter.RecommenderParameterId.
- */
-export const CollectionRecommenderParameter_RecommenderParameterIdSchema: GenEnum<CollectionRecommenderParameter_RecommenderParameterId> = /*@__PURE__*/
-  enumDesc(file_proto_query, 3, 0);
-
-/**
- * @generated from message impresso.query.CollectionRecommender
- */
-export type CollectionRecommender = Message<"impresso.query.CollectionRecommender"> & {
-  /**
-   * @generated from field: impresso.query.CollectionRecommender.RecommenderType type = 1;
-   */
-  type: CollectionRecommender_RecommenderType;
-
-  /**
-   * @generated from field: sint32 weight = 2;
-   */
-  weight: number;
-
-  /**
-   * @generated from field: repeated impresso.query.CollectionRecommenderParameter parameters = 3;
-   */
-  parameters: CollectionRecommenderParameter[];
-
-  /**
-   * @generated from field: bool enabled = 4;
-   */
-  enabled: boolean;
-};
-
-/**
- * Describes the message impresso.query.CollectionRecommender.
- * Use `create(CollectionRecommenderSchema)` to create a new message.
- */
-export const CollectionRecommenderSchema: GenMessage<CollectionRecommender> = /*@__PURE__*/
-  messageDesc(file_proto_query, 4);
-
-/**
- * @generated from enum impresso.query.CollectionRecommender.RecommenderType
- */
-export enum CollectionRecommender_RecommenderType {
-  /**
-   * @generated from enum value: TYPE_UNSPECIFIED = 0;
-   */
-  TYPE_UNSPECIFIED = 0,
-
-  /**
-   * @generated from enum value: TYPE_TIME_RANGE = 1;
-   */
-  TYPE_TIME_RANGE = 1,
-
-  /**
-   * @generated from enum value: TYPE_ENTITIES = 2;
-   */
-  TYPE_ENTITIES = 2,
-
-  /**
-   * @generated from enum value: TYPE_TOPICS = 3;
-   */
-  TYPE_TOPICS = 3,
-
-  /**
-   * @generated from enum value: TYPE_TEXT_REUSE_CLUSTERS = 4;
-   */
-  TYPE_TEXT_REUSE_CLUSTERS = 4,
-}
-
-/**
- * Describes the enum impresso.query.CollectionRecommender.RecommenderType.
- */
-export const CollectionRecommender_RecommenderTypeSchema: GenEnum<CollectionRecommender_RecommenderType> = /*@__PURE__*/
-  enumDesc(file_proto_query, 4, 0);
-
-/**
- * @generated from message impresso.query.CollectionRecommendersSettings
- */
-export type CollectionRecommendersSettings = Message<"impresso.query.CollectionRecommendersSettings"> & {
-  /**
-   * @generated from field: repeated impresso.query.CollectionRecommender recommenders = 1;
-   */
-  recommenders: CollectionRecommender[];
-};
-
-/**
- * Describes the message impresso.query.CollectionRecommendersSettings.
- * Use `create(CollectionRecommendersSettingsSchema)` to create a new message.
- */
-export const CollectionRecommendersSettingsSchema: GenMessage<CollectionRecommendersSettings> = /*@__PURE__*/
-  messageDesc(file_proto_query, 5);
+  messageDesc(file_proto_query, 1);
 
 /**
  * @generated from enum impresso.query.FilterContext

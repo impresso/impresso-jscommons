@@ -6,11 +6,12 @@
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
     "module": "ESNext",
-    "declaration": false,
+    "declaration": true,
+    "declarationDir": "dist",
     "outDir": "dist",
     "emitDeclarationOnly": false,
-    "types": ["jest"]
+    "types": ["jest"],
+    "rootDir": "./src"
   },
-  "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

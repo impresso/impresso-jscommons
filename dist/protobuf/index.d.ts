@@ -1,17 +1,12 @@
-import { Filter, SearchQuery } from '../types/index';
-import { CollectionRecommendersSettings } from '../types/collectionRecommender';
+import { Filter, SearchQuery } from "../types/index";
 declare const _default: {
     filter: {
-        serialize: (obj: Filter, ignoreUnknownProperties?: boolean) => string;
-        deserialize: (base64String: string) => Filter;
+        serialize: (filter: Filter, ignoreUnknownProperties?: boolean) => string;
+        deserialize: (base64String: string, ignoreUnknownProperties?: boolean) => Filter;
     };
     searchQuery: {
-        serialize: (obj: SearchQuery, ignoreUnknownProperties?: boolean) => string;
-        deserialize: (base64String: string) => SearchQuery;
-    };
-    collectionRecommendersSettings: {
-        serialize: (obj: CollectionRecommendersSettings) => string;
-        deserialize: (base64String: string) => CollectionRecommendersSettings;
+        serialize: (sq: SearchQuery, ignoreUnknownProperties?: boolean) => string;
+        deserialize: (base64String: string, ignoreUnknownProperties?: boolean) => SearchQuery;
     };
 };
 export default _default;

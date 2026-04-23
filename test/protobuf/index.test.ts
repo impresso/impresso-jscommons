@@ -74,7 +74,7 @@ describe('SearchQuery <-> protobuf', () => {
           q: 'abc123',
         },
       ] satisfies Filter[],
-      groupBy: 'asdf' as any satisfies GroupValue,
+      groupBy: 'asdf' as GroupValue,
     } satisfies SearchQuery
     expect(() => protobuf.searchQuery.serialize(testSearchQuery)).toThrow(
       /Unknown enum value: asdf/
@@ -196,7 +196,7 @@ describe('SearchQuery <-> protobuf', () => {
           type: 'textReuseCluster',
           q: ['a', 'b'],
           uid: 'shouldBeIgnored',
-        } as any satisfies Filter,
+        } as Filter,
       ],
     }
     const base64String = protobuf.searchQuery.serialize(testSearchQuery, true)
@@ -205,7 +205,7 @@ describe('SearchQuery <-> protobuf', () => {
     const { filters } = testSearchQuery
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uid, ...filterWithoutExtra } = filters[0]
+    const { uid, ...filterWithoutExtra } = filters[0] as any
     const testFilterWithoutExtra = {
       filters: [filterWithoutExtra],
     }

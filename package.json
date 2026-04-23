@@ -1,6 +1,6 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.cjs.js",
@@ -17,14 +17,14 @@
   },
   "author": "Roman Kalyakin <roman@kalyakin.com>",
   "scripts": {
-    "compile": "make generate-js",
+    "compile": "npx buf generate",
     "test": "jest",
     "build": "npm run build:js && copyfiles -u 1 src/**/*.d.ts dist",
     "build:js": "rollup --bundleConfigAsCjs --config rollup.config.js --configPlugin typescript --configImportAttributesKey with --environment NODE_ENV:production",
     "watch": "npm run watch:js",
     "watch:js": "rollup --bundleConfigAsCjs --config rollup.config.js --configPlugin typescript --configImportAttributesKey with --watch",
     "lint": "eslint src test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc -p tsconfig.dev.json"
   },
   "dependencies": {
     "@bufbuild/protobuf": "2.11.0",

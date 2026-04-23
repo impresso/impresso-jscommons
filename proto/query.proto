@@ -98,11 +98,11 @@ enum FilterPrecision {
   PRECISION_SOFT = 4;
 }
 
-message DateRange {
-  // https://developers.google.com/protocol-buffers/docs/encoding#signed-integers
-  sint64 from = 1; // UNIX timestamp
-  sint64 to = 2; // UNIX timestamp
-}
+// message DateRange {
+//   // https://developers.google.com/protocol-buffers/docs/encoding#signed-integers
+//   sint64 from = 1; // UNIX timestamp
+//   sint64 to = 2; // UNIX timestamp
+// }
 
 message Filter {
   reserved 6, 7; // legacy. DateRange is not used anymore, q is used instead. UIDs are not used anymore.
@@ -124,42 +124,4 @@ enum GroupValue {
 message SearchQuery {
   repeated Filter filters = 1;
   optional GroupValue group_by = 2;
-}
-
-// Collection Recommender
-
-message CollectionRecommenderParameter {
-  enum RecommenderParameterId {
-    ID_UNSPECIFIED = 0;
-    ID_COUNT_TYPE = 1;
-    ID_MIN_OCCURRENCES = 2;
-    ID_NUMBER_TO_KEEP = 3;
-    ID_REMOVE_FULLY_MENTIONED = 4;
-    ID_NORMALIZE_MAX_SCORE = 5;
-    ID_MARGIN = 6;
-    ID_SCALING_FACTOR = 7;
-  }
-  
-  RecommenderParameterId key = 1;
-  string string_value = 2;
-  sint32 number_value = 3;
-  bool bool_value = 4;
-}
-
-message CollectionRecommender {
-  enum RecommenderType {
-    TYPE_UNSPECIFIED = 0;
-    TYPE_TIME_RANGE = 1;
-    TYPE_ENTITIES = 2;
-    TYPE_TOPICS = 3;
-    TYPE_TEXT_REUSE_CLUSTERS = 4;
-  }
-  RecommenderType type = 1;
-  sint32 weight = 2;
-  repeated CollectionRecommenderParameter parameters = 3;
-  bool enabled = 4;
-}
-
-message CollectionRecommendersSettings {
-  repeated CollectionRecommender recommenders = 1;
 }
