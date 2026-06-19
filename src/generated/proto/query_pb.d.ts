@@ -460,6 +460,33 @@ export enum FilterType {
    * @generated from enum value: TYPE_MEDIA_SOURCE = 44;
    */
   TYPE_MEDIA_SOURCE = 44,
+
+  /**
+   * Permission to explore content item in the web app
+   *
+   * type:number list
+   *
+   * @generated from enum value: TYPE_PERMISSION_EXPLORE = 45;
+   */
+  TYPE_PERMISSION_EXPLORE = 45,
+
+  /**
+   * Permission to download transcript of a content item
+   *
+   * type:number list
+   *
+   * @generated from enum value: TYPE_PERMISSION_GET_TRANSCRIPT = 46;
+   */
+  TYPE_PERMISSION_GET_TRANSCRIPT = 46,
+
+  /**
+   * Permission to download images of a content item
+   *
+   * type:number list
+   *
+   * @generated from enum value: TYPE_PERMISSION_GET_IMAGE = 47;
+   */
+  TYPE_PERMISSION_GET_IMAGE = 47,
 }
 
 /**

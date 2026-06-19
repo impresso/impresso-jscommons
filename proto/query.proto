@@ -88,6 +88,17 @@ enum FilterType {
 
   // Applies to: content item
   TYPE_MEDIA_SOURCE = 44; // type:string
+
+  // Permissions of content items.
+  // Each ID is the specific permission index for the permissions bitmap:
+  // https://github.com/impresso/impresso-corpus-metadata/blob/master/data/access_rights_masterfiles/partner_institutions_directory.json
+
+  // Permission to explore content item in the web app
+  TYPE_PERMISSION_EXPLORE = 45; // type:number list
+  // Permission to download transcript of a content item
+  TYPE_PERMISSION_GET_TRANSCRIPT = 46; // type:number list
+  // Permission to download images of a content item
+  TYPE_PERMISSION_GET_IMAGE = 47; // type:number list
 }
 
 enum FilterPrecision {
