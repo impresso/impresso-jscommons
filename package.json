@@ -1,6 +1,6 @@
 {
   "name": "impresso-jscommons",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "description": "Code shared between the middle layer and frontend",
   "private": true,
   "main": "dist/impresso-jscommons.cjs.js",
@@ -27,29 +27,34 @@
     "typecheck": "tsc -p tsconfig.dev.json"
   },
   "dependencies": {
-    "@bufbuild/protobuf": "2.11.0",
-    "case": "1.6.3"
+    "@bufbuild/protobuf": "2.15.0"
   },
   "devDependencies": {
     "@babel/core": "7",
     "@babel/preset-env": "7",
-    "@bufbuild/buf": "^1.68.3",
-    "@bufbuild/protoc-gen-es": "^2.11.0",
-    "@eslint/js": "^9.21.0",
-    "@rollup/plugin-babel": "6",
-    "@rollup/plugin-commonjs": "28",
+    "@bufbuild/buf": "^1.72.0",
+    "@bufbuild/protoc-gen-es": "^2.15.0",
+    "@eslint/js": "10",
+    "@rollup/plugin-babel": "7",
+    "@rollup/plugin-commonjs": "29",
     "@rollup/plugin-node-resolve": "16",
-    "@rollup/plugin-terser": "0",
+    "@rollup/plugin-terser": "1",
     "@rollup/plugin-typescript": "12",
     "@types/jest": "^30.0.0",
     "copyfiles": "^2.4.1",
-    "eslint": "9",
+    "eslint": "10",
     "globals": "^16.4.0",
-    "jest": "^30.2.0",
+    "jest": "^30.5.1",
     "rollup": "4",
     "ts-jest": "^29.4.9",
     "tslib": "2",
     "typescript": "6",
-    "typescript-eslint": "^8.59.0"
+    "typescript-eslint": "^8.70.0"
+  },
+  "allowScripts": {
+    "@bufbuild/buf": true,
+    "@parcel/watcher": true,
+    "unrs-resolver": true,
+    "fsevents": true
   }
 }
