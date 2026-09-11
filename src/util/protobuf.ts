@@ -1,4 +1,4 @@
-import { camel, snake } from 'case';
+import { camel, snake } from './case';
 
 // Utility type to convert SNAKE_CASE to camelCase
 export type SnakeToCamel<S extends string> = S extends `${infer T}_${infer U}` ? `${T}${Capitalize<SnakeToCamel<U>>}` : S

@@ -205,7 +205,7 @@ describe('SearchQuery <-> protobuf', () => {
     const { filters } = testSearchQuery
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uid, ...filterWithoutExtra } = filters[0] as any
+    const { uid, ...filterWithoutExtra } = filters[0] as { uid: string } & Filter
     const testFilterWithoutExtra = {
       filters: [filterWithoutExtra],
     }

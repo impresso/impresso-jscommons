@@ -1,4 +1,4 @@
-import { camel } from 'case';
+import { camel } from './case';
 import {
   FilterType as FilterTypeMap,
   FilterContext as FilterContextMap,

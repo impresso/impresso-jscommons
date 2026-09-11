@@ -8,7 +8,7 @@ import typescript from '@rollup/plugin-typescript';
 const createConfig = (format, outputFile, isMinified = false) => {
   const config = {
     input: 'src/index.ts',
-    external: ['case', '@bufbuild/protobuf', '@bufbuild/protobuf/codegenv2'],
+    external: ['@bufbuild/protobuf', '@bufbuild/protobuf/codegenv2'],
     output: {
       file: outputFile,
       format,
@@ -17,7 +17,6 @@ const createConfig = (format, outputFile, isMinified = false) => {
       indent: false,
       extend: true,
       globals: {
-        case: 'case',
         '@bufbuild/protobuf/codegenv2': 'codegenv2',
         '@bufbuild/protobuf': 'protobuf',
       },
