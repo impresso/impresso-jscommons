@@ -29,6 +29,18 @@ describe('Filter <-> protobuf', () => {
     expect(deserializedFilter).toEqual(testFilter)
   })
 
+  it('pageNumber query for images', () => {
+    const testFilter = {
+      type: 'pageNumber',
+      q: ['1', '2'],
+    } satisfies Filter
+    const expectedBase64String = 'GDAqATEqATI='
+
+    const base64String = protobuf.filter.serialize(testFilter)
+    expect(base64String).toBe(expectedBase64String)
+    const deserializedFilter = protobuf.filter.deserialize(base64String)
+    expect(deserializedFilter).toEqual(testFilter)
+  })
 })
 
 describe('SearchQuery <-> protobuf', () => {
@@ -50,7 +62,7 @@ describe('SearchQuery <-> protobuf', () => {
           q: 'einstein',
         },
         {
-          type: 'hasTextContents'
+          type: 'hasTextContents',
         },
       ] satisfies Filter[],
       groupBy: 'articles',
@@ -60,7 +72,10 @@ describe('SearchQuery <-> protobuf', () => {
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery, false)
     expect(base64String).toBe(expectedBase64String)
-    const deserializedFilter = protobuf.searchQuery.deserialize(base64String, false)
+    const deserializedFilter = protobuf.searchQuery.deserialize(
+      base64String,
+      false,
+    )
     expect(deserializedFilter).toEqual(testSearchQuery)
   })
 
@@ -77,7 +92,7 @@ describe('SearchQuery <-> protobuf', () => {
       groupBy: 'asdf' as GroupValue,
     } satisfies SearchQuery
     expect(() => protobuf.searchQuery.serialize(testSearchQuery)).toThrow(
-      /Unknown enum value: asdf/
+      /Unknown enum value: asdf/,
     )
   })
 
@@ -96,7 +111,7 @@ describe('SearchQuery <-> protobuf', () => {
 
     const base64String = protobuf.searchQuery.serialize(testSearchQuery)
     expect(base64String).toBe(
-      'CgYIARACGAIKPQgBEAEYECocYWlkYS0wMDAxLTUwLUFsYmVydF9FaW5zdGVpbioXYWlkYS0wMDAxLTUwLU1heF9QbGFuY2s='
+      'CgYIARACGAIKPQgBEAEYECocYWlkYS0wMDAxLTUwLUFsYmVydF9FaW5zdGVpbioXYWlkYS0wMDAxLTUwLU1heF9QbGFuY2s=',
     )
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String)
     expect(deserializedFilter).toEqual(testSearchQuery)
@@ -164,7 +179,7 @@ describe('SearchQuery <-> protobuf', () => {
     }
     const base64String = protobuf.searchQuery.serialize(testSearchQuery)
     expect(base64String).toBe(
-      'CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM='
+      'CgYIARACGAIKEggBEAIYByABKghlaW5zdGVpbgoGCAEQAhgEChIIARACGBcqCk9wZW5QdWJsaWM=',
     )
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String)
     expect(deserializedFilter).toEqual(testSearchQuery)
@@ -203,9 +218,11 @@ describe('SearchQuery <-> protobuf', () => {
     expect(base64String).toBe('CgwIARACGB0qAWEqAWI=')
     const deserializedFilter = protobuf.searchQuery.deserialize(base64String)
     const { filters } = testSearchQuery
-    
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uid, ...filterWithoutExtra } = filters[0] as { uid: string } & Filter
+    const { uid, ...filterWithoutExtra } = filters[0] as {
+      uid: string
+    } & Filter
     const testFilterWithoutExtra = {
       filters: [filterWithoutExtra],
     }
@@ -235,7 +252,7 @@ describe('constants', () => {
       filter: { Contexts },
     } = constants
     expect(JSON.stringify(Contexts)).toBe(
-      JSON.stringify(['include', 'exclude'])
+      JSON.stringify(['include', 'exclude']),
     )
   })
 

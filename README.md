@@ -6,7 +6,7 @@
 
 ## Requirements: Protocol Buffers
 
-When a Protocol Buffer schema is changed - e.g. you change the file [query.proto](https://github.com/impresso/impresso-jscommons/blob/master/proto/query.proto), corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX.  If you have brew, do `brew install protobuf` to install `protoc`.
+When a Protocol Buffer schema is changed - e.g. you change the file [query.proto](https://github.com/impresso/impresso-jscommons/blob/master/proto/query.proto), corresponding `js` files need to be regenerated. This requires a `protoc` compiler installed. Follow [these instructions](http://google.github.io/proto-lens/installing-protoc.html) to install it on OSX. If you have brew, do `brew install protobuf` to install `protoc`.
 
 Regenerating `js` files from `proto` schemas:
 
@@ -26,6 +26,15 @@ npm run build
 
 The library **must be built** before **every commit** because it is used as a direct GitHub dependency in other projects.
 
+## Adding a new Filter type
+
+To add a new filter type (e.g. `PageNumber`):
+
+1. Add a new value to the `FilterType` enum in [proto/query.proto](proto/query.proto), following the existing `TYPE_*` naming convention and adding a `// type:...` comment describing the expected shape of `q` (e.g. `string`, `number`, `number list`, `boolean`).
+2. Run `npm run compile` to regenerate the generated protobuf code in `src/generated/proto`.
+3. Run `npm run build` to rebuild `dist/` (including the updated `.d.ts` files) so the new type is reflected everywhere (`constants.ts` derives `Types` from the generated enum automatically).
+4. Add a test in [test/protobuf/index.test.ts](test/protobuf/index.test.ts) covering serialization/deserialization of the new filter type.
+
 # Testing
 
 ```shell
@@ -33,8 +42,11 @@ npm test
 ```
 
 ## Project
-The 'impresso - Media Monitoring of the Past' project is funded by the Swiss National Science Foundation (SNSF) under  grant number [CRSII5_173719](http://p3.snf.ch/project-173719) (Sinergia program). The project aims at developing tools to process and explore large-scale collections of historical newspapers, and at studying the impact of this new tooling on historical research practices. More information at https://impresso-project.ch.
+
+The 'impresso - Media Monitoring of the Past' project is funded by the Swiss National Science Foundation (SNSF) under grant number [CRSII5_173719](http://p3.snf.ch/project-173719) (Sinergia program). The project aims at developing tools to process and explore large-scale collections of historical newspapers, and at studying the impact of this new tooling on historical research practices. More information at https://impresso-project.ch.
+
 ## License
-Copyright (C) 2020  The *impresso* team. Contributors to this program include: [Roman Kalyakin](https://github.com/theorm), [Daniele Guido](https://github.com/danieleguido).
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. 
+
+Copyright (C) 2020 The _impresso_ team. Contributors to this program include: [Roman Kalyakin](https://github.com/theorm), [Daniele Guido](https://github.com/danieleguido).
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 This program is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose. See the [GNU Affero General Public License](https://github.com/impresso/impresso-jscommons/blob/master/LICENSE) for more details.

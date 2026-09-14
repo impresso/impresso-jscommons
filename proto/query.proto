@@ -99,6 +99,9 @@ enum FilterType {
   TYPE_PERMISSION_GET_TRANSCRIPT = 46; // type:number list
   // Permission to download images of a content item
   TYPE_PERMISSION_GET_IMAGE = 47; // type:number list
+
+  // Applies to: images
+  TYPE_PAGE_NUMBER = 48; // type:number list
 }
 
 enum FilterPrecision {
