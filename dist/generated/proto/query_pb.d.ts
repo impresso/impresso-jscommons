@@ -487,6 +487,15 @@ export enum FilterType {
    * @generated from enum value: TYPE_PERMISSION_GET_IMAGE = 47;
    */
   TYPE_PERMISSION_GET_IMAGE = 47,
+
+  /**
+   * Applies to: images
+   *
+   * type:number list
+   *
+   * @generated from enum value: TYPE_PAGE_NUMBER = 48;
+   */
+  TYPE_PAGE_NUMBER = 48,
 }
 
 /**
